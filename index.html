@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>BRICO DOMONI - Magasin de bricolage</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #F2F2F2; }
+        header { background: #1A4D2E; color: white; padding: 15px; text-align: center; position: sticky; top: 0; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        .banner { background: #1A4D2E; height: 250px; display: flex; align-items: center; justify-content: center; color: white; font-size: 32px; font-weight: bold; }
+        .container { padding: 20px; }
+        .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 0 5px #ccc; }
+        .card img { width: 100%; height: 180px; object-fit: cover; border-radius: 5px; }
+        .btn { background: #E6A100; color: white; padding: 10px; border: none; cursor: pointer; width: 100%; margin-top: 10px; font-weight: bold; border-radius: 5px; }
+        footer { background: #1A4D2E; color: white; text-align: center; padding: 10px; margin-top: 20px; }
+        #cart { background: white; padding: 15px; margin-top: 20px; border-radius: 8px; box-shadow: 0 0 5px #ccc; }
+        #cart ul { padding-left: 20px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>BRICO DOMONI</h1>
+    <nav>
+        <a href="#accueil">Accueil</a>
+        <a href="#produits">Produits</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<div class="banner" id="accueil">
+    BRICO DOMONI - Tout pour le bricolage
+</div>
+
+<div class="container" id="produits">
+    <h2>Nos Produits</h2>
+    <div class="products">
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581091012184-5c7b1e8e2b1d">
+            <h3>Marteau</h3>
+            <p>Prix : 3 500 KMF</p>
+            <button class="btn" onclick="addToCart('Marteau', 3500)">Ajouter au panier</button>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581091870627-3b5c6f8f1a3b">
+            <h3>Tournevis</h3>
+            <p>Prix : 2 000 KMF</p>
+            <button class="btn" onclick="addToCart('Tournevis', 2000)">Ajouter au panier</button>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1581092334607-1e7e736d9193">
+            <h3>Perceuse</h3>
+            <p>Prix : 25 000 KMF</p>
+            <button class="btn" onclick="addToCart('Perceuse', 25000)">Ajouter au panier</button>
+        </div>
+
+    </div>
+
+    <div id="cart">
+        <h3>Panier</h3>
+        <ul id="cartList"></ul>
+        <p><strong>Total : </strong><span id="total">0</span> KMF</p>
+    </div>
+</div>
+
+<div class="container" id="contact">
+    <h2>Contact</h2>
+    <p>Adresse : Mutsamudu, Anjouan</p>
+    <p>Téléphone : +269 XX XX XX</p>
+    <p>WhatsApp : +269 XX XX XX</p>
+</div>
+
+<footer>
+    © 2026 BRICO DOMONI - Tous droits réservés
+</footer>
+
+<script>
+    let total = 0;
+
+    function addToCart(name, price) {
+        const list = document.getElementById("cartList");
+        const item = document.createElement("li");
+        item.textContent = name + " - " + price + " KMF";
+        list.appendChild(item);
+
+        total += price;
+        document.getElementById("total").textContent = total;
+    }
+</script>
+
+</body>
+</html>

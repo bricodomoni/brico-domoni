@@ -10,6 +10,22 @@
 
 <body>
 
+    <!-- HEADER AVEC LOGO EN HAUT À DROITE -->
+    <header id="top-header">
+        <img src="logo.jpg" alt="BRICO DOMONI" id="top-logo">
+    </header>
+
+    <!-- SLIDER REMONTÉ TOUT EN HAUT -->
+    <div class="slider">
+        <div class="slides">
+            <img src="images/slider1.jpg" class="slide active">
+            <img src="images/slider2.jpg" class="slide">
+            <img src="images/slider3.jpg" class="slide">
+        </div>
+        <button class="slider-btn prev">❮</button>
+        <button class="slider-btn next">❯</button>
+    </div>
+
     <!-- MENU HAMBURGER MOBILE -->
     <button id="hamburger" aria-label="Menu">
         <span></span>
@@ -47,20 +63,8 @@
     <div class="tab-content active" id="accueil">
 
         <div class="hero">
-            <img src="logo.jpg" class="site-logo" alt="BRICO DOMONI">
             <p>Votre magasin de bricolage à Domoni Riadhu.</p>
             <button class="hero-btn" onclick="openProduits()">Voir nos produits</button>
-        </div>
-
-        <!-- SLIDER -->
-        <div class="slider">
-            <div class="slides">
-                <img src="images/slider1.jpg" class="slide active">
-                <img src="images/slider2.jpg" class="slide">
-                <img src="images/slider3.jpg" class="slide">
-            </div>
-            <button class="slider-btn prev">❮</button>
-            <button class="slider-btn next">❯</button>
         </div>
 
     </div>

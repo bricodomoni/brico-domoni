@@ -19,15 +19,17 @@
         <!-- BOUTON HAMBURGER -->
         <button id="menu-toggle" class="menu-toggle">☰</button>
 
-        <!-- MENU MOBILE -->
+        <!-- MENU NAV -->
         <nav id="mobile-menu">
             <a href="#accueil">Accueil</a>
             <a href="#services">Nos services</a>
             <a href="#galerie">Galerie</a>
+            <a href="#produits">Produits</a>
             <a href="#apropos">À propos</a>
             <a href="#contact">Contact</a>
         </nav>
 
+        <!-- PANIER ICON -->
         <div class="cart-icon">
             🛒 <span id="cart-count">0</span>
         </div>
@@ -56,6 +58,37 @@
         <p class="empty">Aucune photo pour le moment — ajoutez vos images ici.</p>
         <div class="galerie-grid"></div>
     </section>
+
+    <!-- CATÉGORIES -->
+    <section id="categories">
+        <h2>Catégories</h2>
+        <div class="category-buttons">
+            <button class="cat-btn active" data-category="all">Tous</button>
+            <button class="cat-btn" data-category="Outils">Outils</button>
+            <button class="cat-btn" data-category="Électricité">Électricité</button>
+            <button class="cat-btn" data-category="Plomberie">Plomberie</button>
+            <button class="cat-btn" data-category="Accessoires">Accessoires</button>
+        </div>
+    </section>
+
+    <!-- RECHERCHE -->
+    <section id="search">
+        <input type="text" id="search-input" placeholder="Rechercher un produit...">
+    </section>
+
+    <!-- TRI -->
+    <section id="sort">
+        <select id="sort-select">
+            <option value="none">Trier par…</option>
+            <option value="price-asc">Prix croissant</option>
+            <option value="price-desc">Prix décroissant</option>
+            <option value="az">A → Z</option>
+            <option value="za">Z → A</option>
+        </select>
+    </section>
+
+    <!-- COMPTEUR DE RÉSULTATS -->
+    <p id="result-count"></p>
 
     <!-- PRODUITS -->
     <section id="produits">

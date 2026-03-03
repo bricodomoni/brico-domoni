@@ -10,29 +10,39 @@
 
 <body>
 
-    <!-- HEADER AVEC LOGO EN HAUT À DROITE -->
-    <header id="top-header">
-        <img src="logo.jpg" alt="BRICO DOMONI" id="top-logo">
+    <!-- HEADER : LOGO À GAUCHE – MENU AU CENTRE – PANIER À DROITE -->
+    <header id="main-header">
+
+        <div class="header-left">
+            <img src="logo.jpg" alt="BRICO DOMONI" id="top-logo">
+        </div>
+
+        <nav id="tabs-menu">
+            <button class="tab-btn active" data-tab="accueil">Accueil</button>
+            <button class="tab-btn" data-tab="services">Nos services</button>
+            <button class="tab-btn" data-tab="galerie">Galerie</button>
+            <button class="tab-btn" data-tab="produits">Produits</button>
+            <button class="tab-btn" data-tab="apropos">À propos</button>
+            <button class="tab-btn" data-tab="contact">Contact</button>
+        </nav>
+
+        <div class="header-right">
+            <button class="cart-icon" aria-label="Panier">
+                <img src="images/panier.png" class="cart-img" alt="Panier">
+                <span id="cart-count" class="cart-count">0</span>
+            </button>
+
+            <!-- HAMBURGER MOBILE -->
+            <button id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
     </header>
 
-    <!-- SLIDER REMONTÉ TOUT EN HAUT -->
-    <div class="slider">
-        <div class="slides">
-            <img src="images/slider1.jpg" class="slide active">
-            <img src="images/slider2.jpg" class="slide">
-            <img src="images/slider3.jpg" class="slide">
-        </div>
-        <button class="slider-btn prev">❮</button>
-        <button class="slider-btn next">❯</button>
-    </div>
-
-    <!-- MENU HAMBURGER MOBILE -->
-    <button id="hamburger" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
+    <!-- MENU MOBILE -->
     <div id="mobile-menu">
         <button class="close-mobile">✖</button>
         <button class="mobile-link" data-tab="accueil">Accueil</button>
@@ -43,30 +53,23 @@
         <button class="mobile-link" data-tab="contact">Contact</button>
     </div>
 
-    <!-- MENU ONGLET DESKTOP -->
-    <nav id="tabs-menu">
-        <button class="tab-btn active" data-tab="accueil">Accueil</button>
-        <button class="tab-btn" data-tab="services">Nos services</button>
-        <button class="tab-btn" data-tab="galerie">Galerie</button>
-        <button class="tab-btn" data-tab="produits">Produits</button>
-        <button class="tab-btn" data-tab="apropos">À propos</button>
-        <button class="tab-btn" data-tab="contact">Contact</button>
-
-        <!-- ICÔNE PANIER -->
-        <button class="cart-icon" aria-label="Panier">
-            <img src="images/panier.png" class="cart-img" alt="Panier">
-            <span id="cart-count" class="cart-count">0</span>
-        </button>
-    </nav>
+    <!-- SLIDER JUSTE SOUS LES ONGLET -->
+    <div class="slider">
+        <div class="slides">
+            <img src="images/slider1.jpg" class="slide active">
+            <img src="images/slider2.jpg" class="slide">
+            <img src="images/slider3.jpg" class="slide">
+        </div>
+        <button class="slider-btn prev">❮</button>
+        <button class="slider-btn next">❯</button>
+    </div>
 
     <!-- ACCUEIL -->
     <div class="tab-content active" id="accueil">
-
         <div class="hero">
             <p>Votre magasin de bricolage à Domoni Riadhu.</p>
             <button class="hero-btn" onclick="openProduits()">Voir nos produits</button>
         </div>
-
     </div>
 
     <!-- SERVICES -->

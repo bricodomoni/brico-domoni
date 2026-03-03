@@ -33,6 +33,11 @@ header {
     height: 70px;
 }
 
+nav {
+    display: flex;
+    align-items: center;
+}
+
 nav a {
     color: white;
     margin-left: 20px;
@@ -42,6 +47,27 @@ nav a {
 
 nav a:hover {
     text-decoration: underline;
+}
+
+/* PANIER ICON */
+.cart-icon {
+    position: relative;
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+#cart-count {
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 7px;
+    font-size: 12px;
+    position: absolute;
+    top: -8px;
+    right: -12px;
 }
 
 /* HERO */
@@ -101,6 +127,23 @@ nav a:hover {
     padding: 20px;
     background: #fff;
     border-top: 2px solid var(--bleu);
+}
+
+.cart button {
+    background: var(--bleu);
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    margin-left: 6px;
+    border-radius: 50%;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform .2s, opacity .2s;
+}
+
+.cart button:hover {
+    transform: scale(1.15);
+    opacity: 0.9;
 }
 
 .btn-whatsapp,

@@ -23,26 +23,32 @@ h2 {
 header {
     background: var(--bleu);
     color: white;
-    padding: 10px 20px;
+    padding: 10px 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.logo {
-    height: 70px;
-}
-
-nav {
+.header-left {
     display: flex;
     align-items: center;
 }
 
+.logo {
+    height: 70px;
+    object-fit: contain;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
 nav a {
     color: white;
-    margin-left: 20px;
     text-decoration: none;
     font-weight: bold;
+    font-size: 16px;
 }
 
 nav a:hover {
@@ -52,11 +58,8 @@ nav a:hover {
 /* PANIER ICON */
 .cart-icon {
     position: relative;
-    font-size: 22px;
-    font-weight: bold;
-    color: white;
+    font-size: 26px;
     cursor: pointer;
-    margin-left: 20px;
 }
 
 #cart-count {

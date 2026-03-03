@@ -18,6 +18,9 @@ const cartIcon = document.querySelector(".cart-icon");
 const overlay = document.getElementById("overlay");
 const closeCart = document.getElementById("close-cart");
 
+const menuToggle = document.getElementById("menu-toggle");
+const mobileMenu = document.getElementById("mobile-menu");
+
 let cart = [];
 
 // AFFICHAGE DES PRODUITS
@@ -102,5 +105,14 @@ closeCart.addEventListener("click", () => {
 // FERMETURE EN CLIQUANT SUR LE FOND SOMBRE
 overlay.addEventListener("click", () => {
     cartPanel.classList.remove("open");
+    mobileMenu.classList.remove("open");
+    menuToggle.classList.remove("open");
     overlay.classList.remove("show");
+});
+
+// MENU MOBILE
+menuToggle.addEventListener("click", () => {
+    mobileMenu.classList.toggle("open");
+    menuToggle.classList.toggle("open");
+    overlay.classList.toggle("show");
 });

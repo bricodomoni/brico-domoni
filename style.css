@@ -191,7 +191,7 @@ header {
     font-weight: bold;
 }
 
-/* 🔥 NOTIFICATION ANIMÉE : AJOUTER AU PANIER */
+/* NOTIFICATION AJOUT PANIER */
 #add-alert {
     position: fixed;
     bottom: 25px;
@@ -212,6 +212,95 @@ header {
 #add-alert.show {
     opacity: 1;
     transform: translateX(-50%) scale(1);
+}
+
+/* CATÉGORIES */
+#categories {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.category-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.cat-btn {
+    padding: 10px 18px;
+    background: var(--bleu);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background .3s ease, transform .2s ease;
+}
+
+.cat-btn:hover {
+    background: #06203a;
+    transform: scale(1.05);
+}
+
+.cat-btn.active {
+    background: #ff9800;
+    color: white;
+}
+
+/* BARRE DE RECHERCHE */
+#search {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#search-input {
+    width: 80%;
+    max-width: 400px;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 2px solid var(--bleu);
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+}
+
+#search-input:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
+}
+
+/* TRI DES PRODUITS */
+#sort {
+    text-align: center;
+    margin: 10px 0 20px 0;
+}
+
+#sort-select {
+    width: 80%;
+    max-width: 300px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid var(--bleu);
+    border-radius: 8px;
+    outline: none;
+    background: white;
+    transition: 0.3s;
+}
+
+#sort-select:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
+}
+
+/* COMPTEUR DE RÉSULTATS */
+#result-count {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 10px;
+    color: var(--bleu);
+    font-weight: bold;
 }
 
 /* RESPONSIVE MOBILE */

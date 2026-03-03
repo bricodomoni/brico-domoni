@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRICO DOMONI</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/jpg" href="logo.jpg">
+    <link rel="icon" type="image/jpg" href="logo.JPG">
 </head>
 
 <body>
@@ -14,7 +14,7 @@
     <header id="main-header">
 
         <div class="header-left">
-            <img src="logo.jpg" alt="BRICO DOMONI" id="top-logo">
+            <img src="logo.JPG" alt="BRICO DOMONI" id="top-logo">
         </div>
 
         <nav id="tabs-menu">
@@ -52,19 +52,20 @@
         <button class="mobile-link" data-tab="contact">Contact</button>
     </div>
 
-    <!-- SLIDER -->
-    <div class="slider">
-        <div class="slides">
-            <img src="images/slider1.jpg" class="slide active">
-            <img src="images/slider2.jpg" class="slide">
-            <img src="images/slider3.jpg" class="slide">
-        </div>
-        <button class="slider-btn prev">❮</button>
-        <button class="slider-btn next">❯</button>
-    </div>
-
     <!-- ACCUEIL -->
     <div class="tab-content active" id="accueil">
+
+        <!-- SLIDER -->
+        <div class="slider">
+            <div class="slides">
+                <img src="Images/Brouette.jpg" class="slide">
+                <img src="Images/9641602024.jpg" class="slide">
+                <img src="Images/AST187429-XL.jpg" class="slide">
+            </div>
+            <button class="slider-btn prev">❮</button>
+            <button class="slider-btn next">❯</button>
+        </div>
+
         <div class="hero">
             <p>Votre magasin de bricolage à Domoni Riadhu.</p>
             <button class="hero-btn" onclick="openProduits()">Voir nos produits</button>
@@ -120,6 +121,7 @@
         <p id="result-count"></p>
         <div id="product-list" class="product-grid"></div>
 
+        <!-- PANIER -->
         <div class="cart" id="cart-panel">
             <button id="close-cart" class="close-cart">✖</button>
             <h3>Panier</h3>

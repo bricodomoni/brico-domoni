@@ -6,11 +6,11 @@
     --orange: #ff9800;
     --glass-bg: rgba(255,255,255,0.55);
     --glass-border: rgba(255,255,255,0.35);
-    --shadow: 0 8px 25px rgba(0,0,0,0.08);
+    --shadow: 0 6px 18px rgba(0,0,0,0.10);
 }
 
 html {
-    font-size: clamp(14px, 1.2vw, 18px);
+    font-size: clamp(14px, 1.2vw, 17px);
 }
 
 body {
@@ -22,7 +22,7 @@ body {
 }
 
 /* ============================
-   HEADER PREMIUM + GLASS
+   HEADER PREMIUM
 ============================ */
 #main-header {
     position: sticky;
@@ -30,27 +30,26 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: clamp(10px, 2vw, 20px) clamp(20px, 4vw, 40px);
+    padding: 12px 20px;
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--glass-border);
     box-shadow: var(--shadow);
     z-index: 3000;
-    border-radius: 0 0 18px 18px;
 }
 
 #top-logo {
-    width: clamp(140px, 18vw, 200px);
+    width: 150px;
     height: auto;
     object-fit: contain;
 }
 
 /* ============================
-   MENU PREMIUM + FLUIDE
+   MENU DESKTOP
 ============================ */
 #tabs-menu {
     display: flex;
-    gap: clamp(10px, 2vw, 30px);
+    gap: 20px;
     justify-content: center;
     flex: 1;
 }
@@ -59,11 +58,10 @@ body {
     background: var(--bleu);
     color: white;
     border: none;
-    padding: clamp(6px, 1vw, 12px) clamp(12px, 2vw, 22px);
-    border-radius: 12px;
+    padding: 8px 18px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: clamp(0.9rem, 1vw, 1.1rem);
-    font-weight: 500;
+    font-size: 1rem;
     transition: 0.25s;
 }
 
@@ -77,28 +75,22 @@ body {
 }
 
 /* ============================
-   PANIER PREMIUM
+   PANIER
 ============================ */
 .header-right {
-    width: clamp(140px, 18vw, 200px);
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: clamp(10px, 2vw, 20px);
+    gap: 16px;
 }
 
 .cart-icon {
-    background: none;
-    border: none;
     position: relative;
     cursor: pointer;
-    display: flex;
-    align-items: center;
 }
 
 .cart-img {
-    width: clamp(26px, 3vw, 34px);
-    height: clamp(26px, 3vw, 34px);
+    width: 32px;
+    height: 32px;
     object-fit: contain;
 }
 
@@ -108,7 +100,7 @@ body {
     right: -10px;
     background: var(--orange);
     color: white;
-    font-size: clamp(10px, 1vw, 12px);
+    font-size: 11px;
     padding: 2px 6px;
     border-radius: 50%;
     font-weight: bold;
@@ -131,30 +123,29 @@ body {
     height: 3px;
     background: var(--bleu);
     border-radius: 3px;
-    transition: 0.3s;
 }
 
 /* ============================
-   MENU MOBILE GLASS
+   MENU MOBILE
 ============================ */
 #mobile-menu {
     position: fixed;
     top: 0;
-    left: -260px;
+    right: -260px;
     width: 240px;
     height: 100%;
-    background: rgba(10,31,68,0.9);
+    background: rgba(10,31,68,0.95);
     backdrop-filter: blur(10px);
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    transition: left .35s ease;
+    transition: right .35s ease;
     z-index: 3000;
 }
 
 #mobile-menu.open {
-    left: 0;
+    right: 0;
 }
 
 .mobile-link {
@@ -168,20 +159,20 @@ body {
 }
 
 /* ============================
-   SLIDER PREMIUM + GLASS
+   SLIDER
 ============================ */
 .slider {
     position: relative;
     width: 100%;
     margin: 20px auto;
     overflow: hidden;
-    border-radius: 18px;
+    border-radius: 16px;
     box-shadow: var(--shadow);
 }
 
 .slide {
     width: 100%;
-    height: clamp(180px, 30vw, 420px);
+    height: clamp(160px, 28vw, 350px);
     object-fit: cover;
 }
 
@@ -189,114 +180,19 @@ body {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255,255,255,0.7);
-    backdrop-filter: blur(6px);
+    background: rgba(255,255,255,0.75);
     border: none;
-    padding: clamp(8px, 1vw, 14px);
-    cursor: pointer;
-    font-size: clamp(18px, 2vw, 26px);
+    padding: 10px;
+    font-size: 24px;
     border-radius: 50%;
-    transition: 0.25s;
-}
-
-.slider-btn:hover {
-    background: white;
-    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .prev { left: 10px; }
 .next { right: 10px; }
 
 /* ============================
-   HERO PREMIUM
-============================ */
-.hero {
-    background: linear-gradient(135deg, #0A1F44, #123a7a);
-    color: white;
-    padding: clamp(30px, 5vw, 60px);
-    text-align: center;
-    border-radius: 18px;
-    max-width: 900px;
-    margin: 20px auto;
-    box-shadow: var(--shadow);
-}
-
-.hero-btn {
-    background: var(--orange);
-    color: white;
-    border: none;
-    padding: clamp(10px, 1.5vw, 18px) clamp(20px, 3vw, 30px);
-    font-size: clamp(1rem, 1.2vw, 1.3rem);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.25s;
-}
-
-.hero-btn:hover {
-    background: #ffb74d;
-    transform: scale(1.05);
-}
-
-/* ============================
-   CATÉGORIES PREMIUM
-============================ */
-.categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-.cat-card {
-    background: white;
-    padding: 20px;
-    border-radius: 14px;
-    text-align: center;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--bleu);
-    box-shadow: var(--shadow);
-    transition: 0.25s;
-}
-
-.cat-card:hover {
-    background: var(--orange);
-    color: white;
-    transform: translateY(-4px);
-}
-
-/* ============================
-   PRODUITS PREMIUM
-============================ */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-.product {
-    background: white;
-    padding: 18px;
-    border-radius: 14px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    transition: 0.25s;
-}
-
-.product:hover {
-    transform: translateY(-4px);
-}
-
-.product-img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-/* ============================
-   PANIER PREMIUM
+   PANIER PANEL
 ============================ */
 #cart-panel {
     position: fixed;
@@ -311,6 +207,10 @@ body {
     overflow-y: auto;
     box-shadow: -4px 0 20px rgba(0,0,0,0.15);
     z-index: 2000;
+}
+
+#cart-panel.open {
+    right: 0;
 }
 
 /* ============================

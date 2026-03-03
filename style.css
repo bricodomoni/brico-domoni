@@ -1,10 +1,15 @@
-/* COULEURS */
+/* ============================
+   COULEURS GLOBALES
+============================ */
 :root {
     --bleu: #0A1F44;
     --gris: #f2f2f2;
+    --orange: #ff9800;
 }
 
-/* GLOBAL */
+/* ============================
+   GLOBAL
+============================ */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -15,72 +20,126 @@ body {
 h2 {
     color: var(--bleu);
     text-align: center;
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
-/* HEADER */
-header {
+/* ============================
+   MENU ONGLET STICKY
+============================ */
+#tabs-menu {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
     background: var(--bleu);
-    color: white;
-    padding: 10px 30px;
+    padding: 15px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+    /* Animation d’apparition */
+    animation: slideDown 0.6s ease forwards;
+    opacity: 0;
+    transform: translateY(-20px);
 }
 
-.logo {
-    height: 70px;
-    object-fit: contain;
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-/* MENU NORMAL (PC) */
-#mobile-menu {
-    display: flex;
-    gap: 20px;
-}
-
-#mobile-menu a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-/* BOUTON HAMBURGER */
-.menu-toggle {
-    display: none;
-    background: transparent;
+/* ============================
+   ONGLET – BOUTONS
+============================ */
+#tabs-menu .tab-btn {
+    background: white;
+    color: var(--bleu);
     border: none;
-    font-size: 30px;
+    padding: 10px 18px;
+    border-radius: 6px;
     cursor: pointer;
-    color: white;
-    transition: transform .3s ease;
-    z-index: 3000;
-}
-
-.menu-toggle.open {
-    transform: rotate(90deg);
-}
-
-/* PANIER ICON */
-.cart-icon {
+    font-size: 15px;
+    font-weight: bold;
+    transition: 0.3s;
     position: relative;
-    font-size: 26px;
-    cursor: pointer;
-    z-index: 2001;
+    overflow: hidden;
 }
 
-#cart-count {
-    background: red;
-    color: white;
-    border-radius: 50%;
-    padding: 2px 7px;
-    font-size: 12px;
+/* Survol : effet de remplissage */
+#tabs-menu .tab-btn::before {
+    content: "";
     position: absolute;
-    top: -8px;
-    right: -12px;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 152, 0, 0.25);
+    transition: all 0.35s ease;
 }
 
-/* PRODUITS */
+#tabs-menu .tab-btn:hover::before {
+    left: 0;
+}
+
+/* Soulignement animé */
+#tabs-menu .tab-btn::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    width: 0%;
+    height: 3px;
+    background: var(--orange);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+#tabs-menu .tab-btn.active::after {
+    width: 80%;
+}
+
+/* Onglet actif */
+#tabs-menu .tab-btn.active {
+    background: var(--orange);
+    color: white;
+}
+
+/* Clic : effet rebond */
+#tabs-menu .tab-btn:active {
+    animation: clickBounce 0.25s ease;
+}
+
+@keyframes clickBounce {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(0.88); }
+    70%  { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* ============================
+   CONTENU DES ONGLETS
+============================ */
+.tab-content {
+    display: none;
+    padding: 25px;
+    background: var(--gris);
+    border-radius: 8px;
+    margin: 20px;
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.tab-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* ============================
+   PRODUITS
+============================ */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -89,35 +148,16 @@ header {
 }
 
 .product {
-    background: var(--gris);
+    background: white;
     padding: 15px;
     border-radius: 8px;
     text-align: center;
-
-    /* ANIMATION D’APPARITION */
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    animation: fadeProduct .6s ease forwards;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    transition: 0.3s;
 }
 
-.product:nth-child(1) { animation-delay: .1s; }
-.product:nth-child(2) { animation-delay: .2s; }
-.product:nth-child(3) { animation-delay: .3s; }
-.product:nth-child(4) { animation-delay: .4s; }
-.product:nth-child(5) { animation-delay: .5s; }
-.product:nth-child(6) { animation-delay: .6s; }
-.product:nth-child(7) { animation-delay: .7s; }
-.product:nth-child(8) { animation-delay: .8s; }
-
-@keyframes fadeProduct {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+.product:hover {
+    transform: scale(1.03);
 }
 
 .product-img {
@@ -127,7 +167,69 @@ header {
     border-radius: 6px;
 }
 
-/* PANIER SLIDE */
+/* ============================
+   BARRE DE RECHERCHE
+============================ */
+#search {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#search-input {
+    width: 80%;
+    max-width: 400px;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: 2px solid var(--bleu);
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+}
+
+#search-input:focus {
+    border-color: var(--orange);
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
+}
+
+/* ============================
+   TRI
+============================ */
+#sort {
+    text-align: center;
+    margin: 10px 0 20px 0;
+}
+
+#sort-select {
+    width: 80%;
+    max-width: 300px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid var(--bleu);
+    border-radius: 8px;
+    outline: none;
+    background: white;
+    transition: 0.3s;
+}
+
+#sort-select:focus {
+    border-color: var(--orange);
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
+}
+
+/* ============================
+   COMPTEUR
+============================ */
+#result-count {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 10px;
+    color: var(--bleu);
+    font-weight: bold;
+}
+
+/* ============================
+   PANIER SLIDE
+============================ */
 #cart-panel {
     position: fixed;
     right: -350px;
@@ -157,11 +259,6 @@ header {
     color: var(--bleu);
 }
 
-.close-cart:hover {
-    color: red;
-}
-
-/* OVERLAY */
 #overlay {
     position: fixed;
     top: 0;
@@ -177,27 +274,15 @@ header {
     display: block;
 }
 
-/* BOUTONS */
-.btn-whatsapp,
-.btn-call {
-    display: block;
-    margin: 10px 0;
-    padding: 12px;
-    text-align: center;
-    color: white;
-    background: var(--bleu);
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-/* NOTIFICATION AJOUT PANIER */
+/* ============================
+   NOTIFICATION AJOUT PANIER
+============================ */
 #add-alert {
     position: fixed;
     bottom: 25px;
     left: 50%;
     transform: translateX(-50%) scale(0.8);
-    background: #0A1F44;
+    background: var(--bleu);
     color: white;
     padding: 14px 25px;
     border-radius: 10px;
@@ -206,7 +291,6 @@ header {
     pointer-events: none;
     transition: opacity .3s ease, transform .3s ease;
     z-index: 99999;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 #add-alert.show {
@@ -214,141 +298,10 @@ header {
     transform: translateX(-50%) scale(1);
 }
 
-/* CATÉGORIES */
-#categories {
-    text-align: center;
-    margin-top: 30px;
-}
-
-.category-buttons {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 15px;
-}
-
-.cat-btn {
-    padding: 10px 18px;
-    background: var(--bleu);
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 15px;
-    transition: background .3s ease, transform .2s ease;
-}
-
-.cat-btn:hover {
-    background: #06203a;
-    transform: scale(1.05);
-}
-
-.cat-btn.active {
-    background: #ff9800;
-    color: white;
-}
-
-/* BARRE DE RECHERCHE */
-#search {
-    text-align: center;
-    margin: 20px 0;
-}
-
-#search-input {
-    width: 80%;
-    max-width: 400px;
-    padding: 12px 15px;
-    font-size: 16px;
-    border: 2px solid var(--bleu);
-    border-radius: 8px;
-    outline: none;
-    transition: 0.3s;
-}
-
-#search-input:focus {
-    border-color: #ff9800;
-    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
-}
-
-/* TRI DES PRODUITS */
-#sort {
-    text-align: center;
-    margin: 10px 0 20px 0;
-}
-
-#sort-select {
-    width: 80%;
-    max-width: 300px;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 2px solid var(--bleu);
-    border-radius: 8px;
-    outline: none;
-    background: white;
-    transition: 0.3s;
-}
-
-#sort-select:focus {
-    border-color: #ff9800;
-    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
-}
-
-/* COMPTEUR DE RÉSULTATS */
-#result-count {
-    text-align: center;
-    font-size: 16px;
-    margin-top: 10px;
-    color: var(--bleu);
-    font-weight: bold;
-}
-
-/* RESPONSIVE MOBILE */
+/* ============================
+   RESPONSIVE MOBILE
+============================ */
 @media (max-width: 768px) {
-
-    header {
-        flex-direction: row;
-        gap: 10px;
-        padding: 15px;
-    }
-
-    /* MENU MOBILE */
-    #mobile-menu {
-        position: fixed;
-        top: 0;
-        left: -260px;
-        width: 240px;
-        height: 100%;
-        background: var(--bleu);
-        flex-direction: column;
-        padding-top: 80px;
-        gap: 25px;
-        transition: left .3s ease;
-        z-index: 2002;
-
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
-        box-shadow: 5px 0 15px rgba(0,0,0,0.4);
-    }
-
-    #mobile-menu.open {
-        left: 0;
-    }
-
-    #mobile-menu a {
-        font-size: 18px;
-        padding-left: 20px;
-    }
-
-    #mobile-menu a:hover {
-        padding-left: 30px;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    /* PRODUITS EN 1 COLONNE */
     .product-grid {
         grid-template-columns: 1fr;
     }

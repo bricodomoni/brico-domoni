@@ -1,0 +1,144 @@
+/* COULEURS */
+:root {
+    --bleu: #0A1F44;
+    --gris: #f2f2f2;
+}
+
+/* GLOBAL */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: white;
+    color: #222;
+}
+
+h2 {
+    color: var(--bleu);
+    text-align: center;
+    margin-top: 40px;
+    animation: fadeIn 1s ease;
+}
+
+/* HEADER */
+header {
+    background: var(--bleu);
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    height: 70px;
+}
+
+nav a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 40px 20px;
+    animation: fadeIn 1s ease;
+}
+
+/* SERVICES */
+.services-list {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.services-list li {
+    margin: 8px 0;
+}
+
+/* GALERIE */
+.empty {
+    text-align: center;
+    color: #777;
+}
+
+.galerie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+/* PRODUITS */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+
+.product {
+    background: var(--gris);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.product:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* PANIER */
+.cart {
+    padding: 20px;
+    background: #fff;
+    border-top: 2px solid var(--bleu);
+}
+
+.btn-whatsapp,
+.btn-call {
+    display: block;
+    margin: 10px 0;
+    padding: 12px;
+    text-align: center;
+    color: white;
+    background: var(--bleu);
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform .2s, opacity .2s;
+}
+
+.btn-whatsapp:hover,
+.btn-call:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* FOOTER */
+footer {
+    background: var(--bleu);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 40px;
+}
+
+.dev {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

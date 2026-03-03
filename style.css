@@ -1,6 +1,3 @@
-/* ============================
-   PALETTE & TYPO
-============================ */
 :root {
     --bleu: #0A1F44;
     --orange: #ff8c00;
@@ -16,9 +13,7 @@ body {
     overflow-x: hidden;
 }
 
-/* ============================
-   HEADER
-============================ */
+/* HEADER */
 #main-header {
     position: sticky;
     top: 0;
@@ -37,9 +32,7 @@ body {
     object-fit: contain;
 }
 
-/* ============================
-   MENU DESKTOP
-============================ */
+/* MENU DESKTOP */
 #tabs-menu {
     display: flex;
     gap: 18px;
@@ -60,9 +53,7 @@ body {
     background: var(--orange);
 }
 
-/* ============================
-   MENU MOBILE
-============================ */
+/* MENU MOBILE */
 #hamburger {
     display: none;
     flex-direction: column;
@@ -95,9 +86,7 @@ body {
     right: 0;
 }
 
-/* ============================
-   SLIDER
-============================ */
+/* SLIDER */
 .slider {
     position: relative;
     width: 100%;
@@ -134,9 +123,7 @@ body {
 .prev { left: 10px; }
 .next { right: 10px; }
 
-/* ============================
-   PANIER
-============================ */
+/* PANIER */
 #cart-panel {
     position: fixed;
     bottom: 0;
@@ -158,9 +145,7 @@ body {
     z-index: 4000;
 }
 
-/* ============================
-   RESPONSIVE
-============================ */
+/* RESPONSIVE */
 @media (max-width: 1024px) {
     #tabs-menu { display: none; }
     #hamburger { display: flex; }

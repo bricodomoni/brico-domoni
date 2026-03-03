@@ -15,6 +15,8 @@ const whatsappBtn = document.getElementById("whatsapp-btn");
 const cartCount = document.getElementById("cart-count");
 const cartPanel = document.getElementById("cart-panel");
 const cartIcon = document.querySelector(".cart-icon");
+const overlay = document.getElementById("overlay");
+const closeCart = document.getElementById("close-cart");
 
 let cart = [];
 
@@ -34,17 +36,12 @@ products.forEach((p, index) => {
 // AJOUT AU PANIER
 function addToCart(i) {
     const product = products[i];
-
     const existing = cart.find(item => item.name === product.name);
 
     if (existing) {
         existing.quantity += 1;
     } else {
-        cart.push({
-            name: product.name,
-            price: product.price,
-            quantity: 1
-        });
+        cart.push({ name: product.name, price: product.price, quantity: 1 });
     }
 
     updateCart();
@@ -68,7 +65,6 @@ function updateCart() {
     });
 
     totalDisplay.textContent = total;
-
     cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     const message = encodeURIComponent(
@@ -87,15 +83,24 @@ function increaseQuantity(index) {
 
 function decreaseQuantity(index) {
     cart[index].quantity -= 1;
-
-    if (cart[index].quantity <= 0) {
-        cart.splice(index, 1);
-    }
-
+    if (cart[index].quantity <= 0) cart.splice(index, 1);
     updateCart();
 }
 
 // OUVERTURE / FERMETURE DU PANIER
 cartIcon.addEventListener("click", () => {
     cartPanel.classList.toggle("open");
+    overlay.classList.toggle("show");
+});
+
+// FERMETURE AVEC LE BOUTON X
+closeCart.addEventListener("click", () => {
+    cartPanel.classList.remove("open");
+    overlay.classList.remove("show");
+});
+
+// FERMETURE EN CLIQUANT SUR LE FOND SOMBRE
+overlay.addEventListener("click", () => {
+    cartPanel.classList.remove("open");
+    overlay.classList.remove("show");
 });

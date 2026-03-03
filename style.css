@@ -9,6 +9,10 @@
     --shadow: 0 6px 18px rgba(0,0,0,0.10);
 }
 
+html {
+    font-size: clamp(14px, 1.2vw, 17px);
+}
+
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -18,7 +22,7 @@ body {
 }
 
 /* ============================
-   HEADER
+   HEADER PREMIUM
 ============================ */
 #main-header {
     position: sticky;
@@ -36,6 +40,8 @@ body {
 
 #top-logo {
     width: 150px;
+    height: auto;
+    object-fit: contain;
 }
 
 /* ============================
@@ -44,6 +50,8 @@ body {
 #tabs-menu {
     display: flex;
     gap: 20px;
+    justify-content: center;
+    flex: 1;
 }
 
 .tab-btn {
@@ -53,7 +61,13 @@ body {
     padding: 8px 18px;
     border-radius: 10px;
     cursor: pointer;
+    font-size: 1rem;
     transition: 0.25s;
+}
+
+.tab-btn:hover {
+    background: #123a7a;
+    transform: translateY(-2px);
 }
 
 .tab-btn.active {
@@ -63,6 +77,12 @@ body {
 /* ============================
    PANIER ICON (AMÉLIORÉ)
 ============================ */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
 .cart-icon {
     position: relative;
     cursor: pointer;
@@ -73,6 +93,7 @@ body {
 .cart-img {
     width: 34px;
     height: 34px;
+    object-fit: contain;
     filter: brightness(1.3) contrast(1.3);
 }
 
@@ -106,6 +127,7 @@ body {
     width: 26px;
     height: 3px;
     background: var(--bleu);
+    border-radius: 3px;
 }
 
 /* ============================
@@ -118,6 +140,7 @@ body {
     width: 240px;
     height: 100%;
     background: rgba(10,31,68,0.95);
+    backdrop-filter: blur(10px);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -130,12 +153,23 @@ body {
     right: 0;
 }
 
+.mobile-link {
+    background: white;
+    color: var(--bleu);
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
 /* ============================
    SLIDER
 ============================ */
 .slider {
     position: relative;
     width: 100%;
+    margin: 20px auto;
     overflow: hidden;
     border-radius: 16px;
     box-shadow: var(--shadow);
@@ -148,8 +182,53 @@ body {
 
 .slide {
     width: 100%;
-    height: 300px;
+    height: clamp(160px, 28vw, 350px);
     object-fit: cover;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.75);
+    border: none;
+    padding: 10px;
+    font-size: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* ============================
+   HERO
+============================ */
+.hero {
+    background: linear-gradient(135deg, #0A1F44, #123a7a);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 18px;
+    max-width: 900px;
+    margin: 20px auto;
+    box-shadow: var(--shadow);
+}
+
+.hero-btn {
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.hero-btn:hover {
+    background: #ffb74d;
+    transform: scale(1.05);
 }
 
 /* ============================
@@ -168,6 +247,11 @@ body {
     border-radius: 14px;
     text-align: center;
     box-shadow: var(--shadow);
+    transition: 0.25s;
+}
+
+.product:hover {
+    transform: translateY(-4px);
 }
 
 .product-img {
@@ -222,6 +306,22 @@ body {
 
 #overlay.show {
     display: block;
+}
+
+/* ============================
+   FOOTER
+============================ */
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.dev {
+    font-size: 0.8rem;
+    opacity: 0.7;
 }
 
 /* ============================

@@ -15,6 +15,8 @@ body {
     font-family: Arial, sans-serif;
     background: white;
     color: #222;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 h2 {
@@ -24,10 +26,13 @@ h2 {
 }
 
 /* ============================
-   FIX ONGLET (IMPORTANT)
+   ONGLET (AFFICHAGE)
 ============================ */
 .tab-content {
     display: none;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1100px;
 }
 
 .tab-content.active {
@@ -35,7 +40,7 @@ h2 {
 }
 
 /* ============================
-   HEADER PROFESSIONNEL
+   HEADER
 ============================ */
 #main-header {
     width: 100%;
@@ -50,13 +55,11 @@ h2 {
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* LOGO À GAUCHE */
 #top-logo {
     height: 60px;
     object-fit: contain;
 }
 
-/* MENU AU CENTRE */
 #tabs-menu {
     display: flex;
     gap: 12px;
@@ -78,15 +81,14 @@ h2 {
     background: var(--orange);
 }
 
-/* PANIER À DROITE */
+/* ============================
+   PANIER
+============================ */
 .header-right {
     display: flex;
     align-items: center;
 }
 
-/* ============================
-   ICÔNE PANIER
-============================ */
 .cart-icon {
     background: none;
     border: none;
@@ -118,7 +120,7 @@ h2 {
 }
 
 /* ============================
-   MENU HAMBURGER MOBILE
+   MENU MOBILE
 ============================ */
 #hamburger {
     display: none;
@@ -139,7 +141,6 @@ h2 {
     transition: 0.3s ease;
 }
 
-/* Animation hamburger → croix */
 #hamburger.open span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
 }
@@ -152,9 +153,6 @@ h2 {
     transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ============================
-   MENU MOBILE
-============================ */
 #mobile-menu {
     position: fixed;
     top: 0;
@@ -202,6 +200,7 @@ h2 {
     width: 100%;
     max-width: 100%;
     margin-top: 0;
+    margin-bottom: 25px;
     overflow: hidden;
     border-radius: 0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -241,7 +240,7 @@ h2 {
 .next { right: 10px; }
 
 /* ============================
-   HERO / ACCUEIL
+   ACCUEIL / HERO
 ============================ */
 .hero {
     background: linear-gradient(135deg, #0A1F44, #123a7a);
@@ -445,6 +444,21 @@ h2 {
 
     .tab-content {
         padding: 15px;
-        margin: 10px;
+        margin: 15px;
+    }
+
+    .hero {
+        margin: 15px;
+        padding: 35px 15px;
+    }
+
+    .categories {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .product-grid {
+        padding: 10px;
+        gap: 10px;
     }
 }

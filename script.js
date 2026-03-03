@@ -1,4 +1,10 @@
 /* ============================
+   VARIABLES GLOBALES
+============================ */
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobile-menu");
+
+/* ============================
    ONGLET NAVIGATION
 ============================ */
 const tabButtons = document.querySelectorAll(".tab-btn");
@@ -14,6 +20,7 @@ tabButtons.forEach(btn => {
         const target = document.getElementById(btn.dataset.tab);
         if (target) target.classList.add("active");
 
+        // maintenant mobileMenu et hamburger EXISTENT
         mobileMenu.classList.remove("open");
         hamburger.classList.remove("open");
     });
@@ -82,8 +89,6 @@ overlay?.addEventListener("click", closeCart);
 /* ============================
    MENU MOBILE
 ============================ */
-const hamburger = document.getElementById("hamburger");
-const mobileMenu = document.getElementById("mobile-menu");
 const closeMobile = document.querySelector(".close-mobile");
 const mobileLinks = document.querySelectorAll(".mobile-link");
 

@@ -124,7 +124,7 @@ menuToggle.addEventListener("click", () => {
     overlay.classList.toggle("show");
 });
 
-// NOTIFICATION AJOUT PANIER
+// 🔥 NOTIFICATION ANIMÉE
 function showAddAlert() {
     addAlert.classList.add("show");
 

@@ -3,56 +3,21 @@
 ============================ */
 :root {
     --bleu: #0A1F44;
-    --orange: #ff9800;
-    --glass-bg: rgba(255,255,255,0.55);
-    --glass-border: rgba(255,255,255,0.35);
-    --shadow: 0 8px 25px rgba(0,0,0,0.08);
-}
-
-html {
-    font-size: clamp(15px, 1.4vw, 19px);
+    --orange: #ff8c00;
+    --fond: #fdf8f3;
+    --shadow: 0 6px 20px rgba(0,0,0,0.12);
 }
 
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: #f7f9fc;
+    background: var(--fond);
     color: #222;
     overflow-x: hidden;
 }
 
 /* ============================
-   ANIMATIONS
-============================ */
-@keyframes fadeUp {
-    0% { opacity: 0; transform: translateY(25px); filter: blur(8px); }
-    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
-
-@keyframes fadeUpSoft {
-    0% { opacity: 0; transform: translateY(15px); filter: blur(4px); }
-    100% { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
-
-/* ============================
-   SECTIONS
-============================ */
-.tab-content {
-    display: none;
-    padding: clamp(15px, 3vw, 30px);
-    margin: clamp(10px, 3vw, 30px) auto;
-    max-width: 1100px;
-    opacity: 0;
-    animation: fadeUp 0.7s ease-out forwards;
-}
-
-.tab-content.active {
-    display: block;
-    opacity: 1;
-}
-
-/* ============================
-   HEADER PREMIUM
+   HEADER
 ============================ */
 #main-header {
     position: sticky;
@@ -60,17 +25,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: clamp(12px, 2vw, 24px) clamp(20px, 4vw, 40px);
-    background: var(--glass-bg);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--glass-border);
+    padding: 10px 18px;
+    background: white;
     box-shadow: var(--shadow);
     z-index: 3000;
-    border-radius: 0 0 18px 18px;
 }
 
 #top-logo {
-    width: clamp(150px, 20vw, 220px);
+    width: 140px;
     height: auto;
     object-fit: contain;
 }
@@ -80,56 +42,22 @@ body {
 ============================ */
 #tabs-menu {
     display: flex;
-    gap: clamp(12px, 2vw, 32px);
-    justify-content: center;
-    flex: 1;
+    gap: 18px;
 }
 
 .tab-btn {
     background: var(--bleu);
     color: white;
     border: none;
-    padding: clamp(8px, 1vw, 14px) clamp(14px, 2vw, 26px);
-    border-radius: 12px;
+    padding: 8px 16px;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: clamp(1rem, 1.1vw, 1.25rem);
-    font-weight: 500;
+    font-size: 1rem;
     transition: 0.25s;
-}
-
-.tab-btn:hover {
-    background: #123a7a;
-    transform: translateY(-2px);
 }
 
 .tab-btn.active {
     background: var(--orange);
-}
-
-/* ============================
-   PANIER
-============================ */
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.cart-img {
-    width: clamp(28px, 3vw, 38px);
-    height: clamp(28px, 3vw, 38px);
-}
-
-.cart-count {
-    position: absolute;
-    top: -6px;
-    right: -10px;
-    background: var(--orange);
-    color: white;
-    font-size: clamp(11px, 1vw, 13px);
-    padding: 2px 6px;
-    border-radius: 50%;
-    font-weight: bold;
 }
 
 /* ============================
@@ -138,14 +66,13 @@ body {
 #hamburger {
     display: none;
     flex-direction: column;
-    gap: 5px;
+    gap: 4px;
     background: none;
     border: none;
-    cursor: pointer;
 }
 
 #hamburger span {
-    width: 28px;
+    width: 26px;
     height: 3px;
     background: var(--bleu);
     border-radius: 3px;
@@ -158,34 +85,14 @@ body {
     width: 70%;
     height: 100%;
     background: white;
-    box-shadow: -4px 0 20px rgba(0,0,0,0.1);
     padding: 20px;
     transition: 0.3s;
+    box-shadow: -4px 0 20px rgba(0,0,0,0.15);
     z-index: 4000;
 }
 
 #mobile-menu.open {
     right: 0;
-}
-
-.close-mobile {
-    background: none;
-    border: none;
-    font-size: 24px;
-    float: right;
-    cursor: pointer;
-}
-
-.mobile-link {
-    display: block;
-    width: 100%;
-    padding: 14px;
-    margin-top: 10px;
-    background: var(--bleu);
-    color: white;
-    border-radius: 10px;
-    border: none;
-    font-size: 1.1rem;
 }
 
 /* ============================
@@ -194,9 +101,9 @@ body {
 .slider {
     position: relative;
     width: 100%;
-    margin: clamp(15px, 3vw, 30px) auto;
+    margin: 15px auto;
     overflow: hidden;
-    border-radius: 18px;
+    border-radius: 14px;
     box-shadow: var(--shadow);
 }
 
@@ -207,24 +114,49 @@ body {
 
 .slide {
     width: 100%;
-    height: clamp(160px, 40vw, 300px);
+    height: 220px;
     object-fit: cover;
+    border-radius: 14px;
 }
 
-.slider-btn {
+.prev, .next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255,255,255,0.75);
+    background: rgba(255,255,255,0.8);
     border: none;
-    padding: 12px;
-    cursor: pointer;
-    font-size: 28px;
+    padding: 10px;
+    font-size: 26px;
     border-radius: 50%;
+    cursor: pointer;
 }
 
-.prev { left: 12px; }
-.next { right: 12px; }
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* ============================
+   PANIER
+============================ */
+#cart-panel {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 -6px 20px rgba(0,0,0,0.15);
+    border-radius: 18px 18px 0 0;
+    z-index: 5000;
+}
+
+#overlay.show {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.45);
+    z-index: 4000;
+}
 
 /* ============================
    RESPONSIVE

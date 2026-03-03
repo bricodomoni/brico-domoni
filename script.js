@@ -1,11 +1,11 @@
-// LISTE DES PRODUITS
+// LISTE DES PRODUITS AVEC IMAGES
 const products = [
-    { name: "Marteau", price: 2500 },
-    { name: "Tournevis", price: 1500 },
-    { name: "Clé plate", price: 1800 },
-    { name: "Pince", price: 2200 },
-    { name: "Ampoule LED", price: 500 },
-    { name: "Raccord plomberie", price: 300 }
+    { name: "Marteau", price: 2500, image: "marteau.jpg" },
+    { name: "Tournevis", price: 1500, image: "tournevis.jpg" },
+    { name: "Clé plate", price: 1800, image: "cle.jpg" },
+    { name: "Pince", price: 2200, image: "pince.jpg" },
+    { name: "Ampoule LED", price: 500, image: "ampoule.jpg" },
+    { name: "Raccord plomberie", price: 300, image: "raccord.jpg" }
 ];
 
 const productList = document.getElementById("product-list");
@@ -13,6 +13,8 @@ const cartItems = document.getElementById("cart-items");
 const totalDisplay = document.getElementById("total");
 const whatsappBtn = document.getElementById("whatsapp-btn");
 const cartCount = document.getElementById("cart-count");
+const cartPanel = document.getElementById("cart-panel");
+const cartIcon = document.querySelector(".cart-icon");
 
 let cart = [];
 
@@ -21,6 +23,7 @@ products.forEach((p, index) => {
     const div = document.createElement("div");
     div.className = "product";
     div.innerHTML = `
+        <img src="${p.image}" class="product-img">
         <h4>${p.name}</h4>
         <p>${p.price} KMF</p>
         <button onclick="addToCart(${index})">Ajouter</button>
@@ -91,3 +94,8 @@ function decreaseQuantity(index) {
 
     updateCart();
 }
+
+// OUVERTURE / FERMETURE DU PANIER
+cartIcon.addEventListener("click", () => {
+    cartPanel.classList.toggle("open");
+});

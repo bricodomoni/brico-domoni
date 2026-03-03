@@ -1,322 +1,160 @@
-/* ============================
-   PALETTE & TYPO
-============================ */
-:root {
-    --bleu: #0A1F44;
-    --orange: #ff9800;
-    --glass-bg: rgba(255,255,255,0.55);
-    --glass-border: rgba(255,255,255,0.35);
-    --shadow: 0 8px 25px rgba(0,0,0,0.08);
-}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRICO DOMONI</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpg" href="logo.jpg">
+</head>
 
-html {
-    font-size: clamp(14px, 1.2vw, 18px);
-}
+<body>
 
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: #f7f9fc;
-    color: #222;
-    overflow-x: hidden;
-}
+    <!-- HEADER -->
+    <header id="main-header">
 
-/* ============================
-   HEADER PREMIUM + GLASS
-============================ */
-#main-header {
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: clamp(10px, 2vw, 20px) clamp(20px, 4vw, 40px);
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--glass-border);
-    box-shadow: var(--shadow);
-    z-index: 3000;
-    border-radius: 0 0 18px 18px;
-}
+        <div class="header-left">
+            <img src="logo.jpg" alt="BRICO DOMONI" id="top-logo">
+        </div>
 
-#top-logo {
-    width: clamp(140px, 18vw, 200px);
-    height: auto;
-    object-fit: contain;
-}
+        <nav id="tabs-menu">
+            <button class="tab-btn active" data-tab="accueil">Accueil</button>
+            <button class="tab-btn" data-tab="services">Nos services</button>
+            <button class="tab-btn" data-tab="galerie">Galerie</button>
+            <button class="tab-btn" data-tab="produits">Produits</button>
+            <button class="tab-btn" data-tab="apropos">À propos</button>
+            <button class="tab-btn" data-tab="contact">Contact</button>
+        </nav>
 
-/* ============================
-   MENU PREMIUM + FLUIDE
-============================ */
-#tabs-menu {
-    display: flex;
-    gap: clamp(10px, 2vw, 30px);
-    justify-content: center;
-    flex: 1;
-}
+        <div class="header-right">
+            <button class="cart-icon" aria-label="Panier">
+                <img src="panier.png" class="cart-img" alt="Panier">
+                <span id="cart-count" class="cart-count">0</span>
+            </button>
 
-.tab-btn {
-    background: var(--bleu);
-    color: white;
-    border: none;
-    padding: clamp(6px, 1vw, 12px) clamp(12px, 2vw, 22px);
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: clamp(0.9rem, 1vw, 1.1rem);
-    font-weight: 500;
-    transition: 0.25s;
-}
+            <button id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
 
-.tab-btn:hover {
-    background: #123a7a;
-    transform: translateY(-2px);
-}
+    </header>
 
-.tab-btn.active {
-    background: var(--orange);
-}
+    <!-- MENU MOBILE -->
+    <div id="mobile-menu">
+        <button class="close-mobile">✖</button>
+        <button class="mobile-link" data-tab="accueil">Accueil</button>
+        <button class="mobile-link" data-tab="services">Nos services</button>
+        <button class="mobile-link" data-tab="galerie">Galerie</button>
+        <button class="mobile-link" data-tab="produits">Produits</button>
+        <button class="mobile-link" data-tab="apropos">À propos</button>
+        <button class="mobile-link" data-tab="contact">Contact</button>
+    </div>
 
-/* ============================
-   PANIER PREMIUM
-============================ */
-.header-right {
-    width: clamp(140px, 18vw, 200px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: clamp(10px, 2vw, 20px);
-}
+    <!-- ACCUEIL -->
+    <div class="tab-content active" id="accueil">
 
-.cart-icon {
-    background: none;
-    border: none;
-    position: relative;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
+        <!-- SLIDER UNIQUEMENT DANS ACCUEIL -->
+        <div class="slider">
+            <div class="slides">
+                <img src="images/slider1.jpg" class="slide active">
+                <img src="images/slider2.jpg" class="slide">
+                <img src="images/slider3.jpg" class="slide">
+            </div>
+            <button class="slider-btn prev">❮</button>
+            <button class="slider-btn next">❯</button>
+        </div>
 
-.cart-img {
-    width: clamp(26px, 3vw, 34px);
-    height: clamp(26px, 3vw, 34px);
-    object-fit: contain;
-}
+        <div class="hero">
+            <p>Votre magasin de bricolage à Domoni Riadhu.</p>
+            <button class="hero-btn" onclick="openProduits()">Voir nos produits</button>
+        </div>
+    </div>
 
-.cart-count {
-    position: absolute;
-    top: -6px;
-    right: -10px;
-    background: var(--orange);
-    color: white;
-    font-size: clamp(10px, 1vw, 12px);
-    padding: 2px 6px;
-    border-radius: 50%;
-    font-weight: bold;
-}
+    <!-- SERVICES -->
+    <div class="tab-content" id="services">
+        <h2>Nos services</h2>
+        <ul>
+            <li>Vente d’outils et équipements</li>
+            <li>Matériaux pour la maison</li>
+            <li>Produits électriques et plomberie</li>
+            <li>Accessoires d’entretien</li>
+            <li>Conseils rapides en magasin</li>
+        </ul>
+    </div>
 
-/* ============================
-   HAMBURGER
-============================ */
-#hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 4px;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
+    <!-- GALERIE -->
+    <div class="tab-content" id="galerie">
+        <h2>Galerie photos</h2>
+        <p>Aucune photo pour le moment.</p>
+        <div class="galerie-grid"></div>
+    </div>
 
-#hamburger span {
-    width: 26px;
-    height: 3px;
-    background: var(--bleu);
-    border-radius: 3px;
-    transition: 0.3s;
-}
+    <!-- PRODUITS -->
+    <div class="tab-content" id="produits">
+        <h2>Nos produits</h2>
 
-/* ============================
-   MENU MOBILE GLASS
-============================ */
-#mobile-menu {
-    position: fixed;
-    top: 0;
-    left: -260px;
-    width: 240px;
-    height: 100%;
-    background: rgba(10,31,68,0.9);
-    backdrop-filter: blur(10px);
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    transition: left .35s ease;
-    z-index: 3000;
-}
+        <h3 class="cat-title">Catégories</h3>
+        <div class="categories">
+            <div class="cat-card">🔨 Outils</div>
+            <div class="cat-card">💡 Électricité</div>
+            <div class="cat-card">🚰 Plomberie</div>
+            <div class="cat-card">🏠 Maison</div>
+            <div class="cat-card">🧰 Accessoires</div>
+        </div>
 
-#mobile-menu.open {
-    left: 0;
-}
+        <section id="search">
+            <input type="text" id="search-input" placeholder="Rechercher un produit...">
+        </section>
 
-.mobile-link {
-    background: white;
-    color: var(--bleu);
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-}
+        <section id="sort">
+            <select id="sort-select">
+                <option value="none">Trier par…</option>
+                <option value="price-asc">Prix croissant</option>
+                <option value="price-desc">Prix décroissant</option>
+                <option value="az">A → Z</option>
+                <option value="za">Z → A</option>
+            </select>
+        </section>
 
-/* ============================
-   SLIDER PREMIUM + GLASS
-============================ */
-.slider {
-    position: relative;
-    width: 100%;
-    margin: 20px auto;
-    overflow: hidden;
-    border-radius: 18px;
-    box-shadow: var(--shadow);
-}
+        <p id="result-count"></p>
+        <div id="product-list" class="product-grid"></div>
 
-.slide {
-    width: 100%;
-    height: clamp(180px, 30vw, 420px);
-    object-fit: cover;
-}
+        <div class="cart" id="cart-panel">
+            <button id="close-cart" class="close-cart">✖</button>
+            <h3>Panier</h3>
+            <ul id="cart-items"></ul>
+            <p>Total : <span id="total">0</span> KMF</p>
 
-.slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.7);
-    backdrop-filter: blur(6px);
-    border: none;
-    padding: clamp(8px, 1vw, 14px);
-    cursor: pointer;
-    font-size: clamp(18px, 2vw, 26px);
-    border-radius: 50%;
-    transition: 0.25s;
-}
+            <a id="whatsapp-btn" class="btn-whatsapp" target="_blank">Commander via WhatsApp</a>
+            <a href="tel:+2694484047" class="btn-call">Appeler maintenant</a>
+        </div>
 
-.slider-btn:hover {
-    background: white;
-    transform: scale(1.1);
-}
+        <div id="overlay"></div>
+        <div id="add-alert">Ajouter au panier</div>
+    </div>
 
-.prev { left: 10px; }
-.next { right: 10px; }
+    <!-- À PROPOS -->
+    <div class="tab-content" id="apropos">
+        <h2>À propos</h2>
+        <p>BRICO DOMONI est un magasin de matériaux et équipements situé à Domoni Riadhu.</p>
+    </div>
 
-/* ============================
-   HERO PREMIUM
-============================ */
-.hero {
-    background: linear-gradient(135deg, #0A1F44, #123a7a);
-    color: white;
-    padding: clamp(30px, 5vw, 60px);
-    text-align: center;
-    border-radius: 18px;
-    max-width: 900px;
-    margin: 20px auto;
-    box-shadow: var(--shadow);
-}
+    <!-- CONTACT -->
+    <div class="tab-content" id="contact">
+        <h2>Contact</h2>
+        <p><strong>Adresse :</strong> Domoni Riadhu — en face de la pharmacie du Dr Salim</p>
+        <p><strong>Horaires :</strong> 08h00 → 20h00</p>
+        <p><strong>Téléphone / WhatsApp :</strong> +269 44 84 047</p>
+    </div>
 
-.hero-btn {
-    background: var(--orange);
-    color: white;
-    border: none;
-    padding: clamp(10px, 1.5vw, 18px) clamp(20px, 3vw, 30px);
-    font-size: clamp(1rem, 1.2vw, 1.3rem);
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.25s;
-}
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 BRICO DOMONI — Tous droits réservés</p>
+        <p class="dev">Site développé par Kaambi</p>
+    </footer>
 
-.hero-btn:hover {
-    background: #ffb74d;
-    transform: scale(1.05);
-}
-
-/* ============================
-   CATÉGORIES PREMIUM
-============================ */
-.categories {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-.cat-card {
-    background: white;
-    padding: 20px;
-    border-radius: 14px;
-    text-align: center;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--bleu);
-    box-shadow: var(--shadow);
-    transition: 0.25s;
-}
-
-.cat-card:hover {
-    background: var(--orange);
-    color: white;
-    transform: translateY(-4px);
-}
-
-/* ============================
-   PRODUITS PREMIUM
-============================ */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-.product {
-    background: white;
-    padding: 18px;
-    border-radius: 14px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    transition: 0.25s;
-}
-
-.product:hover {
-    transform: translateY(-4px);
-}
-
-.product-img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 12px;
-}
-
-/* ============================
-   PANIER PREMIUM
-============================ */
-#cart-panel {
-    position: fixed;
-    right: -350px;
-    top: 0;
-    width: 320px;
-    height: 100%;
-    background: white;
-    border-left: 4px solid var(--orange);
-    padding: 25px;
-    transition: right .35s ease;
-    overflow-y: auto;
-    box-shadow: -4px 0 20px rgba(0,0,0,0.15);
-    z-index: 2000;
-}
-
-/* ============================
-   RESPONSIVE
-============================ */
-@media (max-width: 800px) {
-    #tabs-menu { display: none; }
-    #hamburger { display: flex; }
-}
+    <script src="script.js" defer></script>
+</body>
+</html>

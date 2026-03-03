@@ -125,11 +125,31 @@ nav a:hover {
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* PANIER */
-.cart {
+.product-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+/* PANIER SLIDE */
+#cart-panel {
+    position: fixed;
+    right: -350px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: white;
+    border-left: 3px solid var(--bleu);
     padding: 20px;
-    background: #fff;
-    border-top: 2px solid var(--bleu);
+    transition: right .3s ease;
+    overflow-y: auto;
+    z-index: 999;
+}
+
+#cart-panel.open {
+    right: 0;
 }
 
 .cart button {

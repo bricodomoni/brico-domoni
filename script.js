@@ -1,75 +1,61 @@
-/* ============================
-   SLIDER
-============================ */
+/* SLIDER */
 let currentSlide = 0;
 const slidesContainer = document.querySelector(".slides");
 const slides = document.querySelectorAll(".slide");
 
 function updateSlider() {
-    if (!slidesContainer || slides.length === 0) return;
     slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
 }
 
-document.querySelector(".next")?.addEventListener("click", () => {
+document.querySelector(".next").addEventListener("click", () => {
     currentSlide = (currentSlide + 1) % slides.length;
     updateSlider();
 });
 
-document.querySelector(".prev")?.addEventListener("click", () => {
+document.querySelector(".prev").addEventListener("click", () => {
     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
     updateSlider();
 });
 
-// Défilement automatique
 setInterval(() => {
     currentSlide = (currentSlide + 1) % slides.length;
     updateSlider();
 }, 4000);
 
-
-/* ============================
-   NAVIGATION ENTRE ONGLET
-============================ */
+/* NAVIGATION ENTRE ONGLET */
 const tabButtons = document.querySelectorAll(".tab-btn");
 const tabContents = document.querySelectorAll(".tab-content");
 
 tabButtons.forEach(btn => {
     btn.addEventListener("click", () => {
 
-        // Active bouton
         tabButtons.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
 
-        // Active contenu
         tabContents.forEach(c => c.classList.remove("active"));
         const target = document.getElementById(btn.dataset.tab);
         if (target) target.classList.add("active");
 
-        // Reset slider si retour accueil
         if (btn.dataset.tab === "accueil") {
             currentSlide = 0;
             updateSlider();
         }
 
-        // Ferme menu mobile si ouvert
         mobileMenu.classList.remove("open");
     });
 });
 
-
-/* ============================
-   MENU MOBILE
-============================ */
+/* MENU MOBILE */
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobile-menu");
 const mobileLinks = document.querySelectorAll(".mobile-link");
 const closeMobile = document.querySelector(".close-mobile");
 
-hamburger?.addEventListener("click", () => {
+hamburger.addEventListener("click", () => {
     mobileMenu.classList.toggle("open");
 });
 
-closeMobile?.addEventListener("click", () => {
+closeMobile.addEventListener("click", () => {
     mobileMenu.classList.remove("open");
 });
 
@@ -81,24 +67,21 @@ mobileLinks.forEach(btn => {
     });
 });
 
-
-/* ============================
-   PANIER
-============================ */
+/* PANIER */
 const cartPanel = document.getElementById("cart-panel");
 const overlay = document.getElementById("overlay");
 
-document.querySelector(".cart-icon")?.addEventListener("click", () => {
+document.querySelector(".cart-icon").addEventListener("click", () => {
     cartPanel.classList.add("open");
     overlay.classList.add("show");
 });
 
-document.getElementById("close-cart")?.addEventListener("click", () => {
+document.getElementById("close-cart").addEventListener("click", () => {
     cartPanel.classList.remove("open");
     overlay.classList.remove("show");
 });
 
-overlay?.addEventListener("click", () => {
+overlay.addEventListener("click", () => {
     cartPanel.classList.remove("open");
     overlay.classList.remove("show");
 });

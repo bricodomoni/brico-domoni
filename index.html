@@ -1,161 +1,159 @@
-/* ============================
-   ONGLET NAVIGATION
-============================ */
-const tabButtons = document.querySelectorAll(".tab-btn");
-const tabContents = document.querySelectorAll(".tab-content");
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRICO DOMONI</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpg" href="logo.jpg">
+</head>
 
-tabButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
+<body>
 
-        // Retirer l'état actif des onglets
-        tabButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
+    <!-- HEADER -->
+    <header id="main-header">
 
-        // Afficher le bon contenu
-        tabContents.forEach(c => c.classList.remove("active"));
-        const target = document.getElementById(btn.dataset.tab);
-        if (target) target.classList.add("active");
+        <div class="header-left">
+            <img src="logo.jpg" alt="BRICO DOMONI" id="top-logo">
+        </div>
 
-        // Fermer menu mobile si ouvert
-        mobileMenu.classList.remove("open");
-        hamburger.classList.remove("open");
-    });
-});
+        <nav id="tabs-menu">
+            <button class="tab-btn active" data-tab="accueil">Accueil</button>
+            <button class="tab-btn" data-tab="services">Nos services</button>
+            <button class="tab-btn" data-tab="galerie">Galerie</button>
+            <button class="tab-btn" data-tab="produits">Produits</button>
+            <button class="tab-btn" data-tab="apropos">À propos</button>
+            <button class="tab-btn" data-tab="contact">Contact</button>
+        </nav>
 
-/* ============================
-   OUVERTURE DIRECTE PRODUITS
-============================ */
-function openProduits() {
-    const btn = document.querySelector('[data-tab="produits"]');
-    if (btn) btn.click();
-}
+        <div class="header-right">
+            <button class="cart-icon" aria-label="Panier">
+                <img src="images/panier.png" class="cart-img" alt="Panier">
+                <span id="cart-count" class="cart-count">0</span>
+            </button>
 
-/* ============================
-   SLIDER
-============================ */
-let currentSlide = 0;
-const slidesContainer = document.querySelector(".slides");
-const slides = document.querySelectorAll(".slide");
+            <button id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
 
-function updateSlider() {
-    if (!slidesContainer || slides.length === 0) return;
-    currentSlide = (currentSlide + slides.length) % slides.length;
-    slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
-}
+    </header>
 
-document.querySelector(".next")?.addEventListener("click", () => {
-    currentSlide++;
-    updateSlider();
-});
+    <!-- MENU MOBILE -->
+    <div id="mobile-menu">
+        <button class="close-mobile">✖</button>
+        <button class="mobile-link" data-tab="accueil">Accueil</button>
+        <button class="mobile-link" data-tab="services">Nos services</button>
+        <button class="mobile-link" data-tab="galerie">Galerie</button>
+        <button class="mobile-link" data-tab="produits">Produits</button>
+        <button class="mobile-link" data-tab="apropos">À propos</button>
+        <button class="mobile-link" data-tab="contact">Contact</button>
+    </div>
 
-document.querySelector(".prev")?.addEventListener("click", () => {
-    currentSlide--;
-    updateSlider();
-});
+    <!-- SLIDER -->
+    <div class="slider">
+        <div class="slides">
+            <img src="images/slider1.jpg" class="slide active">
+            <img src="images/slider2.jpg" class="slide">
+            <img src="images/slider3.jpg" class="slide">
+        </div>
+        <button class="slider-btn prev">❮</button>
+        <button class="slider-btn next">❯</button>
+    </div>
 
-if (slides.length > 0) {
-    setInterval(() => {
-        currentSlide++;
-        updateSlider();
-    }, 4000);
-}
+    <!-- ACCUEIL -->
+    <div class="tab-content active" id="accueil">
+        <div class="hero">
+            <p>Votre magasin de bricolage à Domoni Riadhu.</p>
+            <button class="hero-btn" onclick="openProduits()">Voir nos produits</button>
+        </div>
+    </div>
 
-/* ============================
-   PANIER
-============================ */
-let cart = [];
-const cartPanel = document.getElementById("cart-panel");
-const overlay = document.getElementById("overlay");
-const cartCount = document.getElementById("cart-count");
+    <!-- SERVICES -->
+    <div class="tab-content" id="services">
+        <h2>Nos services</h2>
+        <ul>
+            <li>Vente d’outils et équipements</li>
+            <li>Matériaux pour la maison</li>
+            <li>Produits électriques et plomberie</li>
+            <li>Accessoires d’entretien</li>
+            <li>Conseils rapides en magasin</li>
+        </ul>
+    </div>
 
-function openCart() {
-    cartPanel.classList.add("open");
-    overlay.classList.add("show");
-}
+    <!-- GALERIE -->
+    <div class="tab-content" id="galerie">
+        <h2>Galerie photos</h2>
+        <p>Aucune photo pour le moment.</p>
+        <div class="galerie-grid"></div>
+    </div>
 
-function closeCart() {
-    cartPanel.classList.remove("open");
-    overlay.classList.remove("show");
-}
+    <!-- PRODUITS -->
+    <div class="tab-content" id="produits">
+        <h2>Nos produits</h2>
 
-document.querySelector(".cart-icon")?.addEventListener("click", openCart);
-document.getElementById("close-cart")?.addEventListener("click", closeCart);
-overlay?.addEventListener("click", closeCart);
+        <h3 class="cat-title">Catégories</h3>
+        <div class="categories">
+            <div class="cat-card">🔨 Outils</div>
+            <div class="cat-card">💡 Électricité</div>
+            <div class="cat-card">🚰 Plomberie</div>
+            <div class="cat-card">🏠 Maison</div>
+            <div class="cat-card">🧰 Accessoires</div>
+        </div>
 
-/* ============================
-   MENU MOBILE
-============================ */
-const hamburger = document.getElementById("hamburger");
-const mobileMenu = document.getElementById("mobile-menu");
-const closeMobile = document.querySelector(".close-mobile");
-const mobileLinks = document.querySelectorAll(".mobile-link");
+        <section id="search">
+            <input type="text" id="search-input" placeholder="Rechercher un produit...">
+        </section>
 
-hamburger?.addEventListener("click", () => {
-    hamburger.classList.toggle("open");
-    mobileMenu.classList.add("open");
-});
+        <section id="sort">
+            <select id="sort-select">
+                <option value="none">Trier par…</option>
+                <option value="price-asc">Prix croissant</option>
+                <option value="price-desc">Prix décroissant</option>
+                <option value="az">A → Z</option>
+                <option value="za">Z → A</option>
+            </select>
+        </section>
 
-closeMobile?.addEventListener("click", () => {
-    hamburger.classList.remove("open");
-    mobileMenu.classList.remove("open");
-});
+        <p id="result-count"></p>
+        <div id="product-list" class="product-grid"></div>
 
-mobileLinks.forEach(btn => {
-    btn.addEventListener("click", () => {
-        const tabBtn = document.querySelector(`.tab-btn[data-tab="${btn.dataset.tab}"]`);
-        if (tabBtn) tabBtn.click();
-    });
-});
+        <div class="cart" id="cart-panel">
+            <button id="close-cart" class="close-cart">✖</button>
+            <h3>Panier</h3>
+            <ul id="cart-items"></ul>
+            <p>Total : <span id="total">0</span> KMF</p>
 
-/* ============================
-   RECHERCHE PRODUITS
-============================ */
-const searchInput = document.getElementById("search-input");
-const resultCount = document.getElementById("result-count");
+            <a id="whatsapp-btn" class="btn-whatsapp" target="_blank">Commander via WhatsApp</a>
+            <a href="tel:+2694484047" class="btn-call">Appeler maintenant</a>
+        </div>
 
-searchInput?.addEventListener("input", () => {
-    const term = searchInput.value.toLowerCase();
-    const products = document.querySelectorAll(".product");
-    let count = 0;
+        <div id="overlay"></div>
+        <div id="add-alert">Ajouter au panier</div>
+    </div>
 
-    products.forEach(p => {
-        const name = p.querySelector("h4")?.textContent.toLowerCase() || "";
-        if (name.includes(term)) {
-            p.style.display = "block";
-            count++;
-        } else {
-            p.style.display = "none";
-        }
-    });
+    <!-- À PROPOS -->
+    <div class="tab-content" id="apropos">
+        <h2>À propos</h2>
+        <p>BRICO DOMONI est un magasin de matériaux et équipements situé à Domoni Riadhu.</p>
+    </div>
 
-    if (resultCount) resultCount.textContent = `${count} résultat(s)`;
-});
+    <!-- CONTACT -->
+    <div class="tab-content" id="contact">
+        <h2>Contact</h2>
+        <p><strong>Adresse :</strong> Domoni Riadhu — en face de la pharmacie du Dr Salim</p>
+        <p><strong>Horaires :</strong> 08h00 → 20h00</p>
+        <p><strong>Téléphone / WhatsApp :</strong> +269 44 84 047</p>
+    </div>
 
-/* ============================
-   TRI PRODUITS
-============================ */
-const sortSelect = document.getElementById("sort-select");
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 BRICO DOMONI — Tous droits réservés</p>
+        <p class="dev">Site développé par Kaambi</p>
+    </footer>
 
-sortSelect?.addEventListener("change", () => {
-    const products = Array.from(document.querySelectorAll(".product"));
-    const container = document.getElementById("product-list");
-    if (!container) return;
-
-    const value = sortSelect.value;
-
-    products.sort((a, b) => {
-        const nameA = a.querySelector("h4")?.textContent || "";
-        const nameB = b.querySelector("h4")?.textContent || "";
-        const priceA = parseInt(a.dataset.price || "0");
-        const priceB = parseInt(b.dataset.price || "0");
-
-        if (value === "price-asc") return priceA - priceB;
-        if (value === "price-desc") return priceB - priceA;
-        if (value === "az") return nameA.localeCompare(nameB);
-        if (value === "za") return nameB.localeCompare(nameA);
-        return 0;
-    });
-
-    container.innerHTML = "";
-    products.forEach(p => container.appendChild(p));
-});
+    <script src="script.js" defer></script>
+</body>
+</html>

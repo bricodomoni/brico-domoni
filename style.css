@@ -60,9 +60,12 @@ h2 {
     object-fit: contain;
 }
 
+/* ONGLET CENTRÉ */
 #tabs-menu {
     display: flex;
     gap: 12px;
+    justify-content: center; /* centre les onglets */
+    flex: 1; /* occupe l'espace central */
 }
 
 #tabs-menu .tab-btn {
@@ -89,6 +92,7 @@ h2 {
     display: flex;
     align-items: center;
     gap: 20px;
+    margin-right: 20px; /* décalage vers la gauche */
 }
 
 .cart-icon {
@@ -99,7 +103,6 @@ h2 {
     padding: 0;
     display: flex;
     align-items: center;
-    margin-right: 10px;
 }
 
 .cart-img {

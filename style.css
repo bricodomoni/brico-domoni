@@ -449,9 +449,14 @@ h2 {
         margin: 15px;
     }
 
-    .hero {
-        margin: 15px;
-        padding: 35px 15px;
+   hero {
+        margin: 20px 10px;
+        padding: 30px 15px;
+    }
+
+    .tab-content {
+        margin: 10px;
+        padding: 10px;
     }
 
     .categories {
@@ -463,4 +468,9 @@ h2 {
         padding: 10px;
         gap: 10px;
     }
+   footer {
+    margin-top: 30px;
+    padding: 20px 10px;
+    text-align: center;
+}
 }

@@ -426,7 +426,7 @@ h2 {
 }
 
 /* ============================
-   FOOTER (DÉCALÉ À DROITE)
+   FOOTER CENTRÉ / DÉCALÉ
 ============================ */
 footer {
     text-align: right;
@@ -462,17 +462,12 @@ footer {
     }
 
     .hero {
-        margin: 20px 10px;
+        margin: 15px;
         padding: 35px 15px;
     }
 
-    .categories {
-        padding: 10px;
-        gap: 10px;
-    }
-
-    .product-grid {
-        padding: 10px;
-        gap: 10px;
+    footer {
+        text-align: center;
+        padding-right: 0;
     }
 }

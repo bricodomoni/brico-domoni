@@ -21,6 +21,8 @@ const closeCart = document.getElementById("close-cart");
 const menuToggle = document.getElementById("menu-toggle");
 const mobileMenu = document.getElementById("mobile-menu");
 
+const addAlert = document.getElementById("add-alert");
+
 let cart = [];
 
 // AFFICHAGE DES PRODUITS
@@ -44,10 +46,15 @@ function addToCart(i) {
     if (existing) {
         existing.quantity += 1;
     } else {
-        cart.push({ name: product.name, price: product.price, quantity: 1 });
+        cart.push({
+            name: product.name,
+            price: product.price,
+            quantity: 1
+        });
     }
 
     updateCart();
+    showAddAlert(); // notification
 }
 
 // MISE À JOUR DU PANIER
@@ -116,3 +123,12 @@ menuToggle.addEventListener("click", () => {
     menuToggle.classList.toggle("open");
     overlay.classList.toggle("show");
 });
+
+// NOTIFICATION AJOUT PANIER
+function showAddAlert() {
+    addAlert.classList.add("show");
+
+    setTimeout(() => {
+        addAlert.classList.remove("show");
+    }, 2000);
+}

@@ -24,6 +24,27 @@ h2 {
 }
 
 /* ============================
+   HEADER AVEC LOGO EN HAUT À DROITE
+============================ */
+#top-header {
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 3002;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+#top-logo {
+    height: 55px;
+    object-fit: contain;
+}
+
+/* ============================
    MENU HAMBURGER MOBILE
 ============================ */
 #hamburger {
@@ -35,7 +56,7 @@ h2 {
     cursor: pointer;
     padding: 10px;
     position: fixed;
-    top: 10px;
+    top: 80px;
     left: 10px;
     z-index: 3001;
 }
@@ -43,7 +64,7 @@ h2 {
 #hamburger span {
     width: 26px;
     height: 3px;
-    background: white;
+    background: var(--bleu);
     border-radius: 3px;
     transition: 0.3s ease;
 }
@@ -170,63 +191,15 @@ h2 {
 }
 
 /* ============================
-   CONTENU DES ONGLETS
-============================ */
-.tab-content {
-    display: none;
-    padding: 25px;
-    background: var(--gris);
-    border-radius: 8px;
-    margin: 20px;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-/* ============================
-   HERO / ACCUEIL
-============================ */
-.hero {
-    background: linear-gradient(135deg, #0A1F44, #123a7a);
-    color: white;
-    padding: 70px 20px;
-    text-align: center;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.site-logo {
-    width: 120px;
-    margin-bottom: 15px;
-}
-
-.hero-btn {
-    background: var(--orange);
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    font-size: 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.hero-btn:hover {
-    background: #ffb74d;
-    transform: scale(1.05);
-}
-
-/* ============================
-   SLIDER
+   SLIDER (REMONTÉ EN HAUT)
 ============================ */
 .slider {
     position: relative;
     width: 100%;
-    max-width: 900px;
-    margin: 30px auto;
+    max-width: 100%;
+    margin-top: 0;
     overflow: hidden;
-    border-radius: 12px;
+    border-radius: 0;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
@@ -262,6 +235,34 @@ h2 {
 
 .prev { left: 10px; }
 .next { right: 10px; }
+
+/* ============================
+   HERO / ACCUEIL
+============================ */
+.hero {
+    background: linear-gradient(135deg, #0A1F44, #123a7a);
+    color: white;
+    padding: 50px 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.hero-btn {
+    background: var(--orange);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hero-btn:hover {
+    background: #ffb74d;
+    transform: scale(1.05);
+}
 
 /* ============================
    CATÉGORIES

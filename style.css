@@ -85,8 +85,10 @@ h2 {
    PANIER
 ============================ */
 .header-right {
+    margin-left: auto;
     display: flex;
     align-items: center;
+    gap: 20px;
 }
 
 .cart-icon {
@@ -97,6 +99,7 @@ h2 {
     padding: 0;
     display: flex;
     align-items: center;
+    margin-right: 10px;
 }
 
 .cart-img {
@@ -250,7 +253,6 @@ h2 {
     border-radius: 10px;
     max-width: 900px;
     margin: 20px auto;
-
 }
 
 .hero-btn {
@@ -424,6 +426,16 @@ h2 {
 }
 
 /* ============================
+   FOOTER (DÉCALÉ À DROITE)
+============================ */
+footer {
+    text-align: right;
+    padding-right: 25px;
+    margin-top: 30px;
+    padding-bottom: 20px;
+}
+
+/* ============================
    RESPONSIVE
 ============================ */
 @media screen and (max-width: 700px) {
@@ -449,14 +461,9 @@ h2 {
         margin: 15px;
     }
 
-   hero {
+    .hero {
         margin: 20px 10px;
-        padding: 30px 15px;
-    }
-
-    .tab-content {
-        margin: 10px;
-        padding: 10px;
+        padding: 35px 15px;
     }
 
     .categories {
@@ -468,9 +475,4 @@ h2 {
         padding: 10px;
         gap: 10px;
     }
-   footer {
-    margin-top: 30px;
-    padding: 20px 10px;
-    text-align: center;
-}
 }

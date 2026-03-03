@@ -1,42 +1,79 @@
-// LISTE DES PRODUITS AVEC IMAGES
+// LISTE DES PRODUITS AVEC CATÉGORIES
 const products = [
-    { name: "Marteau", price: 2500, image: "marteau.jpg" },
-    { name: "Tournevis", price: 1500, image: "tournevis.jpg" },
-    { name: "Clé plate", price: 1800, image: "cle.jpg" },
-    { name: "Pince", price: 2200, image: "pince.jpg" },
-    { name: "Ampoule LED", price: 500, image: "ampoule.jpg" },
-    { name: "Raccord plomberie", price: 300, image: "raccord.jpg" }
+    { name: "Marteau", price: 2500, image: "marteau.jpg", category: "Outils" },
+    { name: "Tournevis", price: 1500, image: "tournevis.jpg", category: "Outils" },
+    { name: "Clé plate", price: 1800, image: "cle.jpg", category: "Outils" },
+    { name: "Pince", price: 2200, image: "pince.jpg", category: "Outils" },
+
+    { name: "Ampoule LED", price: 500, image: "ampoule.jpg", category: "Électricité" },
+    { name: "Rallonge électrique", price: 3500, image: "rallonge.jpg", category: "Électricité" },
+
+    { name: "Raccord plomberie", price: 300, image: "raccord.jpg", category: "Plomberie" },
+    { name: "Tuyau PVC", price: 1200, image: "tuyau.jpg", category: "Plomberie" },
+
+    { name: "Gants de travail", price: 800, image: "gants.jpg", category: "Accessoires" },
+    { name: "Ruban adhésif", price: 400, image: "ruban.jpg", category: "Accessoires" }
 ];
 
-const productList = document.getElementById("product-list");
-const cartItems = document.getElementById("cart-items");
-const totalDisplay = document.getElementById("total");
-const whatsappBtn = document.getElementById("whatsapp-btn");
-const cartCount = document.getElementById("cart-count");
-const cartPanel = document.getElementById("cart-panel");
-const cartIcon = document.querySelector(".cart-icon");
-const overlay = document.getElementById("overlay");
-const closeCart = document.getElementById("close-cart");
+const productList      = document.getElementById("product-list");
+const cartItems        = document.getElementById("cart-items");
+const totalDisplay     = document.getElementById("total");
+const whatsappBtn      = document.getElementById("whatsapp-btn");
+const cartCount        = document.getElementById("cart-count");
+const cartPanel        = document.getElementById("cart-panel");
+const cartIcon         = document.querySelector(".cart-icon");
+const overlay          = document.getElementById("overlay");
+const closeCart        = document.getElementById("close-cart");
 
-const menuToggle = document.getElementById("menu-toggle");
-const mobileMenu = document.getElementById("mobile-menu");
+const menuToggle       = document.getElementById("menu-toggle");
+const mobileMenu       = document.getElementById("mobile-menu");
 
-const addAlert = document.getElementById("add-alert");
+const addAlert         = document.getElementById("add-alert");
+
+const searchInput      = document.getElementById("search-input");
+const resultCount      = document.getElementById("result-count");
+const sortSelect       = document.getElementById("sort-select");
+const categoryButtons  = document.querySelectorAll(".cat-btn");
 
 let cart = [];
 
-// AFFICHAGE DES PRODUITS
-products.forEach((p, index) => {
-    const div = document.createElement("div");
-    div.className = "product";
-    div.innerHTML = `
-        <img src="${p.image}" class="product-img">
-        <h4>${p.name}</h4>
-        <p>${p.price} KMF</p>
-        <button onclick="addToCart(${index})">Ajouter</button>
-    `;
-    productList.appendChild(div);
-});
+// AFFICHAGE GÉNÉRAL DES PRODUITS
+function displayProducts(category = "all") {
+    productList.innerHTML = "";
+
+    let filtered = category === "all"
+        ? products
+        : products.filter(p => p.category === category);
+
+    filtered.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+            <img src="${p.image}" class="product-img">
+            <h4>${p.name}</h4>
+            <p>${p.price} KMF</p>
+            <button onclick="addToCart(${products.indexOf(p)})">Ajouter</button>
+        `;
+        productList.appendChild(div);
+    });
+}
+
+// AFFICHAGE D’UNE LISTE FILTRÉE (recherche / tri / catégories)
+function displayFilteredProducts(list) {
+    productList.innerHTML = "";
+
+    list.forEach(p => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+            <img src="${p.image}" class="product-img">
+            <h4>${p.name}</h4>
+            <p>${p.price} KMF</p>
+            <button onclick="addToCart(${products.indexOf(p)})">Ajouter</button>
+        `;
+        productList.appendChild(div);
+    });
+}
 
 // AJOUT AU PANIER
 function addToCart(i) {
@@ -54,7 +91,7 @@ function addToCart(i) {
     }
 
     updateCart();
-    showAddAlert(); // notification
+    showAddAlert();
 }
 
 // MISE À JOUR DU PANIER
@@ -103,13 +140,12 @@ cartIcon.addEventListener("click", () => {
     overlay.classList.toggle("show");
 });
 
-// FERMETURE AVEC LE BOUTON X
 closeCart.addEventListener("click", () => {
     cartPanel.classList.remove("open");
     overlay.classList.remove("show");
 });
 
-// FERMETURE EN CLIQUANT SUR LE FOND SOMBRE
+// OVERLAY : ferme tout
 overlay.addEventListener("click", () => {
     cartPanel.classList.remove("open");
     mobileMenu.classList.remove("open");
@@ -124,7 +160,7 @@ menuToggle.addEventListener("click", () => {
     overlay.classList.toggle("show");
 });
 
-// 🔥 NOTIFICATION ANIMÉE
+// NOTIFICATION AJOUT PANIER
 function showAddAlert() {
     addAlert.classList.add("show");
 
@@ -132,3 +168,117 @@ function showAddAlert() {
         addAlert.classList.remove("show");
     }, 2000);
 }
+
+// CATÉGORIES
+categoryButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+
+        // Retirer l'état actif
+        categoryButtons.forEach(b => b.classList.remove("active"));
+
+        // Ajouter l'état actif
+        btn.classList.add("active");
+
+        // Filtrer par catégorie
+        const cat = btn.getAttribute("data-category");
+
+        let filtered = cat === "all"
+            ? products
+            : products.filter(p => p.category === cat);
+
+        // Appliquer la recherche si active
+        const text = searchInput.value.toLowerCase();
+        if (text !== "") {
+            filtered = filtered.filter(p =>
+                p.name.toLowerCase().includes(text)
+            );
+        }
+
+        // Appliquer le tri si actif
+        filtered = applySort(filtered);
+
+        displayFilteredProducts(filtered);
+        updateResultCount(filtered);
+    });
+});
+
+// RECHERCHE + COMPTEUR
+searchInput.addEventListener("input", () => {
+    const text = searchInput.value.toLowerCase();
+
+    // Catégorie active
+    const activeCat = document.querySelector(".cat-btn.active").dataset.category;
+
+    let list = activeCat === "all"
+        ? products
+        : products.filter(p => p.category === activeCat);
+
+    // Filtre recherche
+    list = list.filter(p =>
+        p.name.toLowerCase().includes(text)
+    );
+
+    // Tri
+    list = applySort(list);
+
+    displayFilteredProducts(list);
+    updateResultCount(list);
+});
+
+// TRI
+sortSelect.addEventListener("change", () => {
+    // Catégorie active
+    const activeCat = document.querySelector(".cat-btn.active").dataset.category;
+
+    let list = activeCat === "all"
+        ? products
+        : products.filter(p => p.category === activeCat);
+
+    // Recherche active
+    const text = searchInput.value.toLowerCase();
+    if (text !== "") {
+        list = list.filter(p => p.name.toLowerCase().includes(text));
+    }
+
+    // Tri
+    list = applySort(list);
+
+    displayFilteredProducts(list);
+    updateResultCount(list);
+});
+
+// FONCTION DE TRI
+function applySort(list) {
+    const value = sortSelect.value;
+    let sorted = [...list];
+
+    if (value === "price-asc") {
+        sorted.sort((a, b) => a.price - b.price);
+    }
+    if (value === "price-desc") {
+        sorted.sort((a, b) => b.price - a.price);
+    }
+    if (value === "az") {
+        sorted.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    if (value === "za") {
+        sorted.sort((a, b) => b.name.localeCompare(a.name));
+    }
+
+    return sorted;
+}
+
+// COMPTEUR
+function updateResultCount(list) {
+    if (list.length === 0) {
+        resultCount.textContent = "Aucun produit trouvé";
+    } else if (list.length === 1) {
+        resultCount.textContent = "1 produit trouvé";
+    } else {
+        resultCount.textContent = list.length + " produits trouvés";
+    }
+}
+
+// AU CHARGEMENT : afficher tous les produits
+displayProducts();
+updateResultCount(products);

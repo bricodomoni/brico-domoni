@@ -26,20 +26,16 @@ let cart = [];
 tabButtons.forEach(btn => {
     btn.addEventListener("click", () => {
 
-        // Active bouton
         tabButtons.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
 
-        // Active contenu
         tabContents.forEach(c => c.classList.remove("active"));
         const target = document.getElementById(btn.dataset.tab);
         if (target) target.classList.add("active");
 
-        // Ferme menu mobile
         mobileMenu.classList.remove("open");
         hamburger.classList.remove("open");
 
-        // Remet slider à zéro si on revient sur Accueil
         if (btn.dataset.tab === "accueil") {
             currentSlide = 0;
             updateSlider();
@@ -48,15 +44,7 @@ tabButtons.forEach(btn => {
 });
 
 /* ============================
-   OUVERTURE DIRECTE PRODUITS
-============================ */
-function openProduits() {
-    const btn = document.querySelector('[data-tab="produits"]');
-    if (btn) btn.click();
-}
-
-/* ============================
-   SLIDER FLUIDE + OPTIMISÉ
+   SLIDER
 ============================ */
 function updateSlider() {
     if (!slidesContainer || slides.length === 0) return;
@@ -73,13 +61,10 @@ document.querySelector(".prev")?.addEventListener("click", () => {
     updateSlider();
 });
 
-// Auto-slide
-if (slides.length > 0) {
-    setInterval(() => {
-        currentSlide = (currentSlide + 1) % slides.length;
-        updateSlider();
-    }, 4500);
-}
+setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    updateSlider();
+}, 4500);
 
 /* ============================
    PANIER

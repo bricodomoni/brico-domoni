@@ -37,16 +37,6 @@ h2 {
     gap: 15px;
     flex-wrap: wrap;
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-
-    /* Animation d’apparition */
-    animation: slideDown 0.6s ease forwards;
-    opacity: 0;
-    transform: translateY(-20px);
-}
-
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ============================
@@ -62,59 +52,35 @@ h2 {
     font-size: 15px;
     font-weight: bold;
     transition: 0.3s;
-    position: relative;
-    overflow: hidden;
 }
 
-/* Survol : effet de remplissage */
-#tabs-menu .tab-btn::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 152, 0, 0.25);
-    transition: all 0.35s ease;
-}
-
-#tabs-menu .tab-btn:hover::before {
-    left: 0;
-}
-
-/* Soulignement animé */
-#tabs-menu .tab-btn::after {
-    content: "";
-    position: absolute;
-    bottom: -3px;
-    left: 50%;
-    width: 0%;
-    height: 3px;
-    background: var(--orange);
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-}
-
-#tabs-menu .tab-btn.active::after {
-    width: 80%;
-}
-
-/* Onglet actif */
 #tabs-menu .tab-btn.active {
     background: var(--orange);
     color: white;
 }
 
-/* Clic : effet rebond */
-#tabs-menu .tab-btn:active {
-    animation: clickBounce 0.25s ease;
+/* ============================
+   NOUVELLE ICÔNE PANIER
+============================ */
+.cart-icon {
+    background: var(--orange);
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
 }
 
-@keyframes clickBounce {
-    0%   { transform: scale(1); }
-    40%  { transform: scale(0.88); }
-    70%  { transform: scale(1.05); }
-    100% { transform: scale(1); }
+.cart-icon:hover {
+    background: #ffb74d;
+    transform: scale(1.1);
+}
+
+.cart-icon svg {
+    fill: white;
 }
 
 /* ============================
@@ -126,15 +92,10 @@ h2 {
     background: var(--gris);
     border-radius: 8px;
     margin: 20px;
-    opacity: 0;
-    transform: translateY(10px) scale(0.98);
-    transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .tab-content.active {
     display: block;
-    opacity: 1;
-    transform: translateY(0) scale(1);
 }
 
 /* ============================
@@ -168,97 +129,60 @@ h2 {
 }
 
 /* ============================
-   BARRE DE RECHERCHE
-============================ */
-#search {
-    text-align: center;
-    margin: 20px 0;
-}
-
-#search-input {
-    width: 80%;
-    max-width: 400px;
-    padding: 12px 15px;
-    font-size: 16px;
-    border: 2px solid var(--bleu);
-    border-radius: 8px;
-    outline: none;
-    transition: 0.3s;
-}
-
-#search-input:focus {
-    border-color: var(--orange);
-    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
-}
-
-/* ============================
-   TRI
-============================ */
-#sort {
-    text-align: center;
-    margin: 10px 0 20px 0;
-}
-
-#sort-select {
-    width: 80%;
-    max-width: 300px;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: 2px solid var(--bleu);
-    border-radius: 8px;
-    outline: none;
-    background: white;
-    transition: 0.3s;
-}
-
-#sort-select:focus {
-    border-color: var(--orange);
-    box-shadow: 0 0 8px rgba(255, 152, 0, 0.5);
-}
-
-/* ============================
-   COMPTEUR
-============================ */
-#result-count {
-    text-align: center;
-    font-size: 16px;
-    margin-top: 10px;
-    color: var(--bleu);
-    font-weight: bold;
-}
-
-/* ============================
-   PANIER SLIDE
+   PANIER SLIDE (NOUVEAU STYLE)
 ============================ */
 #cart-panel {
     position: fixed;
     right: -350px;
     top: 0;
-    width: 300px;
+    width: 320px;
     height: 100%;
     background: white;
-    border-left: 3px solid var(--bleu);
-    padding: 20px;
-    transition: right .3s ease;
+    border-left: 4px solid var(--orange);
+    padding: 25px;
+    transition: right .35s ease;
     overflow-y: auto;
     z-index: 2000;
+    box-shadow: -4px 0 15px rgba(0,0,0,0.15);
 }
 
 #cart-panel.open {
     right: 0;
 }
 
-.close-cart {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
+#cart-panel h3 {
     color: var(--bleu);
+    font-size: 22px;
+    margin-bottom: 15px;
 }
 
+#cart-items li {
+    background: #f8f8f8;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#cart-items button {
+    background: var(--orange);
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#cart-items button:hover {
+    background: #ffb74d;
+}
+
+/* ============================
+   OVERLAY
+============================ */
 #overlay {
     position: fixed;
     top: 0;
@@ -296,22 +220,4 @@ h2 {
 #add-alert.show {
     opacity: 1;
     transform: translateX(-50%) scale(1);
-}
-
-/* ============================
-   RESPONSIVE MOBILE
-============================ */
-@media (max-width: 768px) {
-    .product-grid {
-        grid-template-columns: 1fr;
-    }
-
-    #cart-panel {
-        width: 85%;
-        right: -100%;
-    }
-
-    #cart-panel.open {
-        right: 0;
-    }
 }

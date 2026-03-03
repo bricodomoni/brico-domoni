@@ -22,7 +22,7 @@ function openProduits() {
 }
 
 /* ============================
-   SLIDER
+   SLIDER (REMONTÉ EN HAUT)
 ============================ */
 let currentSlide = 0;
 
@@ -132,4 +132,57 @@ mobileLinks.forEach(btn => {
         hamburger.classList.remove("open");
         mobileMenu.classList.remove("open");
     });
+});
+
+/* ============================
+   RECHERCHE PRODUITS
+============================ */
+const searchInput = document.getElementById("search-input");
+const productList = document.getElementById("product-list");
+const resultCount = document.getElementById("result-count");
+
+searchInput?.addEventListener("input", () => {
+    const term = searchInput.value.toLowerCase();
+    const products = document.querySelectorAll(".product");
+
+    let count = 0;
+
+    products.forEach(p => {
+        const name = p.querySelector("h4").textContent.toLowerCase();
+        if (name.includes(term)) {
+            p.style.display = "block";
+            count++;
+        } else {
+            p.style.display = "none";
+        }
+    });
+
+    resultCount.textContent = `${count} résultat(s)`;
+});
+
+/* ============================
+   TRI PRODUITS
+============================ */
+const sortSelect = document.getElementById("sort-select");
+
+sortSelect?.addEventListener("change", () => {
+    const products = Array.from(document.querySelectorAll(".product"));
+    const container = document.getElementById("product-list");
+    const value = sortSelect.value;
+
+    products.sort((a, b) => {
+        const nameA = a.querySelector("h4").textContent;
+        const nameB = b.querySelector("h4").textContent;
+        const priceA = parseInt(a.dataset.price);
+        const priceB = parseInt(b.dataset.price);
+
+        if (value === "price-asc") return priceA - priceB;
+        if (value === "price-desc") return priceB - priceA;
+        if (value === "az") return nameA.localeCompare(nameB);
+        if (value === "za") return nameB.localeCompare(nameA);
+        return 0;
+    });
+
+    container.innerHTML = "";
+    products.forEach(p => container.appendChild(p));
 });

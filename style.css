@@ -1,4 +1,3 @@
-
 /* ============================
    PALETTE & TYPO
 ============================ */
@@ -20,100 +19,6 @@ body {
     background: #f7f9fc;
     color: #222;
     overflow-x: hidden;
-}
-
-/* ============================
-   TITRES
-============================ */
-h2 {
-    color: var(--bleu);
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* ============================
-   ANIMATIONS GLOBALES
-============================ */
-@keyframes sliderFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-        filter: blur(6px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-    }
-}
-
-@keyframes heroFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(25px);
-        filter: blur(8px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-    }
-}
-
-@keyframes catFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(25px);
-        filter: blur(6px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-    }
-}
-
-@keyframes productFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-        filter: blur(8px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-    }
-}
-
-@keyframes sectionFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(25px);
-        filter: blur(8px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-        filter: blur(0);
-    }
-}
-
-/* ============================
-   ONGLET (AFFICHAGE)
-============================ */
-.tab-content {
-    display: none;
-    padding: 20px;
-    margin: 20px auto;
-    max-width: 1100px;
-    opacity: 0;
-    animation: sectionFadeIn 0.7s ease-out forwards;
-}
-
-.tab-content.active {
-    display: block;
-    opacity: 1;
 }
 
 /* ============================
@@ -252,15 +157,6 @@ h2 {
     left: 0;
 }
 
-.close-mobile {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 22px;
-    align-self: flex-end;
-    cursor: pointer;
-}
-
 .mobile-link {
     background: white;
     color: var(--bleu);
@@ -273,7 +169,6 @@ h2 {
 
 /* ============================
    SLIDER PREMIUM + GLASS
-   (uniquement dans Accueil)
 ============================ */
 .slider {
     position: relative;
@@ -282,19 +177,12 @@ h2 {
     overflow: hidden;
     border-radius: 18px;
     box-shadow: var(--shadow);
-    animation: sliderFadeIn 0.8s ease-out forwards;
-}
-
-.slides {
-    display: flex;
-    transition: transform 0.7s ease-in-out;
 }
 
 .slide {
     width: 100%;
     height: clamp(180px, 30vw, 420px);
     object-fit: cover;
-    flex-shrink: 0;
 }
 
 .slider-btn {
@@ -331,8 +219,6 @@ h2 {
     max-width: 900px;
     margin: 20px auto;
     box-shadow: var(--shadow);
-    animation: heroFadeIn 0.9s ease-out 0.2s forwards;
-    opacity: 0;
 }
 
 .hero-btn {
@@ -354,13 +240,6 @@ h2 {
 /* ============================
    CATÉGORIES PREMIUM
 ============================ */
-.cat-title {
-    text-align: center;
-    color: var(--bleu);
-    margin-top: 10px;
-    font-size: 1.4rem;
-}
-
 .categories {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -378,8 +257,6 @@ h2 {
     color: var(--bleu);
     box-shadow: var(--shadow);
     transition: 0.25s;
-    opacity: 0;
-    animation: catFadeIn 0.8s ease-out forwards;
 }
 
 .cat-card:hover {
@@ -387,13 +264,6 @@ h2 {
     color: white;
     transform: translateY(-4px);
 }
-
-/* décalage progressif */
-.cat-card:nth-child(1) { animation-delay: 0.1s; }
-.cat-card:nth-child(2) { animation-delay: 0.2s; }
-.cat-card:nth-child(3) { animation-delay: 0.3s; }
-.cat-card:nth-child(4) { animation-delay: 0.4s; }
-.cat-card:nth-child(5) { animation-delay: 0.5s; }
 
 /* ============================
    PRODUITS PREMIUM
@@ -412,8 +282,6 @@ h2 {
     text-align: center;
     box-shadow: var(--shadow);
     transition: 0.25s;
-    opacity: 0;
-    animation: productFadeIn 0.9s ease-out forwards;
 }
 
 .product:hover {
@@ -427,18 +295,8 @@ h2 {
     border-radius: 12px;
 }
 
-/* décalage progressif produits (ajuste selon ton nombre) */
-.product:nth-child(1) { animation-delay: 0.1s; }
-.product:nth-child(2) { animation-delay: 0.2s; }
-.product:nth-child(3) { animation-delay: 0.3s; }
-.product:nth-child(4) { animation-delay: 0.4s; }
-.product:nth-child(5) { animation-delay: 0.5s; }
-.product:nth-child(6) { animation-delay: 0.6s; }
-.product:nth-child(7) { animation-delay: 0.7s; }
-.product:nth-child(8) { animation-delay: 0.8s; }
-
 /* ============================
-   PANIER
+   PANIER PREMIUM
 ============================ */
 #cart-panel {
     position: fixed;
@@ -455,94 +313,10 @@ h2 {
     z-index: 2000;
 }
 
-#cart-panel.open {
-    right: 0;
-}
-
-#cart-items li {
-    background: #f8f8f8;
-    padding: 12px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#cart-items button {
-    background: var(--orange);
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-#cart-items button:hover {
-    background: #ffb74d;
-}
-
-/* ============================
-   OVERLAY
-============================ */
-#overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: none;
-    z-index: 1500;
-}
-
-#overlay.show {
-    display: block;
-}
-
-/* ============================
-   NOTIFICATION
-============================ */
-#add-alert {
-    position: fixed;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%) scale(0.8);
-    background: var(--bleu);
-    color: white;
-    padding: 14px 25px;
-    border-radius: 10px;
-    font-size: 17px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity .3s ease, transform .3s ease;
-    z-index: 99999;
-}
-
-#add-alert.show {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-}
-
-/* ============================
-   FOOTER
-============================ */
-footer {
-    text-align: right;
-    padding-right: 25px;
-    margin-top: 30px;
-    padding-bottom: 20px;
-}
-
 /* ============================
    RESPONSIVE
 ============================ */
 @media (max-width: 800px) {
     #tabs-menu { display: none; }
     #hamburger { display: flex; }
-    #main-header { justify-content: space-between; }
-    .tab-content { margin: 15px; padding: 15px; }
-    .hero { margin: 15px auto; }
-    footer { text-align: center; padding-right: 0; }
 }

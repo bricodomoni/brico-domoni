@@ -24,24 +24,86 @@ h2 {
 }
 
 /* ============================
-   HEADER AVEC LOGO EN HAUT À DROITE
+   HEADER PROFESSIONNEL
 ============================ */
-#top-header {
+#main-header {
     width: 100%;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
     background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
     position: sticky;
     top: 0;
-    z-index: 3002;
+    z-index: 3000;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+/* LOGO À GAUCHE */
 #top-logo {
-    height: 55px;
+    height: 60px; /* taille moyenne */
     object-fit: contain;
+}
+
+/* MENU AU CENTRE */
+#tabs-menu {
+    display: flex;
+    gap: 12px;
+}
+
+#tabs-menu .tab-btn {
+    background: var(--bleu);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+#tabs-menu .tab-btn.active {
+    background: var(--orange);
+}
+
+/* PANIER À DROITE */
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+/* ============================
+   ICÔNE PANIER
+============================ */
+.cart-icon {
+    background: none;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.cart-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.cart-count {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background: var(--orange);
+    color: white;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    font-weight: bold;
+    min-width: 18px;
+    text-align: center;
 }
 
 /* ============================
@@ -55,10 +117,7 @@ h2 {
     border: none;
     cursor: pointer;
     padding: 10px;
-    position: fixed;
-    top: 80px;
-    left: 10px;
-    z-index: 3001;
+    margin-left: 15px;
 }
 
 #hamburger span {
@@ -125,73 +184,7 @@ h2 {
 }
 
 /* ============================
-   MENU ONGLET DESKTOP
-============================ */
-#tabs-menu {
-    position: sticky;
-    top: 0;
-    z-index: 2000;
-    background: var(--bleu);
-    padding: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-#tabs-menu .tab-btn {
-    background: white;
-    color: var(--bleu);
-    border: none;
-    padding: 6px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-#tabs-menu .tab-btn.active {
-    background: var(--orange);
-    color: white;
-}
-
-/* ============================
-   ICÔNE PANIER
-============================ */
-.cart-icon {
-    background: none;
-    border: none;
-    position: relative;
-    cursor: pointer;
-    padding: 0;
-    display: flex;
-    align-items: center;
-}
-
-.cart-img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-}
-
-.cart-count {
-    position: absolute;
-    top: -6px;
-    right: -10px;
-    background: var(--orange);
-    color: white;
-    font-size: 11px;
-    padding: 2px 6px;
-    border-radius: 50%;
-    font-weight: bold;
-    min-width: 18px;
-    text-align: center;
-}
-
-/* ============================
-   SLIDER (REMONTÉ EN HAUT)
+   SLIDER SOUS LES ONGLET
 ============================ */
 .slider {
     position: relative;
@@ -422,12 +415,17 @@ h2 {
    RESPONSIVE
 ============================ */
 @media screen and (max-width: 700px) {
+
+    #tabs-menu {
+        display: none; /* menu caché sur mobile */
+    }
+
     #hamburger {
         display: flex;
     }
 
-    #tabs-menu {
-        display: none;
+    #main-header {
+        justify-content: space-between;
     }
 
     .slide {

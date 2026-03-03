@@ -24,6 +24,17 @@ h2 {
 }
 
 /* ============================
+   FIX ONGLET (IMPORTANT)
+============================ */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ============================
    HEADER PROFESSIONNEL
 ============================ */
 #main-header {
@@ -41,7 +52,7 @@ h2 {
 
 /* LOGO À GAUCHE */
 #top-logo {
-    height: 60px; /* taille moyenne */
+    height: 60px;
     object-fit: contain;
 }
 
@@ -184,7 +195,7 @@ h2 {
 }
 
 /* ============================
-   SLIDER SOUS LES ONGLET
+   SLIDER
 ============================ */
 .slider {
     position: relative;
@@ -417,7 +428,7 @@ h2 {
 @media screen and (max-width: 700px) {
 
     #tabs-menu {
-        display: none; /* menu caché sur mobile */
+        display: none;
     }
 
     #hamburger {

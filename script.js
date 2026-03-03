@@ -19,6 +19,7 @@ const mobileLinks = document.querySelectorAll(".mobile-link");
 
 let currentSlide = 0;
 let cart = [];
+let sliderInterval = null;
 
 /* ============================
    ONGLET NAVIGATION
@@ -26,34 +27,23 @@ let cart = [];
 tabButtons.forEach(btn => {
     btn.addEventListener("click", () => {
 
-        // Active bouton
         tabButtons.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
 
-        // Active contenu
         tabContents.forEach(c => c.classList.remove("active"));
         const target = document.getElementById(btn.dataset.tab);
         if (target) target.classList.add("active");
 
-        // Ferme menu mobile
         mobileMenu.classList.remove("open");
         hamburger.classList.remove("open");
 
-        // Remet slider à zéro si on revient sur Accueil
         if (btn.dataset.tab === "accueil") {
-            currentSlide = 0;
-            updateSlider();
+            startSlider();
+        } else {
+            stopSlider();
         }
     });
 });
-
-/* ============================
-   OUVERTURE DIRECTE PRODUITS
-============================ */
-function openProduits() {
-    const btn = document.querySelector('[data-tab="produits"]');
-    if (btn) btn.click();
-}
 
 /* ============================
    SLIDER FLUIDE + OPTIMISÉ
@@ -63,22 +53,31 @@ function updateSlider() {
     slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
 }
 
-document.querySelector(".next")?.addEventListener("click", () => {
+function nextSlide() {
     currentSlide = (currentSlide + 1) % slides.length;
     updateSlider();
-});
+}
 
-document.querySelector(".prev")?.addEventListener("click", () => {
+function prevSlide() {
     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
     updateSlider();
-});
+}
 
-// Auto-slide
-if (slides.length > 0) {
-    setInterval(() => {
-        currentSlide = (currentSlide + 1) % slides.length;
-        updateSlider();
-    }, 4500);
+document.querySelector(".next")?.addEventListener("click", nextSlide);
+document.querySelector(".prev")?.addEventListener("click", prevSlide);
+
+function startSlider() {
+    stopSlider();
+    sliderInterval = setInterval(nextSlide, 4500);
+}
+
+function stopSlider() {
+    if (sliderInterval) clearInterval(sliderInterval);
+}
+
+/* Démarre le slider uniquement si Accueil est actif */
+if (document.getElementById("accueil").classList.contains("active")) {
+    startSlider();
 }
 
 /* ============================
@@ -115,5 +114,7 @@ mobileLinks.forEach(btn => {
     btn.addEventListener("click", () => {
         const tabBtn = document.querySelector(`.tab-btn[data-tab="${btn.dataset.tab}"]`);
         if (tabBtn) tabBtn.click();
+        mobileMenu.classList.remove("open");
+        hamburger.classList.remove("open");
     });
 });

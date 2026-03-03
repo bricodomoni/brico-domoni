@@ -3,15 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRICO DOMONI RIADHU</title>
+    <title>BRICO DOMONI</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/jpg" href="logo.jpg">
 </head>
 
 <body>
 
     <!-- HEADER -->
     <header id="main-header">
-        <img id="top-logo" src="Images/logo.JPG" alt="Logo Brico Domoni">
+
+        <div class="header-left">
+            <img src="logo.jpg" alt="BRICO DOMONI" id="top-logo">
+        </div>
 
         <nav id="tabs-menu">
             <button class="tab-btn active" data-tab="accueil">Accueil</button>
@@ -23,15 +27,18 @@
         </nav>
 
         <div class="header-right">
-            <div class="cart-icon">
-                <img src="Images/panier.png" class="cart-img">
+            <button class="cart-icon" aria-label="Panier">
+                <img src="panier.png" class="cart-img" alt="Panier">
                 <span id="cart-count" class="cart-count">0</span>
-            </div>
+            </button>
 
-            <button id="hamburger">
-                <span></span><span></span><span></span>
+            <button id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
+
     </header>
 
     <!-- MENU MOBILE -->
@@ -46,53 +53,107 @@
     </div>
 
     <!-- SLIDER -->
-    <div class="slider tab-content active" id="accueil">
-        <button class="prev">❮</button>
-
+    <div class="slider">
         <div class="slides">
-            <img src="Images/Brouette.jpg" class="slide">
-            <img src="Images/9641602024.jpg" class="slide">
-            <img src="Images/AST187429-XL.jpg" class="slide">
+            <img src="images/slider1.jpg" class="slide active">
+            <img src="images/slider2.jpg" class="slide">
+            <img src="images/slider3.jpg" class="slide">
+        </div>
+        <button class="slider-btn prev">❮</button>
+        <button class="slider-btn next">❯</button>
+    </div>
+
+    <!-- ACCUEIL -->
+    <div class="tab-content active" id="accueil">
+        <div class="hero">
+            <p>Votre magasin de bricolage à Domoni Riadhu.</p>
+            <button class="hero-btn" onclick="openProduits()">Voir nos produits</button>
+        </div>
+    </div>
+
+    <!-- SERVICES -->
+    <div class="tab-content" id="services">
+        <h2>Nos services</h2>
+        <ul>
+            <li>Vente d’outils et équipements</li>
+            <li>Matériaux pour la maison</li>
+            <li>Produits électriques et plomberie</li>
+            <li>Accessoires d’entretien</li>
+            <li>Conseils rapides en magasin</li>
+        </ul>
+    </div>
+
+    <!-- GALERIE -->
+    <div class="tab-content" id="galerie">
+        <h2>Galerie photos</h2>
+        <p>Aucune photo pour le moment.</p>
+        <div class="galerie-grid"></div>
+    </div>
+
+    <!-- PRODUITS -->
+    <div class="tab-content" id="produits">
+        <h2>Nos produits</h2>
+
+        <h3 class="cat-title">Catégories</h3>
+        <div class="categories">
+            <div class="cat-card">🔨 Outils</div>
+            <div class="cat-card">💡 Électricité</div>
+            <div class="cat-card">🚰 Plomberie</div>
+            <div class="cat-card">🏠 Maison</div>
+            <div class="cat-card">🧰 Accessoires</div>
         </div>
 
-        <button class="next">❯</button>
+        <section id="search">
+            <input type="text" id="search-input" placeholder="Rechercher un produit...">
+        </section>
+
+        <section id="sort">
+            <select id="sort-select">
+                <option value="none">Trier par…</option>
+                <option value="price-asc">Prix croissant</option>
+                <option value="price-desc">Prix décroissant</option>
+                <option value="az">A → Z</option>
+                <option value="za">Z → A</option>
+            </select>
+        </section>
+
+        <p id="result-count"></p>
+        <div id="product-list" class="product-grid"></div>
+
+        <div class="cart" id="cart-panel">
+            <button id="close-cart" class="close-cart">✖</button>
+            <h3>Panier</h3>
+            <ul id="cart-items"></ul>
+            <p>Total : <span id="total">0</span> KMF</p>
+
+            <a id="whatsapp-btn" class="btn-whatsapp" target="_blank">Commander via WhatsApp</a>
+            <a href="tel:+2694484047" class="btn-call">Appeler maintenant</a>
+        </div>
+
+        <div id="overlay"></div>
+        <div id="add-alert">Ajouter au panier</div>
     </div>
 
-    <!-- SECTIONS -->
-    <section class="tab-content" id="services">
-        <h2>Nos services</h2>
-        <p>Contenu à ajouter…</p>
-    </section>
-
-    <section class="tab-content" id="galerie">
-        <h2>Galerie</h2>
-        <p>Contenu à ajouter…</p>
-    </section>
-
-    <section class="tab-content" id="produits">
-        <h2>Produits</h2>
-        <p>Contenu à ajouter…</p>
-    </section>
-
-    <section class="tab-content" id="apropos">
+    <!-- À PROPOS -->
+    <div class="tab-content" id="apropos">
         <h2>À propos</h2>
-        <p>Contenu à ajouter…</p>
-    </section>
-
-    <section class="tab-content" id="contact">
-        <h2>Contact</h2>
-        <p>Contenu à ajouter…</p>
-    </section>
-
-    <!-- PANIER -->
-    <div id="cart-panel">
-        <button id="close-cart">Fermer</button>
-        <h2>Votre panier</h2>
-        <p>Le panier est vide.</p>
+        <p>BRICO DOMONI est un magasin de matériaux et équipements situé à Domoni Riadhu.</p>
     </div>
 
-    <div id="overlay"></div>
+    <!-- CONTACT -->
+    <div class="tab-content" id="contact">
+        <h2>Contact</h2>
+        <p><strong>Adresse :</strong> Domoni Riadhu — en face de la pharmacie du Dr Salim</p>
+        <p><strong>Horaires :</strong> 08h00 → 20h00</p>
+        <p><strong>Téléphone / WhatsApp :</strong> +269 44 84 047</p>
+    </div>
 
-    <script src="script.js"></script>
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 BRICO DOMONI — Tous droits réservés</p>
+        <p class="dev">Site développé par Kaambi</p>
+    </footer>
+
+    <script src="script.js" defer></script>
 </body>
 </html>

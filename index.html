@@ -5,12 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRICO DOMONI</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="logo.jpg">
+    <link rel="icon" type="image/jpg" href="logo.jpg">
 </head>
 
 <body>
 
-    <!-- MENU ONGLET STICKY -->
+    <!-- MENU HAMBURGER MOBILE -->
+    <button id="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div id="mobile-menu">
+        <button class="close-mobile">✖</button>
+        <button class="mobile-link" data-tab="accueil">Accueil</button>
+        <button class="mobile-link" data-tab="services">Nos services</button>
+        <button class="mobile-link" data-tab="galerie">Galerie</button>
+        <button class="mobile-link" data-tab="produits">Produits</button>
+        <button class="mobile-link" data-tab="apropos">À propos</button>
+        <button class="mobile-link" data-tab="contact">Contact</button>
+    </div>
+
+    <!-- MENU ONGLET DESKTOP -->
     <nav id="tabs-menu">
         <button class="tab-btn active" data-tab="accueil">Accueil</button>
         <button class="tab-btn" data-tab="services">Nos services</button>
@@ -19,49 +36,71 @@
         <button class="tab-btn" data-tab="apropos">À propos</button>
         <button class="tab-btn" data-tab="contact">Contact</button>
 
-        <!-- NOUVELLE ICÔNE PANIER -->
+        <!-- ICÔNE PANIER -->
         <button class="cart-icon" aria-label="Panier">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
-                <path d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.44c-.16.28-.25.61-.25.97 0 1.1.9 2 2 2h9v-2h-9l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1h-14zm0 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-            </svg>
+            <img src="images/panier.png" class="cart-img" alt="Panier">
+            <span id="cart-count" class="cart-count">0</span>
         </button>
     </nav>
 
-    <!-- CONTENU ONGLET : ACCUEIL -->
+    <!-- ACCUEIL -->
     <div class="tab-content active" id="accueil">
-        <h2>Accueil</h2>
-        <p>Bienvenue chez BRICO DOMONI — votre magasin de bricolage à Domoni Riadhu.</p>
+
+        <div class="hero">
+            <img src="logo.jpg" class="site-logo" alt="BRICO DOMONI">
+            <p>Votre magasin de bricolage à Domoni Riadhu.</p>
+            <button class="hero-btn" onclick="openProduits()">Voir nos produits</button>
+        </div>
+
+        <!-- SLIDER -->
+        <div class="slider">
+            <div class="slides">
+                <img src="images/slider1.jpg" class="slide active">
+                <img src="images/slider2.jpg" class="slide">
+                <img src="images/slider3.jpg" class="slide">
+            </div>
+            <button class="slider-btn prev">❮</button>
+            <button class="slider-btn next">❯</button>
+        </div>
+
     </div>
 
-    <!-- CONTENU ONGLET : SERVICES -->
+    <!-- SERVICES -->
     <div class="tab-content" id="services">
         <h2>Nos services</h2>
         <ul>
-            <li>Vente d’outils et équipements de bricolage</li>
-            <li>Matériaux pour la maison et la construction</li>
+            <li>Vente d’outils et équipements</li>
+            <li>Matériaux pour la maison</li>
             <li>Produits électriques et plomberie</li>
-            <li>Accessoires pour l’entretien de la maison</li>
+            <li>Accessoires d’entretien</li>
             <li>Conseils rapides en magasin</li>
         </ul>
     </div>
 
-    <!-- CONTENU ONGLET : GALERIE -->
+    <!-- GALERIE -->
     <div class="tab-content" id="galerie">
         <h2>Galerie photos</h2>
         <p>Aucune photo pour le moment.</p>
         <div class="galerie-grid"></div>
     </div>
 
-    <!-- CONTENU ONGLET : PRODUITS -->
+    <!-- PRODUITS -->
     <div class="tab-content" id="produits">
         <h2>Nos produits</h2>
 
-        <!-- BARRE DE RECHERCHE -->
+        <h3 class="cat-title">Catégories</h3>
+        <div class="categories">
+            <div class="cat-card">🔨 Outils</div>
+            <div class="cat-card">💡 Électricité</div>
+            <div class="cat-card">🚰 Plomberie</div>
+            <div class="cat-card">🏠 Maison</div>
+            <div class="cat-card">🧰 Accessoires</div>
+        </div>
+
         <section id="search">
             <input type="text" id="search-input" placeholder="Rechercher un produit...">
         </section>
 
-        <!-- TRI -->
         <section id="sort">
             <select id="sort-select">
                 <option value="none">Trier par…</option>
@@ -72,13 +111,10 @@
             </select>
         </section>
 
-        <!-- COMPTEUR -->
         <p id="result-count"></p>
-
-        <!-- LISTE DES PRODUITS -->
         <div id="product-list" class="product-grid"></div>
 
-        <!-- PANIER SLIDE -->
+        <!-- PANIER -->
         <div class="cart" id="cart-panel">
             <button id="close-cart" class="close-cart">✖</button>
             <h3>Panier</h3>
@@ -89,28 +125,21 @@
             <a href="tel:+2694484047" class="btn-call">Appeler maintenant</a>
         </div>
 
-        <!-- OVERLAY -->
         <div id="overlay"></div>
-
-        <!-- NOTIFICATION -->
         <div id="add-alert">Ajouter au panier</div>
     </div>
 
-    <!-- CONTENU ONGLET : À PROPOS -->
+    <!-- À PROPOS -->
     <div class="tab-content" id="apropos">
         <h2>À propos</h2>
-        <p>
-            BRICO DOMONI est un magasin de matériaux et équipements situé à Domoni Riadhu.
-            Nous proposons des outils, accessoires et produits essentiels pour la maison,
-            le bricolage et la construction.
-        </p>
+        <p>BRICO DOMONI est un magasin de matériaux et équipements situé à Domoni Riadhu.</p>
     </div>
 
-    <!-- CONTENU ONGLET : CONTACT -->
+    <!-- CONTACT -->
     <div class="tab-content" id="contact">
         <h2>Contact</h2>
-        <p><strong>Adresse :</strong> Domoni Riadhu — en face de la pharmacie du Dr Salim — Anjouan</p>
-        <p><strong>Horaires :</strong> Lundi → Dimanche : 08h00 à 20h00</p>
+        <p><strong>Adresse :</strong> Domoni Riadhu — en face de la pharmacie du Dr Salim</p>
+        <p><strong>Horaires :</strong> 08h00 → 20h00</p>
         <p><strong>Téléphone / WhatsApp :</strong> +269 44 84 047</p>
     </div>
 
@@ -120,6 +149,6 @@
         <p class="dev">Site développé par Kaambi</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

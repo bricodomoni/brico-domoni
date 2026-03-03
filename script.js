@@ -7,16 +7,13 @@ const tabContents = document.querySelectorAll(".tab-content");
 tabButtons.forEach(btn => {
     btn.addEventListener("click", () => {
 
-        // Onglet actif
         tabButtons.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
 
-        // Contenu actif
         tabContents.forEach(c => c.classList.remove("active"));
         const target = document.getElementById(btn.dataset.tab);
         if (target) target.classList.add("active");
 
-        // Fermer menu mobile
         mobileMenu.classList.remove("open");
         hamburger.classList.remove("open");
     });

@@ -132,10 +132,14 @@ const overlay = document.getElementById("overlay");
 const closeCart = document.getElementById("close-cart");
 
 /* Ouvrir / fermer panier */
-document.querySelector(".cart-icon")?.addEventListener("click", () => {
-    cartPanel.classList.add("open");
-    overlay.classList.add("show");
-});
+const cartIcon = document.querySelector(".cart-icon");
+
+if (cartIcon) {
+    cartIcon.addEventListener("click", () => {
+        cartPanel.classList.add("open");
+        overlay.classList.add("show");
+    });
+}
 
 closeCart?.addEventListener("click", () => {
     cartPanel.classList.remove("open");
@@ -177,7 +181,6 @@ function updateCart() {
     });
 
     totalDisplay.textContent = total;
-    cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     const message = encodeURIComponent(
         "Bonjour, je souhaite commander :\n\n" +

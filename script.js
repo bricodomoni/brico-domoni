@@ -6,11 +6,14 @@ const tabContents = document.querySelectorAll(".tab-content");
 
 tabButtons.forEach(btn => {
     btn.addEventListener("click", () => {
+        // onglet actif
         tabButtons.forEach(b => b.classList.remove("active"));
         btn.classList.add("active");
 
+        // contenu actif
         tabContents.forEach(c => c.classList.remove("active"));
-        document.getElementById(btn.dataset.tab).classList.add("active");
+        const target = document.getElementById(btn.dataset.tab);
+        if (target) target.classList.add("active");
     });
 });
 
@@ -18,35 +21,46 @@ tabButtons.forEach(btn => {
    OUVERTURE DIRECTE PRODUITS
 ============================ */
 function openProduits() {
-    document.querySelector('[data-tab="produits"]').click();
+    const btnProduits = document.querySelector('[data-tab="produits"]');
+    if (btnProduits) btnProduits.click();
 }
 
 /* ============================
-   SLIDER (REMONTÉ EN HAUT)
+   SLIDER
 ============================ */
 let currentSlide = 0;
+const slidesContainer = document.querySelector(".slides");
+const slides = document.querySelectorAll(".slide");
+const nextBtn = document.querySelector(".next");
+const prevBtn = document.querySelector(".prev");
 
 function updateSlider() {
-    const slides = document.querySelectorAll(".slide");
-    const sliderContainer = document.querySelector(".slides");
+    if (!slidesContainer || slides.length === 0) return;
     currentSlide = (currentSlide + slides.length) % slides.length;
-    sliderContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
+    slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
 }
 
-document.querySelector(".next")?.addEventListener("click", () => {
-    currentSlide++;
-    updateSlider();
-});
+if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+        currentSlide++;
+        updateSlider();
+    });
+}
 
-document.querySelector(".prev")?.addEventListener("click", () => {
-    currentSlide--;
-    updateSlider();
-});
+if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+        currentSlide--;
+        updateSlider();
+    });
+}
 
-setInterval(() => {
-    currentSlide++;
-    updateSlider();
-}, 4000);
+// auto défilement
+if (slides.length > 0) {
+    setInterval(() => {
+        currentSlide++;
+        updateSlider();
+    }, 4000);
+}
 
 /* ============================
    PANIER
@@ -55,24 +69,28 @@ let cart = [];
 const cartPanel = document.getElementById("cart-panel");
 const overlay = document.getElementById("overlay");
 const cartCount = document.getElementById("cart-count");
+const closeCartBtn = document.getElementById("close-cart");
+const cartIcon = document.querySelector(".cart-icon");
 
 function openCart() {
-    cartPanel.classList.add("open");
-    overlay.classList.add("show");
+    if (cartPanel) cartPanel.classList.add("open");
+    if (overlay) overlay.classList.add("show");
 }
 
 function closeCart() {
-    cartPanel.classList.remove("open");
-    overlay.classList.remove("show");
+    if (cartPanel) cartPanel.classList.remove("open");
+    if (overlay) overlay.classList.remove("show");
 }
 
-document.querySelector(".cart-icon").addEventListener("click", openCart);
-document.getElementById("close-cart").addEventListener("click", closeCart);
-overlay.addEventListener("click", closeCart);
+if (cartIcon) cartIcon.addEventListener("click", openCart);
+if (closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
+if (overlay) overlay.addEventListener("click", closeCart);
 
 function updateCart() {
     const cartItems = document.getElementById("cart-items");
     const totalElement = document.getElementById("total");
+    if (!cartItems || !totalElement || !cartCount) return;
+
     cartItems.innerHTML = "";
 
     let total = 0;
@@ -109,80 +127,89 @@ function changeQty(name, delta) {
 }
 
 /* ============================
-   MENU HAMBURGER
+   MENU HAMBURGER / MOBILE
 ============================ */
 const hamburger = document.getElementById("hamburger");
 const mobileMenu = document.getElementById("mobile-menu");
 const closeMobile = document.querySelector(".close-mobile");
 const mobileLinks = document.querySelectorAll(".mobile-link");
 
-hamburger.addEventListener("click", () => {
-    hamburger.classList.toggle("open");
-    mobileMenu.classList.add("open");
-});
+if (hamburger && mobileMenu) {
+    hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("open");
+        mobileMenu.classList.add("open");
+    });
+}
 
-closeMobile.addEventListener("click", () => {
-    hamburger.classList.remove("open");
-    mobileMenu.classList.remove("open");
-});
-
-mobileLinks.forEach(btn => {
-    btn.addEventListener("click", () => {
-        document.querySelector(`[data-tab="${btn.dataset.tab}"]`).click();
+if (closeMobile && mobileMenu && hamburger) {
+    closeMobile.addEventListener("click", () => {
         hamburger.classList.remove("open");
         mobileMenu.classList.remove("open");
     });
+}
+
+mobileLinks.forEach(btn => {
+    btn.addEventListener("click", () => {
+        const tabBtn = document.querySelector(`.tab-btn[data-tab="${btn.dataset.tab}"]`);
+        if (tabBtn) tabBtn.click();
+        if (hamburger) hamburger.classList.remove("open");
+        if (mobileMenu) mobileMenu.classList.remove("open");
+    });
 });
 
 /* ============================
-   RECHERCHE PRODUITS
+   RECHERCHE PRODUITS (optionnel)
 ============================ */
 const searchInput = document.getElementById("search-input");
-const productList = document.getElementById("product-list");
 const resultCount = document.getElementById("result-count");
 
-searchInput?.addEventListener("input", () => {
-    const term = searchInput.value.toLowerCase();
-    const products = document.querySelectorAll(".product");
+if (searchInput) {
+    searchInput.addEventListener("input", () => {
+        const term = searchInput.value.toLowerCase();
+        const products = document.querySelectorAll(".product");
+        let count = 0;
 
-    let count = 0;
+        products.forEach(p => {
+            const name = p.querySelector("h4")?.textContent.toLowerCase() || "";
+            if (name.includes(term)) {
+                p.style.display = "block";
+                count++;
+            } else {
+                p.style.display = "none";
+            }
+        });
 
-    products.forEach(p => {
-        const name = p.querySelector("h4").textContent.toLowerCase();
-        if (name.includes(term)) {
-            p.style.display = "block";
-            count++;
-        } else {
-            p.style.display = "none";
-        }
+        if (resultCount) resultCount.textContent = `${count} résultat(s)`;
     });
-
-    resultCount.textContent = `${count} résultat(s)`;
-});
+}
 
 /* ============================
-   TRI PRODUITS
+   TRI PRODUITS (optionnel)
 ============================ */
 const sortSelect = document.getElementById("sort-select");
 
-sortSelect?.addEventListener("change", () => {
-    const products = Array.from(document.querySelectorAll(".product"));
-    const container = document.getElementById("product-list");
-    const value = sortSelect.value;
+if (sortSelect) {
+    sortSelect.addEventListener("change", () => {
+        const products = Array.from(document.querySelectorAll(".product"));
+        const container = document.getElementById("product-list");
+        if (!container) return;
 
-    products.sort((a, b) => {
-        const nameA = a.querySelector("h4").textContent;
-        const nameB = b.querySelector("h4").textContent;
-        const priceA = parseInt(a.dataset.price);
-        const priceB = parseInt(b.dataset.price);
+        const value = sortSelect.value;
 
-        if (value === "price-asc") return priceA - priceB;
-        if (value === "price-desc") return priceB - priceA;
-        if (value === "az") return nameA.localeCompare(nameB);
-        if (value === "za") return nameB.localeCompare(nameA);
-        return 0;
+        products.sort((a, b) => {
+            const nameA = a.querySelector("h4")?.textContent || "";
+            const nameB = b.querySelector("h4")?.textContent || "";
+            const priceA = parseInt(a.dataset.price || "0");
+            const priceB = parseInt(b.dataset.price || "0");
+
+            if (value === "price-asc") return priceA - priceB;
+            if (value === "price-desc") return priceB - priceA;
+            if (value === "az") return nameA.localeCompare(nameB);
+            if (value === "za") return nameB.localeCompare(nameA);
+            return 0;
+        });
+
+        container.innerHTML = "";
+        products.forEach(p => container.appendChild(p));
     });
-
-    container.innerHTML = "";
-    products.forEach(p => container.appendChild(p));
-});
+}

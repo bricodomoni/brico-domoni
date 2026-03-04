@@ -26,15 +26,12 @@
         </nav>
 
         <div class="header-right">
-            <button class="cart-icon" id="open-cart-btn" aria-label="Panier">
+            <button class="cart-icon" id="open-cart-btn">
                 <img src="panier.png" class="cart-img" alt="Panier">
                 <span id="cart-count" class="cart-count">0</span>
             </button>
-
-            <button id="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
+            <button id="hamburger">
+                <span></span><span></span><span></span>
             </button>
         </div>
     </header>
@@ -50,7 +47,7 @@
     </div>
 
     <main>
-        <div class="tab-content active" id="accueil">
+        <section class="tab-content active" id="accueil">
             <div class="slider">
                 <div class="slides">
                     <img src="Images/Brouette.jpg" class="slide" alt="Brouette">
@@ -60,60 +57,54 @@
                 <button class="slider-btn prev">❮</button>
                 <button class="slider-btn next">❯</button>
             </div>
-
             <div class="hero">
                 <p>Votre magasin de bricolage à Domoni Riadhu.</p>
                 <button class="hero-btn" id="go-to-products">Voir nos produits</button>
             </div>
-        </div>
+        </section>
 
-        <div class="tab-content" id="services" style="display:none;">
+        <section class="tab-content" id="services">
             <h2>Nos services</h2>
             <ul>
                 <li>Vente d’outils et équipements</li>
                 <li>Matériaux pour la maison</li>
                 <li>Produits électriques et plomberie</li>
-                <li>Accessoires d’entretien</li>
-                <li>Conseils rapides en magasin</li>
             </ul>
-        </div>
+        </section>
 
-        <div class="tab-content" id="galerie" style="display:none;">
+        <section class="tab-content" id="galerie">
             <h2>Galerie photos</h2>
-            <p>Aucune photo pour le moment.</p>
-        </div>
+            <p>Bientôt disponible...</p>
+        </section>
 
-        <div class="tab-content" id="produits" style="display:none;">
+        <section class="tab-content" id="produits">
             <h2>Nos produits</h2>
-            <div id="product-list" class="product-grid">
-                </div>
-        </div>
+            <div id="product-list" class="product-grid"></div>
+        </section>
 
-        <div class="tab-content" id="apropos" style="display:none;">
+        <section class="tab-content" id="apropos">
             <h2>À propos</h2>
-            <p>BRICO DOMONI est un magasin de matériaux et équipements situé à Domoni Riadhu.</p>
-        </div>
+            <p>BRICO DOMONI est votre partenaire pour tous vos travaux à Domoni Riadhu.</p>
+        </section>
 
-        <div class="tab-content" id="contact" style="display:none;">
+        <section class="tab-content" id="contact">
             <h2>Contact</h2>
             <p><strong>Adresse :</strong> Domoni Riadhu — en face de la pharmacie du Dr Salim</p>
-            <p><strong>Horaires :</strong> 08h00 → 20h00</p>
             <p><strong>Téléphone :</strong> +269 44 84 047</p>
-        </div>
+        </section>
     </main>
 
     <div id="overlay"></div>
-    <div class="cart" id="cart-panel">
-        <button id="close-cart" class="close-cart">✖</button>
+    <div id="cart-panel">
+        <button id="close-cart">✖</button>
         <h3>Votre Panier</h3>
         <ul id="cart-items"></ul>
         <p>Total : <span id="total">0</span> KMF</p>
-        <a id="whatsapp-btn" class="btn-whatsapp" href="#" target="_blank" style="display: block; background: #25D366; color: white; padding: 10px; text-align: center; border-radius: 8px; text-decoration: none; margin-top: 10px;">Commander via WhatsApp</a>
+        <a id="whatsapp-btn" href="#" target="_blank">Commander via WhatsApp</a>
     </div>
 
     <footer>
-        <p>© 2026 BRICO DOMONI — Tous droits réservés</p>
-        <p class="dev">Site développé par Kaambi</p>
+        <p>© 2026 BRICO DOMONI — Développé par Kaambi</p>
     </footer>
 
     <script src="script.js"></script>

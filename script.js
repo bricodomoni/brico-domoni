@@ -1,73 +1,55 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- GESTION DES ONGLETS (TABS) ---
+    // 1. CHANGEMENT D'ONGLETS
     const buttons = document.querySelectorAll('.tab-btn, .mobile-link');
-    const contents = document.querySelectorAll('.tab-content');
+    const sections = document.querySelectorAll('.tab-content');
 
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
             const target = btn.getAttribute('data-tab');
 
-            // Retirer 'active' de tous les boutons et cacher les contenus
             buttons.forEach(b => b.classList.remove('active'));
-            contents.forEach(c => c.style.display = 'none');
+            sections.forEach(s => s.classList.remove('active'));
 
-            // Activer le bon bouton et afficher le bon contenu
             btn.classList.add('active');
-            document.getElementById(target).style.display = 'block';
+            document.getElementById(target).classList.add('active');
             
-            // Fermer le menu mobile si on clique sur un lien
-            document.getElementById('mobile-menu').classList.remove('open');
+            // Fermer le menu mobile si ouvert
+            document.getElementById('mobile-menu').style.right = '-260px';
         });
     });
 
-    // --- GESTION DU SLIDER ---
-    const slidesContainer = document.querySelector('.slides');
+    // 2. SLIDER
+    const slides = document.querySelector('.slides');
     const images = document.querySelectorAll('.slide');
     let index = 0;
 
-    document.querySelector('.next').addEventListener('click', () => {
+    document.querySelector('.next').onclick = () => {
         index = (index + 1) % images.length;
-        updateSlider();
-    });
+        slides.style.transform = `translateX(${-index * 100}%)`;
+    };
 
-    document.querySelector('.prev').addEventListener('click', () => {
+    document.querySelector('.prev').onclick = () => {
         index = (index - 1 + images.length) % images.length;
-        updateSlider();
-    });
+        slides.style.transform = `translateX(${-index * 100}%)`;
+    };
 
-    function updateSlider() {
-        slidesContainer.style.transform = `translateX(${-index * 100}%)`;
-    }
-
-    // --- MENU MOBILE ---
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const closeMobile = document.getElementById('close-mobile');
-
-    hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
-    closeMobile.addEventListener('click', () => mobileMenu.classList.remove('open'));
-
-    // --- PANIER (CART) ---
-    const cartBtn = document.getElementById('open-cart-btn');
+    // 3. PANIER
     const cartPanel = document.getElementById('cart-panel');
-    const closeCart = document.getElementById('close-cart');
     const overlay = document.getElementById('overlay');
 
-    cartBtn.addEventListener('click', () => {
+    document.getElementById('open-cart-btn').onclick = () => {
         cartPanel.classList.add('open');
         overlay.classList.add('show');
-    });
+    };
 
-    [closeCart, overlay].forEach(el => {
-        el.addEventListener('click', () => {
-            cartPanel.classList.remove('open');
-            overlay.classList.remove('show');
-        });
-    });
+    document.getElementById('close-cart').onclick = () => {
+        cartPanel.classList.remove('open');
+        overlay.classList.remove('show');
+    };
 
-    // --- BOUTON HERO ---
-    document.getElementById('go-to-products').addEventListener('click', () => {
+    // 4. BOUTON HERO
+    document.getElementById('go-to-products').onclick = () => {
         document.querySelector('[data-tab="produits"]').click();
-    });
+    };
 });

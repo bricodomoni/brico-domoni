@@ -27,15 +27,15 @@
         </nav>
 
         <div class="header-right">
-
-            <!-- ICÔNE PANIER AVEC BADGE ROUGE -->
             <button class="cart-icon" aria-label="Panier">
                 <img src="panier.png" class="cart-img" alt="Panier">
                 <span id="cart-count" class="cart-count">0</span>
             </button>
 
             <button id="hamburger" aria-label="Menu">
-                <span></span><span></span><span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
         </div>
 
@@ -55,6 +55,7 @@
     <!-- ACCUEIL -->
     <div class="tab-content active" id="accueil">
 
+        <!-- SLIDER -->
         <div class="slider">
             <div class="slides">
                 <img src="Images/Brouette.jpg" class="slide">
@@ -87,6 +88,7 @@
     <div class="tab-content" id="galerie">
         <h2>Galerie photos</h2>
         <p>Aucune photo pour le moment.</p>
+        <div class="galerie-grid"></div>
     </div>
 
     <!-- PRODUITS -->
@@ -113,9 +115,7 @@
         <!-- PANIER -->
         <div class="cart" id="cart-panel">
             <button id="close-cart" class="close-cart">✖</button>
-
-            <h3>Panier (<span id="cart-count-panel">0</span>)</h3>
-
+            <h3>Panier</h3>
             <ul id="cart-items"></ul>
             <p>Total : <span id="total">0</span> KMF</p>
 
@@ -135,12 +135,15 @@
     <!-- CONTACT -->
     <div class="tab-content" id="contact">
         <h2>Contact</h2>
-        <p><strong>Adresse :</strong> Domoni Riadhu</p>
-        <p><strong>Téléphone :</strong> +269 44 84 047</p>
+        <p><strong>Adresse :</strong> Domoni Riadhu — en face de la pharmacie du Dr Salim</p>
+        <p><strong>Horaires :</strong> 08h00 → 20h00</p>
+        <p><strong>Téléphone / WhatsApp :</strong> +269 44 84 047</p>
     </div>
 
+    <!-- FOOTER -->
     <footer>
         <p>© 2026 BRICO DOMONI — Tous droits réservés</p>
+        <p class="dev">Site développé par Kaambi</p>
     </footer>
 
     <script src="script.js" defer></script>

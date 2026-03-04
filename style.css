@@ -7,10 +7,9 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: #f7f9fc;
-    overflow-x: hidden; /* Empêche le défilement horizontal bizarre */
 }
 
-/* --- HEADER --- */
+/* --- EN-TÊTE FIXÉ --- */
 #main-header {
     display: flex;
     justify-content: space-between;
@@ -25,7 +24,7 @@ body {
 }
 
 #top-logo {
-    height: 70px;
+    height: 70px; /* Taille fixe pour éviter le bug géant */
     width: auto;
 }
 
@@ -50,13 +49,13 @@ body {
 
 /* --- GESTION DES PAGES --- */
 .tab-content {
-    display: none;
+    display: none; /* Cache les pages */
     padding: 40px 5%;
     animation: fadeIn 0.5s;
 }
 
 .tab-content.active {
-    display: block;
+    display: block; /* Affiche la page active */
 }
 
 @keyframes fadeIn {
@@ -84,20 +83,20 @@ body {
     background: white;
 }
 
-/* --- LE VOLET MOBILE (Celui qui bloquait) --- */
-#mobile-menu {
-    position: fixed;
-    right: -280px; /* Le pousse hors de l'écran par défaut */
-    top: 0;
-    width: 260px;
-    height: 100%;
-    background: white;
-    z-index: 3000;
-    padding: 20px;
-    transition: 0.4s;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-    display: none; /* CACHE COMPLÈTEMENT LE VOLET SUR ORDINATEUR */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 50%;
 }
+
+.next { right: 10px; }
+.prev { left: 10px; }
 
 /* --- PANIER --- */
 #cart-panel {
@@ -110,6 +109,7 @@ body {
     z-index: 3000;
     padding: 20px;
     transition: 0.4s;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
 }
 
 #cart-panel.open { right: 0; }
@@ -124,18 +124,32 @@ body {
 
 #overlay.show { display: block; }
 
-/* --- RESPONSIVE (MOBILE) --- */
+#whatsapp-btn {
+    display: block;
+    background: #25D366;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+/* --- MOBILE & VOLET --- */
+#mobile-menu {
+    position: fixed;
+    right: -280px; /* Cache le volet à droite */
+    top: 0;
+    width: 260px;
+    height: 100%;
+    background: white;
+    z-index: 3000;
+    padding: 20px;
+    transition: 0.4s;
+}
+
 @media (max-width: 850px) {
     #tabs-menu { display: none; }
-    
-    #hamburger { 
-        display: block; 
-        background: none; 
-        border: none; 
-        cursor: pointer;
-    }
-
-    #mobile-menu {
-        display: block; /* Réapparaît uniquement sur petit écran (téléphone) */
-    }
+    #hamburger { display: block; background: none; border: none; cursor: pointer; }
+    #hamburger span { display: block; width: 25px; height: 3px; background: white; margin: 5px; }
 }

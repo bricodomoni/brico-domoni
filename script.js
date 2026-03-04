@@ -1,55 +1,60 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. CHANGEMENT D'ONGLETS
-    const buttons = document.querySelectorAll('.tab-btn, .mobile-link');
+    // --- 1. GESTION DES ONGLETS (TABS) ---
+    const btns = document.querySelectorAll('.tab-btn');
     const sections = document.querySelectorAll('.tab-content');
 
-    buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const target = btn.getAttribute('data-tab');
+    btns.forEach(btn => {
+        btn.onclick = () => {
+            const target = btn.dataset.tab;
 
-            buttons.forEach(b => b.classList.remove('active'));
+            // Désactiver tout
+            btns.forEach(b => b.classList.remove('active'));
             sections.forEach(s => s.classList.remove('active'));
 
+            // Activer le cliqué
             btn.classList.add('active');
             document.getElementById(target).classList.add('active');
-            
-            // Fermer le menu mobile si ouvert
-            document.getElementById('mobile-menu').style.right = '-260px';
-        });
+        };
     });
 
-    // 2. SLIDER
-    const slides = document.querySelector('.slides');
-    const images = document.querySelectorAll('.slide');
+    // --- 2. LOGIQUE DU SLIDER ---
+    const slidesContainer = document.querySelector('.slides');
+    const totalSlides = document.querySelectorAll('.slide').length;
     let index = 0;
 
     document.querySelector('.next').onclick = () => {
-        index = (index + 1) % images.length;
-        slides.style.transform = `translateX(${-index * 100}%)`;
+        index = (index + 1) % totalSlides;
+        updateSlider();
     };
 
     document.querySelector('.prev').onclick = () => {
-        index = (index - 1 + images.length) % images.length;
-        slides.style.transform = `translateX(${-index * 100}%)`;
+        index = (index - 1 + totalSlides) % totalSlides;
+        updateSlider();
     };
 
-    // 3. PANIER
-    const cartPanel = document.getElementById('cart-panel');
-    const overlay = document.getElementById('overlay');
+    function updateSlider() {
+        slidesContainer.style.transform = `translateX(${-index * 100}%)`;
+    }
 
-    document.getElementById('open-cart-btn').onclick = () => {
-        cartPanel.classList.add('open');
-        overlay.classList.add('show');
-    };
+    // --- 3. AFFICHAGE DES PRODUITS ---
+    const produits = [
+        { name: "Brouette Verte", price: 25000, img: "Images/Brouette.jpg" },
+        { name: "Disque de coupe", price: 3500, img: "Images/9641602024.jpg" },
+        { name: "Évier Inox", price: 45000, img: "Images/AST187429-XL.jpg" }
+    ];
 
-    document.getElementById('close-cart').onclick = () => {
-        cartPanel.classList.remove('open');
-        overlay.classList.remove('show');
-    };
-
-    // 4. BOUTON HERO
-    document.getElementById('go-to-products').onclick = () => {
-        document.querySelector('[data-tab="produits"]').click();
-    };
+    const grid = document.getElementById('product-list');
+    
+    produits.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <img src="${p.img}" alt="${p.name}">
+            <h4>${p.name}</h4>
+            <p><strong>${p.price.toLocaleString()} KMF</strong></p>
+            <button class="add-cart-btn">Ajouter au panier</button>
+        `;
+        grid.appendChild(card);
+    });
 });

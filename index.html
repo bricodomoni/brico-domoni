@@ -1,113 +1,74 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head> 
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRICO DOMONI</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/jpg" href="Images/logo.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
     <header id="main-header">
-        <div class="header-left">
-            <img src="Images/logo.jpg" alt="BRICO DOMONI" id="top-logo">
-        </div>
-
+        <img src="logo.jpg" id="top-logo" alt="Logo Brico Domoni">
+        
         <nav id="tabs-menu">
             <button class="tab-btn active" data-tab="accueil">Accueil</button>
-            <button class="tab-btn" data-tab="services">Nos services</button>
-            <button class="tab-btn" data-tab="galerie">Galerie</button>
             <button class="tab-btn" data-tab="produits">Produits</button>
-            <button class="tab-btn" data-tab="apropos">À propos</button>
             <button class="tab-btn" data-tab="contact">Contact</button>
         </nav>
 
-        <div class="header-right">
-            <button class="cart-icon" id="open-cart-btn">
-                <img src="panier.png" class="cart-img" alt="Panier">
-                <span id="cart-count" class="cart-count">0</span>
-            </button>
-            <button id="hamburger">
-                <span></span><span></span><span></span>
-            </button>
+        <div class="cart-icon" id="open-cart-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" class="cart-img" alt="Panier">
+            <span class="cart-count">0</span>
         </div>
     </header>
 
-    <div id="mobile-menu">
-        <button class="close-mobile" id="close-mobile">✖</button>
-        <button class="mobile-link" data-tab="accueil">Accueil</button>
-        <button class="mobile-link" data-tab="services">Nos services</button>
-        <button class="mobile-link" data-tab="galerie">Galerie</button>
-        <button class="mobile-link" data-tab="produits">Produits</button>
-        <button class="mobile-link" data-tab="apropos">À propos</button>
-        <button class="mobile-link" data-tab="contact">Contact</button>
-    </div>
-
-    <main>
-        <section class="tab-content active" id="accueil">
-            <div class="slider">
-                <div class="slides">
-                    <img src="Images/Brouette.jpg" class="slide" alt="Brouette">
-                    <img src="Images/9641602024.jpg" class="slide" alt="Outil">
-                    <img src="Images/AST187429-XL.jpg" class="slide" alt="Évier">
-                </div>
-                <button class="slider-btn prev">❮</button>
-                <button class="slider-btn next">❯</button>
+    <main class="tab-content active" id="accueil">
+        <section class="slider">
+            <div class="slides">
+                <img src="Images/Brouette.jpg" class="slide" alt="Promo 1">
+                <img src="Images/AST187429-XL.jpg" class="slide" alt="Promo 2">
             </div>
-            <div class="hero">
-                <p>Votre magasin de bricolage à Domoni Riadhu.</p>
-                <button class="hero-btn" id="go-to-products">Voir nos produits</button>
-            </div>
+            <button class="slider-btn prev">❮</button>
+            <button class="slider-btn next">❯</button>
         </section>
-
-        <section class="tab-content" id="services">
-            <h2>Nos services</h2>
-            <ul>
-                <li>Vente d’outils et équipements</li>
-                <li>Matériaux pour la maison</li>
-                <li>Produits électriques et plomberie</li>
-            </ul>
-        </section>
-
-        <section class="tab-content" id="galerie">
-            <h2>Galerie photos</h2>
-            <p>Bientôt disponible...</p>
-        </section>
-
-        <section class="tab-content" id="produits">
-            <h2>Nos produits</h2>
-            <div id="product-list" class="product-grid"></div>
-        </section>
-
-        <section class="tab-content" id="apropos">
-            <h2>À propos</h2>
-            <p>BRICO DOMONI est votre partenaire pour tous vos travaux à Domoni Riadhu.</p>
-        </section>
-
-        <section class="tab-content" id="contact">
-            <h2>Contact</h2>
-            <p><strong>Adresse :</strong> Domoni Riadhu — en face de la pharmacie du Dr Salim</p>
-            <p><strong>Téléphone :</strong> +269 44 84 047</p>
-        </section>
+        <div style="text-align:center; padding: 50px;">
+            <h1>Bienvenue chez BRICO DOMONI</h1>
+            <p>Votre partenaire pour tous vos travaux de bricolage et construction.</p>
+        </div>
     </main>
+
+    <section class="tab-content" id="produits">
+        <h2 style="text-align:center; margin-top:30px;">Nos Articles</h2>
+        <div id="product-list" class="product-grid">
+            </div>
+    </section>
+
+    <section class="tab-content" id="contact">
+        <div style="text-align:center; padding: 50px;">
+            <h2>Contactez-nous</h2>
+            <p>📍 Domoni, Anjouan</p>
+            <p>📞 +269 XXX XX XX</p>
+        </div>
+    </section>
 
     <div id="overlay"></div>
     <div id="cart-panel">
-        <button id="close-cart">✖</button>
-        <h3>Votre Panier</h3>
-        <ul id="cart-items"></ul>
-        <p>Total : <span id="total">0</span> KMF</p>
-        <a id="whatsapp-btn" href="#" target="_blank">Commander via WhatsApp</a>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3>Votre Panier</h3>
+            <button id="close-cart" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+        </div>
+        <hr>
+        <div id="cart-items">
+            <p>Votre panier est vide</p>
+        </div>
+        <div style="margin-top:20px; font-weight:bold; font-size:1.2rem;">
+            Total : <span id="cart-total">0 KMF</span>
+        </div>
+        <a href="#" id="whatsapp-btn">Commander via WhatsApp</a>
     </div>
-
-    <footer>
-        <p>© 2026 BRICO DOMONI — Développé par Kaambi</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
 </html>
-

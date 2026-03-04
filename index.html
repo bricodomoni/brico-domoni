@@ -1,73 +1,31 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRICO DOMONI</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-
-    <header id="main-header">
-        <img src="logo.jpg" id="top-logo" alt="Logo Brico Domoni">
-        <nav id="tabs-menu">
-            <button class="tab-btn active" data-tab="accueil">Accueil</button>
-            <button class="tab-btn" data-tab="produits">Produits</button>
-            <button class="tab-btn" data-tab="contact">Contact</button>
-        </nav>
-        <div class="cart-icon" id="open-cart-btn">
-            <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" class="cart-img" alt="Panier">
-            <span class="cart-count">0</span>
+<section class="hero">
+    <div class="slider">
+        <div class="slide active">
+            <img src="Images/Brouette.jpg" alt="Brouette Verte">
         </div>
-    </header>
-
-    <main class="tab-content active" id="accueil">
-        <section class="slider">
-            <div class="slides">
-                <img src="Images/Brouette.jpg" class="slide" alt="Brouette">
-                <img src="Images/AST187429-XL.jpg" class="slide" alt="Evier">
-            </div>
-            <button class="slider-btn prev">❮</button>
-            <button class="slider-btn next">❯</button>
-        </section>
-        <div style="text-align:center; padding: 50px;">
-            <h1>Bienvenue chez BRICO DOMONI</h1>
-            <p>Qualité et service à Domoni.</p>
+        <div class="slide">
+            <img src="Images/9641602024.jpg" alt="Pelle de chantier">
         </div>
-    </main>
-
-    <section class="tab-content" id="produits">
-        <h2 style="text-align:center; margin-top:30px;">Nos Articles</h2>
-        <div id="product-list" class="product-grid"></div>
-    </section>
-
-    <section class="tab-content" id="contact">
-        <div style="text-align:center; padding: 50px;">
-            <h2>Contactez-nous</h2>
-            <p>📍 Domoni, Anjouan</p>
-            <p>📞 +269 333 00 00</p>
+        <div class="slide">
+            <img src="Images/AST187429-XL.jpg" alt="Évier Inox">
         </div>
-    </section>
 
-    <div id="overlay"></div>
-    <div id="cart-panel">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h3>Mon Panier</h3>
-            <button id="close-cart" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
-        </div>
-        <hr>
-        <div id="cart-items-container"></div>
-        <div style="margin-top:20px; border-top: 2px solid #eee; padding-top: 15px;">
-            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1.1rem;">
-                <span>Total :</span>
-                <span id="cart-total">0 KMF</span>
-            </div>
-            <button id="whatsapp-order-btn">Commander via WhatsApp</button>
-        </div>
+        <button class="prev">&#10094;</button>
+        <button class="next">&#10095;</button>
     </div>
+</section>
 
-    <script src="script.js"></script>
+<div id="product-list" class="product-grid"></div>
+
+<div id="overlay"></div>
+<div id="cart-panel">
+    <button id="close-cart">×</button>
+    <h2>Votre Panier</h2>
+    <div id="cart-items-container"></div>
+    <p>Total : <span id="cart-total">0 KMF</span></p>
+    <button id="whatsapp-order-btn">Commander sur WhatsApp</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
-

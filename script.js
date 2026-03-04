@@ -1,31 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. DONNÉES DES PRODUITS
-    const produits = [
-        { id: 1, nom: "Brouette Verte", prix: 25000, img: "Images/Brouette.jpg" },
-        { id: 2, nom: "Pelle de chantier", prix: 7500, img: "Images/9641602024.jpg" },
-        { id: 3, nom: "Évier Inox", prix: 45000, img: "Images/AST187429-XL.jpg" }
-    ];
-
-    let panier = [];
-
-    // 2. GÉNÉRATION DE LA LISTE DES PRODUITS
-    const container = document.getElementById('product-list');
-    if (container) {
-        produits.forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
-                <img src="${p.img}" alt="${p.nom}">
-                <h3>${p.nom}</h3>
-                <p style="color:#ff9800; font-weight:bold; font-size:1.2rem;">${p.prix.toLocaleString()} KMF</p>
-                <button class="add-to-cart-btn tab-btn" data-id="${p.id}" style="width:100%">Ajouter au panier</button>
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    // 3. GESTION DU DIAPORAMA (SLIDER)
+    // 1. GESTION DU DIAPORAMA (SLIDER)
     const slides = document.querySelectorAll('.slide');
     const prevBtn = document.querySelector('.prev');
     const nextBtn = document.querySelector('.next');
@@ -33,21 +7,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showSlide(index) {
         if (slides.length === 0) return;
-        
-        // On retire la classe active de toutes les images
         slides.forEach(s => s.classList.remove('active'));
-        
-        // Calcul de l'index suivant/précédent
         if (index >= slides.length) currentSlide = 0;
         else if (index < 0) currentSlide = slides.length - 1;
         else currentSlide = index;
-        
-        // On affiche l'image active
         slides[currentSlide].classList.add('active');
     }
 
-    // Initialisation du premier slide
-    if(slides.length > 0) slides[0].classList.add('active');
+    // Initialisation
+    if (slides.length > 0) slides[0].classList.add('active');
 
     if (nextBtn) nextBtn.onclick = () => showSlide(currentSlide + 1);
     if (prevBtn) prevBtn.onclick = () => showSlide(currentSlide - 1);
@@ -55,103 +23,36 @@ document.addEventListener('DOMContentLoaded', () => {
     // Défilement automatique toutes les 5 secondes
     setInterval(() => showSlide(currentSlide + 1), 5000);
 
-    // 4. NAVIGATION PAR ONGLETS (TABS)
-    const navBtns = document.querySelectorAll('.tab-btn[data-tab]');
+    // 2. GESTION DES ONGLETS (TABS)
+    const navBtns = document.querySelectorAll('.tab-btn');
     navBtns.forEach(btn => {
         btn.onclick = () => {
-            const targetId = btn.getAttribute('data-tab');
-            
-            // Masquer tous les contenus
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Retirer l'état actif des boutons
+            const target = btn.dataset.tab;
+            if (!target) return;
+            document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('active'));
             navBtns.forEach(b => b.classList.remove('active'));
-            
-            // Activer le bon contenu et le bon bouton
-            document.getElementById(targetId).classList.add('active');
+            document.getElementById(target).classList.add('active');
             btn.classList.add('active');
         };
     });
 
-    // 5. GESTION DU PANIER
-    function updateCartUI() {
-        const cartContainer = document.getElementById('cart-items');
-        const totalEl = document.getElementById('cart-total');
-        const badge = document.querySelector('.cart-count');
-        
-        cartContainer.innerHTML = panier.length === 0 ? "<p>Votre panier est vide</p>" : "";
-        let total = 0;
-        let count = 0;
+    // 3. GESTION DU PANIER (OUVRIR/FERMER)
+    const openCart = document.getElementById('open-cart-btn');
+    const closeCart = document.getElementById('close-cart');
+    const overlay = document.getElementById('overlay');
+    const cartPanel = document.getElementById('cart-panel');
 
-        panier.forEach(item => {
-            total += item.prix * item.qty;
-            count += item.qty;
-            const div = document.createElement('div');
-            div.style.display = "flex";
-            div.style.justifyContent = "space-between";
-            div.style.marginBottom = "10px";
-            div.innerHTML = `
-                <span>${item.nom} (x${item.qty})</span>
-                <span>${(item.prix * item.qty).toLocaleString()} KMF</span>
-            `;
-            cartContainer.appendChild(div);
-        });
-
-        totalEl.innerText = total.toLocaleString() + " KMF";
-        badge.innerText = count;
+    if (openCart) {
+        openCart.onclick = () => {
+            cartPanel.classList.add('open');
+            overlay.classList.add('show');
+        };
     }
 
-    // Clic sur "Ajouter au panier"
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('add-to-cart-btn')) {
-            const id = parseInt(e.target.dataset.id);
-            const prod = produits.find(p => p.id === id);
-            const exist = panier.find(i => i.id === id);
-
-            if (exist) {
-                exist.qty++;
-            } else {
-                panier.push({ ...prod, qty: 1 });
-            }
-
-            updateCartUI();
-            
-            // Ouvrir automatiquement le panier
-            document.getElementById('cart-panel').classList.add('open');
-            document.getElementById('overlay').classList.add('show');
-        }
-    });
-
-    // Ouvrir / Fermer le panier
-    document.getElementById('open-cart-btn').onclick = () => {
-        document.getElementById('cart-panel').classList.add('open');
-        document.getElementById('overlay').classList.add('show');
-    };
-
-    document.getElementById('close-cart').onclick = () => {
-        document.getElementById('cart-panel').classList.remove('open');
-        document.getElementById('overlay').classList.remove('show');
-    };
-
-    document.getElementById('overlay').onclick = () => {
-        document.getElementById('cart-panel').classList.remove('open');
-        document.getElementById('overlay').classList.remove('show');
-    };
-
-    // 6. COMMANDE WHATSAPP
-    document.getElementById('whatsapp-btn').onclick = (e) => {
-        e.preventDefault();
-        if (panier.length === 0) return alert("Votre panier est vide !");
-        
-        let message = "Bonjour BRICO DOMONI, je souhaite commander :\n\n";
-        panier.forEach(item => {
-            message += `- ${item.nom} (x${item.qty}) : ${(item.prix * item.qty).toLocaleString()} KMF\n`;
-        });
-        message += `\nTotal : ${document.getElementById('cart-total').innerText}`;
-        
-        const tel = "2693330000"; // Remplace par ton vrai numéro
-        window.open(`https://wa.me/${tel}?text=${encodeURIComponent(message)}`);
-    };
+    if (closeCart) {
+        closeCart.onclick = () => {
+            cartPanel.classList.remove('open');
+            overlay.classList.remove('show');
+        };
+    }
 });

@@ -6,16 +6,14 @@
     <title>BRICO DOMONI</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/jpg" href="Images/logo.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
     <header id="main-header">
         <div class="header-left">
             <img src="Images/logo.jpg" alt="BRICO DOMONI" id="top-logo">
         </div>
-
         <nav id="tabs-menu">
             <button class="tab-btn active" data-tab="accueil">Accueil</button>
             <button class="tab-btn" data-tab="services">Nos services</button>
@@ -24,27 +22,13 @@
             <button class="tab-btn" data-tab="apropos">À propos</button>
             <button class="tab-btn" data-tab="contact">Contact</button>
         </nav>
-
         <div class="header-right">
             <button class="cart-icon" id="open-cart-btn">
                 <img src="Images/panier.png" class="cart-img" alt="Panier">
-                <span id="cart-count" class="cart-count">0</span>
-            </button>
-            <button id="hamburger">
-                <span></span><span></span><span></span>
+                <span id="cart-count">0</span>
             </button>
         </div>
     </header>
-
-    <div id="mobile-menu">
-        <button class="close-mobile" id="close-mobile">✖</button>
-        <button class="mobile-link" data-tab="accueil">Accueil</button>
-        <button class="mobile-link" data-tab="services">Nos services</button>
-        <button class="mobile-link" data-tab="galerie">Galerie</button>
-        <button class="mobile-link" data-tab="produits">Produits</button>
-        <button class="mobile-link" data-tab="apropos">À propos</button>
-        <button class="mobile-link" data-tab="contact">Contact</button>
-    </div>
 
     <main>
         <section class="tab-content active" id="accueil">
@@ -58,53 +42,21 @@
                 <button class="slider-btn next">❯</button>
             </div>
             <div class="hero">
-                <h1>BRICO DOMONI</h1>
-                <p>Votre magasin de bricolage à Domoni Riadhu.</p>
+                <h1>Bienvenue chez BRICO DOMONI</h1>
+                <p>Votre partenaire bricolage à Domoni Riadhu.</p>
                 <button class="hero-btn" id="go-to-products">Voir nos produits</button>
             </div>
         </section>
 
-        <section class="tab-content" id="services">
-            <h2>Nos services</h2>
-            <ul class="services-list">
-                <li>Vente d’outils et équipements</li>
-                <li>Matériaux pour la maison</li>
-                <li>Produits électriques et plomberie</li>
-                <li>Conseils personnalisés</li>
-            </ul>
-        </section>
-
-        <section class="tab-content" id="galerie">
-            <h2>Galerie photos</h2>
-            <p>Découvrez nos arrivages en images très bientôt.</p>
-        </section>
-
+        <section class="tab-content" id="services"><h2>Nos Services</h2><p>Vente d'outils, électricité et plomberie.</p></section>
+        <section class="tab-content" id="galerie"><h2>Galerie</h2><p>Photos de nos arrivages.</p></section>
         <section class="tab-content" id="produits">
-            <h2>Nos produits</h2>
-            <div id="product-list" class="product-grid">
-                </div>
+            <h2>Nos Produits</h2>
+            <div id="product-list" class="product-grid"></div>
         </section>
-
-        <section class="tab-content" id="apropos">
-            <h2>À propos</h2>
-            <p>BRICO DOMONI est votre partenaire de confiance pour tous vos travaux à Domoni Riadhu.</p>
-        </section>
-
-        <section class="tab-content" id="contact">
-            <h2>Contact</h2>
-            <p><strong>Adresse :</strong> Domoni Riadhu — en face de la pharmacie du Dr Salim</p>
-            <p><strong>WhatsApp :</strong> +269 44 84 047</p>
-        </section>
+        <section class="tab-content" id="apropos"><h2>À Propos</h2><p>BRICO DOMONI à Domoni Riadhu.</p></section>
+        <section class="tab-content" id="contact"><h2>Contact</h2><p>WhatsApp : +269 44 84 047</p></section>
     </main>
-
-    <div id="overlay"></div>
-    <div id="cart-panel">
-        <button id="close-cart">✖</button>
-        <h3>Votre Panier</h3>
-        <ul id="cart-items"></ul>
-        <p>Total : <span id="total">0</span> KMF</p>
-        <a id="whatsapp-btn" href="#" target="_blank">Commander via WhatsApp</a>
-    </div>
 
     <footer>
         <p>© 2026 BRICO DOMONI — Développé par Kaambi</p>

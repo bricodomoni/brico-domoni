@@ -12,44 +12,62 @@ document.addEventListener('DOMContentLoaded', () => {
             sections.forEach(s => s.classList.remove('active'));
 
             btn.classList.add('active');
-            document.getElementById(target).classList.add('active');
+            const targetSection = document.getElementById(target);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
             
             // Fermer le menu mobile si ouvert
-            document.getElementById('mobile-menu').style.right = '-260px';
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu) {
+                mobileMenu.style.right = '-280px';
+            }
         });
     });
 
     // 2. SLIDER
     const slides = document.querySelector('.slides');
     const images = document.querySelectorAll('.slide');
-    let index = 0;
+    let index = 0; // "soit l'indice" devient "let index"
 
-    document.querySelector('.next').onclick = () => {
-        index = (index + 1) % images.length;
-        slides.style.transform = `translateX(${-index * 100}%)`;
-    };
+    if (slides && images.length > 0) {
+        document.querySelector('.next').onclick = () => {
+            index = (index + 1) % images.length; // "longueur" devient "length"
+            slides.style.transform = `translateX(${-index * 100}%)`;
+        };
 
-    document.querySelector('.prev').onclick = () => {
-        index = (index - 1 + images.length) % images.length;
-        slides.style.transform = `translateX(${-index * 100}%)`;
-    };
+        document.querySelector('.prev').onclick = () => {
+            index = (index - 1 + images.length) % images.length;
+            slides.style.transform = `translateX(${-index * 100}%)`;
+        };
+    }
 
     // 3. PANIER
     const cartPanel = document.getElementById('cart-panel');
     const overlay = document.getElementById('overlay');
 
-    document.getElementById('open-cart-btn').onclick = () => {
-        cartPanel.classList.add('open');
-        overlay.classList.add('show');
-    };
+    const openCartBtn = document.getElementById('open-cart-btn');
+    if (openCartBtn) {
+        openCartBtn.onclick = () => {
+            cartPanel.classList.add('open');
+            overlay.classList.add('show');
+        };
+    }
 
-    document.getElementById('close-cart').onclick = () => {
-        cartPanel.classList.remove('open');
-        overlay.classList.remove('show');
-    };
+    const closeCartBtn = document.getElementById('close-cart');
+    if (closeCartBtn) {
+        closeCartBtn.onclick = () => {
+            cartPanel.classList.remove('open');
+            overlay.classList.remove('show');
+        };
+    }
 
     // 4. BOUTON HERO
-    document.getElementById('go-to-products').onclick = () => {
-        document.querySelector('[data-tab="produits"]').click();
-    };
+    const heroBtn = document.getElementById('go-to-products');
+    if (heroBtn) {
+        heroBtn.onclick = () => {
+            const productTab = document.querySelector('[data-tab="produits"]');
+            if (productTab) productTab.click();
+        };
+    }
 });

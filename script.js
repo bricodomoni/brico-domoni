@@ -1,28 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. LISTE DES PRODUITS
     const produits = [
-        { id: 1, nom: "Brouette Verte", prix: 25000, img: "Images/Brouette.jpg" },
-        { id: 2, nom: "Pelle de chantier", prix: 7500, img: "Images/9641602024.jpg" },
-        { id: 3, nom: "Évier Inox", prix: 45000, img: "Images/AST187429-XL.jpg" }
+        { id: 1, nom: "Brouette Renforcée", prix: 25000, image: "Images/Brouette.jpg" },
+        { id: 2, nom: "Pelle de Chantier", prix: 7500, image: "Images/9641602024.jpg" },
+        { id: 3, nom: "Évier Inox Cuisine", prix: 45000, image: "Images/AST187429-XL.jpg" }
     ];
 
-    const productList = document.getElementById('product-list');
+    const container = document.getElementById('product-list');
 
-    if (productList) {
-        productList.innerHTML = ""; // Vide le texte "Bientôt disponible"
+    if (container) {
+        container.innerHTML = ""; // On nettoie avant d'afficher
         produits.forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
-                <img src="${p.img}" alt="${p.nom}" onerror="this.src='logo.jpg'">
+            const div = document.createElement('div');
+            div.className = 'product-card';
+            div.innerHTML = `
+                <img src="${p.image}" alt="${p.nom}">
                 <h4>${p.nom}</h4>
-                <p style="color:#ff9800; font-weight:bold;">${p.prix.toLocaleString()} KMF</p>
+                <p style="font-weight:bold; color:#ff9800;">${p.prix.toLocaleString()} KMF</p>
                 <button class="tab-btn" style="width:100%">Ajouter</button>
             `;
-            productList.appendChild(card);
+            container.appendChild(div);
         });
+        console.log("Produits chargés : " + produits.length);
     }
+});
 
     // 2. GESTION DES ONGLETS (Correction pour afficher les produits)
     const buttons = document.querySelectorAll('.tab-btn, .mobile-link');

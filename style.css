@@ -7,7 +7,7 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: #f7f9fc;
-    overflow-x: hidden; /* Bloque le balancement vers la droite */
+    overflow-x: hidden; /* Empêche tout décalage vers la droite */
 }
 
 /* --- EN-TÊTE (HEADER) --- */
@@ -59,7 +59,7 @@ body {
 }
 
 .cart-img {
-    width: 35px;
+    width: 35px; /* Taille corrigée pour l'icône */
     height: 35px;
     object-fit: contain;
 }
@@ -161,7 +161,7 @@ body {
     display: block; 
 }
 
-/* --- MENU MOBILE & VOLET --- */
+/* --- MENU MOBILE & VOLET CACHÉ --- */
 #mobile-menu {
     position: fixed;
     right: -300px; 
@@ -172,7 +172,7 @@ body {
     z-index: 3000;
     padding: 20px;
     transition: 0.4s;
-    display: none; /* CACHE TOTALEMENT LE VOLET SUR PC */
+    display: none; /* Cacher totalement le volet sur ordinateur */
 }
 
 #hamburger {
@@ -185,6 +185,6 @@ body {
     #hamburger span { display: block; width: 25px; height: 3px; background: white; margin: 5px; }
     
     #mobile-menu {
-        display: block; /* S'affiche uniquement sur mobile quand nécessaire */
+        display: block; /* S'affiche uniquement sur téléphone */
     }
 }

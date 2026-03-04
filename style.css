@@ -7,6 +7,7 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: #f7f9fc;
+    overflow-x: hidden; /* Empêche le défilement horizontal */
 }
 
 /* --- EN-TÊTE FIXÉ --- */
@@ -24,7 +25,7 @@ body {
 }
 
 #top-logo {
-    height: 70px; /* Taille fixe pour éviter le bug géant */
+    height: 70px;
     width: auto;
 }
 
@@ -47,15 +48,42 @@ body {
     background: var(--orange);
 }
 
+/* --- CORRECTION DE L'ICÔNE PANIER --- */
+.cart-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cart-img {
+    width: 35px; /* Taille normale pour l'icône */
+    height: 35px;
+    object-fit: contain;
+}
+
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
 /* --- GESTION DES PAGES --- */
 .tab-content {
-    display: none; /* Cache les pages */
+    display: none;
     padding: 40px 5%;
     animation: fadeIn 0.5s;
 }
 
 .tab-content.active {
-    display: block; /* Affiche la page active */
+    display: block;
 }
 
 @keyframes fadeIn {
@@ -93,12 +121,13 @@ body {
     padding: 15px;
     cursor: pointer;
     border-radius: 50%;
+    z-index: 10;
 }
 
 .next { right: 10px; }
 .prev { left: 10px; }
 
-/* --- PANIER --- */
+/* --- PANIER (VOLET LATÉRAL) --- */
 #cart-panel {
     position: fixed;
     right: -350px;
@@ -110,9 +139,12 @@ body {
     padding: 20px;
     transition: 0.4s;
     box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    color: #333;
 }
 
-#cart-panel.open { right: 0; }
+#cart-panel.open { 
+    right: 0; 
+}
 
 #overlay {
     position: fixed;
@@ -122,7 +154,9 @@ body {
     z-index: 2500;
 }
 
-#overlay.show { display: block; }
+#overlay.show { 
+    display: block; 
+}
 
 #whatsapp-btn {
     display: block;
@@ -135,10 +169,10 @@ body {
     margin-top: 20px;
 }
 
-/* --- MOBILE & VOLET --- */
+/* --- MOBILE & VOLET MENU --- */
 #mobile-menu {
     position: fixed;
-    right: -280px; /* Cache le volet à droite */
+    right: -280px; 
     top: 0;
     width: 260px;
     height: 100%;
@@ -146,6 +180,11 @@ body {
     z-index: 3000;
     padding: 20px;
     transition: 0.4s;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+}
+
+#hamburger {
+    display: none;
 }
 
 @media (max-width: 850px) {

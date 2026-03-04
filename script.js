@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 1. DONNÉES DES PRODUITS ---
+    // 1. DONNÉES DES PRODUITS
     const produits = [
         { id: 1, nom: "Brouette Verte", prix: 25000, img: "Images/Brouette.jpg" },
         { id: 2, nom: "Pelle de chantier", prix: 7500, img: "Images/9641602024.jpg" },
@@ -9,52 +9,116 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let panier = [];
 
-    // --- 2. AFFICHAGE AUTOMATIQUE DES PRODUITS ---
+    // 2. GÉNÉRATION DE LA LISTE DES PRODUITS
     const container = document.getElementById('product-list');
     if (container) {
         produits.forEach(p => {
             const card = document.createElement('div');
             card.className = 'product-card';
             card.innerHTML = `
-                <img src="${p.img}" alt="${p.nom}" onerror="this.src='logo.jpg'">
+                <img src="${p.img}" alt="${p.nom}">
                 <h3>${p.nom}</h3>
-                <p style="color:#ff9800; font-size:1.2rem; font-weight:bold;">${p.prix.toLocaleString()} KMF</p>
-                <button class="tab-btn add-btn" data-id="${p.id}" style="width:100%">Ajouter au panier</button>
+                <p style="color:#ff9800; font-weight:bold; font-size:1.2rem;">${p.prix.toLocaleString()} KMF</p>
+                <button class="add-to-cart-btn tab-btn" data-id="${p.id}" style="width:100%">Ajouter au panier</button>
             `;
             container.appendChild(card);
         });
     }
 
-    // --- 3. LOGIQUE DU PANIER ---
-    function updateCart() {
-        const cartItems = document.getElementById('cart-items');
-        const cartTotal = document.getElementById('cart-total');
-        const cartCount = document.querySelector('.cart-count');
+    // 3. GESTION DU DIAPORAMA (SLIDER)
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    let currentSlide = 0;
+
+    function showSlide(index) {
+        if (slides.length === 0) return;
         
-        cartItems.innerHTML = panier.length === 0 ? "<p>Votre panier est vide</p>" : "";
-        let total = 0;
-
-        panier.forEach((item, index) => {
-            total += item.prix;
-            const div = document.createElement('div');
-            div.style.padding = "10px 0";
-            div.style.borderBottom = "1px solid #eee";
-            div.innerHTML = `<strong>${item.nom}</strong> - ${item.prix.toLocaleString()} KMF`;
-            cartItems.appendChild(div);
-        });
-
-        cartTotal.innerText = total.toLocaleString() + " KMF";
-        cartCount.innerText = panier.length;
+        // On retire la classe active de toutes les images
+        slides.forEach(s => s.classList.remove('active'));
+        
+        // Calcul de l'index suivant/précédent
+        if (index >= slides.length) currentSlide = 0;
+        else if (index < 0) currentSlide = slides.length - 1;
+        else currentSlide = index;
+        
+        // On affiche l'image active
+        slides[currentSlide].classList.add('active');
     }
 
-    // Événement clic pour ajouter un produit
+    // Initialisation du premier slide
+    if(slides.length > 0) slides[0].classList.add('active');
+
+    if (nextBtn) nextBtn.onclick = () => showSlide(currentSlide + 1);
+    if (prevBtn) prevBtn.onclick = () => showSlide(currentSlide - 1);
+
+    // Défilement automatique toutes les 5 secondes
+    setInterval(() => showSlide(currentSlide + 1), 5000);
+
+    // 4. NAVIGATION PAR ONGLETS (TABS)
+    const navBtns = document.querySelectorAll('.tab-btn[data-tab]');
+    navBtns.forEach(btn => {
+        btn.onclick = () => {
+            const targetId = btn.getAttribute('data-tab');
+            
+            // Masquer tous les contenus
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Retirer l'état actif des boutons
+            navBtns.forEach(b => b.classList.remove('active'));
+            
+            // Activer le bon contenu et le bon bouton
+            document.getElementById(targetId).classList.add('active');
+            btn.classList.add('active');
+        };
+    });
+
+    // 5. GESTION DU PANIER
+    function updateCartUI() {
+        const cartContainer = document.getElementById('cart-items');
+        const totalEl = document.getElementById('cart-total');
+        const badge = document.querySelector('.cart-count');
+        
+        cartContainer.innerHTML = panier.length === 0 ? "<p>Votre panier est vide</p>" : "";
+        let total = 0;
+        let count = 0;
+
+        panier.forEach(item => {
+            total += item.prix * item.qty;
+            count += item.qty;
+            const div = document.createElement('div');
+            div.style.display = "flex";
+            div.style.justifyContent = "space-between";
+            div.style.marginBottom = "10px";
+            div.innerHTML = `
+                <span>${item.nom} (x${item.qty})</span>
+                <span>${(item.prix * item.qty).toLocaleString()} KMF</span>
+            `;
+            cartContainer.appendChild(div);
+        });
+
+        totalEl.innerText = total.toLocaleString() + " KMF";
+        badge.innerText = count;
+    }
+
+    // Clic sur "Ajouter au panier"
     document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('add-btn')) {
-            const id = parseInt(e.target.getAttribute('data-id'));
-            const p = produits.find(prod => prod.id === id);
-            panier.push(p);
-            updateCart();
-            // Ouvre le panier pour confirmer l'ajout
+        if (e.target.classList.contains('add-to-cart-btn')) {
+            const id = parseInt(e.target.dataset.id);
+            const prod = produits.find(p => p.id === id);
+            const exist = panier.find(i => i.id === id);
+
+            if (exist) {
+                exist.qty++;
+            } else {
+                panier.push({ ...prod, qty: 1 });
+            }
+
+            updateCartUI();
+            
+            // Ouvrir automatiquement le panier
             document.getElementById('cart-panel').classList.add('open');
             document.getElementById('overlay').classList.add('show');
         }
@@ -76,36 +140,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('overlay').classList.remove('show');
     };
 
-    // --- 4. NAVIGATION ENTRE LES ONGLETS ---
-    const navBtns = document.querySelectorAll('.tab-btn');
-    const sections = document.querySelectorAll('.tab-content');
-
-    navBtns.forEach(btn => {
-        btn.onclick = () => {
-            const target = btn.getAttribute('data-tab');
-            if(!target) return;
-            
-            sections.forEach(s => s.classList.remove('active'));
-            navBtns.forEach(b => b.classList.remove('active'));
-            
-            document.getElementById(target).classList.add('active');
-            btn.classList.add('active');
-        };
-    });
-
-    // --- 5. LOGIQUE DU SLIDER (ACCUEIL) ---
-    const slides = document.querySelector('.slides');
-    const slideImages = document.querySelectorAll('.slide');
-    let currentIndex = 0;
-
-    if (slides && slideImages.length > 0) {
-        document.querySelector('.next').onclick = () => {
-            currentIndex = (currentIndex + 1) % slideImages.length;
-            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-        };
-        document.querySelector('.prev').onclick = () => {
-            currentIndex = (currentIndex - 1 + slideImages.length) % slideImages.length;
-            slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-        };
-    }
+    // 6. COMMANDE WHATSAPP
+    document.getElementById('whatsapp-btn').onclick = (e) => {
+        e.preventDefault();
+        if (panier.length === 0) return alert("Votre panier est vide !");
+        
+        let message = "Bonjour BRICO DOMONI, je souhaite commander :\n\n";
+        panier.forEach(item => {
+            message += `- ${item.nom} (x${item.qty}) : ${(item.prix * item.qty).toLocaleString()} KMF\n`;
+        });
+        message += `\nTotal : ${document.getElementById('cart-total').innerText}`;
+        
+        const tel = "2693330000"; // Remplace par ton vrai numéro
+        window.open(`https://wa.me/${tel}?text=${encodeURIComponent(message)}`);
+    };
 });

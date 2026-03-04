@@ -1,53 +1,68 @@
 document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. LISTE DES PRODUITS
     const produits = [
-        { id: 1, nom: "Brouette Renforcée", prix: 25000, image: "Images/Brouette.jpg" },
-        { id: 2, nom: "Pelle de Chantier", prix: 7500, image: "Images/9641602024.jpg" },
-        { id: 3, nom: "Évier Inox Cuisine", prix: 45000, image: "Images/AST187429-XL.jpg" }
+        { id: 1, nom: "Brouette Verte", prix: 25000, img: "Images/Brouette.jpg" },
+        { id: 2, nom: "Pelle de chantier", prix: 7500, img: "Images/9641602024.jpg" },
+        { id: 3, nom: "Évier Inox", prix: 45000, img: "Images/AST187429-XL.jpg" }
     ];
 
     const container = document.getElementById('product-list');
-
     if (container) {
-        container.innerHTML = ""; // On nettoie avant d'afficher
+        container.innerHTML = ""; // Nettoie le texte par défaut
         produits.forEach(p => {
-            const div = document.createElement('div');
-            div.className = 'product-card';
-            div.innerHTML = `
-                <img src="${p.image}" alt="${p.nom}">
-                <h4>${p.nom}</h4>
-                <p style="font-weight:bold; color:#ff9800;">${p.prix.toLocaleString()} KMF</p>
-                <button class="tab-btn" style="width:100%">Ajouter</button>
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img src="${p.img}" alt="${p.nom}">
+                <h3>${p.nom}</h3>
+                <p style="color:#ff9800; font-size:1.2rem; font-weight:bold;">${p.prix.toLocaleString()} KMF</p>
+                <button class="tab-btn" style="width:100%">Ajouter au panier</button>
             `;
-            container.appendChild(div);
+            container.appendChild(card);
         });
-        console.log("Produits chargés : " + produits.length);
     }
-});
 
-    // 2. GESTION DES ONGLETS (Correction pour afficher les produits)
-    const buttons = document.querySelectorAll('.tab-btn, .mobile-link');
+    // 2. OUVERTURE / FERMETURE DU PANIER
+    const cartPanel = document.getElementById('cart-panel');
+    const overlay = document.getElementById('overlay');
+    const openBtn = document.getElementById('open-cart-btn');
+    const closeBtn = document.getElementById('close-cart');
+
+    if (openBtn) {
+        openBtn.onclick = (e) => {
+            e.preventDefault();
+            cartPanel.classList.add('open');
+            overlay.classList.add('show');
+        };
+    }
+
+    if (closeBtn) {
+        closeBtn.onclick = () => {
+            cartPanel.classList.remove('open');
+            overlay.classList.remove('show');
+        };
+    }
+
+    overlay.onclick = () => {
+        cartPanel.classList.remove('open');
+        overlay.classList.remove('show');
+    };
+
+    // 3. NAVIGATION ONGLETS
+    const buttons = document.querySelectorAll('.tab-btn');
     const sections = document.querySelectorAll('.tab-content');
 
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
-            const targetId = btn.getAttribute('data-tab');
-            
-            // On cache tout
+            const target = btn.getAttribute('data-tab');
+            if (!target) return;
+
             sections.forEach(s => s.classList.remove('active'));
             buttons.forEach(b => b.classList.remove('active'));
 
-            // On affiche la cible
-            document.getElementById(targetId).classList.add('active');
+            document.getElementById(target).classList.add('active');
             btn.classList.add('active');
         });
     });
-
-    // 3. PANIER
-    const cartPanel = document.getElementById('cart-panel');
-    const overlay = document.getElementById('overlay');
-
-    document.getElementById('open-cart-btn').onclick = () => {
-        cartPanel.classList.add('open');
-        overlay.classList.add('show');
-    };
 });

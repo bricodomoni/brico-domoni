@@ -24,9 +24,12 @@ body {
 }
 
 #top-logo {
-    height: 70px; /* Taille fixe pour éviter le bug géant */
+    height: 70px !important; /* Le !important force le navigateur à obéir */
     width: auto;
+    max-width: 200px;
+    display: block;
 }
+
 
 #tabs-menu {
     display: flex;

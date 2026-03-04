@@ -1,60 +1,81 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 1. GESTION DES ONGLETS (TABS) ---
-    const btns = document.querySelectorAll('.tab-btn');
+    // --- 1. GESTION DES ONGLETS (Navigation) ---
+    const btns = document.querySelectorAll('.tab-btn, .mobile-link');
     const sections = document.querySelectorAll('.tab-content');
 
     btns.forEach(btn => {
         btn.onclick = () => {
-            const target = btn.dataset.tab;
-
-            // Désactiver tout
+            const target = btn.getAttribute('data-tab');
             btns.forEach(b => b.classList.remove('active'));
             sections.forEach(s => s.classList.remove('active'));
-
-            // Activer le cliqué
             btn.classList.add('active');
             document.getElementById(target).classList.add('active');
         };
     });
 
     // --- 2. LOGIQUE DU SLIDER ---
-    const slidesContainer = document.querySelector('.slides');
+    const slides = document.querySelector('.slides');
     const totalSlides = document.querySelectorAll('.slide').length;
     let index = 0;
 
-    document.querySelector('.next').onclick = () => {
-        index = (index + 1) % totalSlides;
-        updateSlider();
-    };
-
-    document.querySelector('.prev').onclick = () => {
-        index = (index - 1 + totalSlides) % totalSlides;
-        updateSlider();
-    };
-
-    function updateSlider() {
-        slidesContainer.style.transform = `translateX(${-index * 100}%)`;
+    if(document.querySelector('.next')) {
+        document.querySelector('.next').onclick = () => {
+            index = (index + 1) % totalSlides;
+            slides.style.transform = `translateX(${-index * 100}%)`;
+        };
+        document.querySelector('.prev').onclick = () => {
+            index = (index - 1 + totalSlides) % totalSlides;
+            slides.style.transform = `translateX(${-index * 100}%)`;
+        };
     }
 
-    // --- 3. AFFICHAGE DES PRODUITS ---
+    // --- 3. OUVERTURE DU PANIER ---
+    const cartPanel = document.getElementById('cart-panel');
+    const overlay = document.getElementById('overlay');
+    const openCartBtn = document.getElementById('open-cart-btn');
+    const closeCartBtn = document.getElementById('close-cart');
+
+    if(openCartBtn) {
+        openCartBtn.onclick = () => {
+            cartPanel.classList.add('open');
+            overlay.classList.add('show');
+        };
+    }
+
+    if(closeCartBtn) {
+        closeCartBtn.onclick = () => {
+            cartPanel.classList.remove('open');
+            overlay.classList.remove('show');
+        };
+    }
+
+    // --- 4. AFFICHAGE AUTOMATIQUE DES PRODUITS ---
     const produits = [
-        { name: "Brouette Verte", price: 25000, img: "Images/Brouette.jpg" },
-        { name: "Disque de coupe", price: 3500, img: "Images/9641602024.jpg" },
-        { name: "Évier Inox", price: 45000, img: "Images/AST187429-XL.jpg" }
+        { name: "Brouette Robuste", price: 25000, img: "Images/Brouette.jpg" },
+        { name: "Outil de Coupe", price: 3500, img: "Images/9641602024.jpg" },
+        { name: "Évier Moderne", price: 45000, img: "Images/AST187429-XL.jpg" }
     ];
 
     const grid = document.getElementById('product-list');
-    
-    produits.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.innerHTML = `
-            <img src="${p.img}" alt="${p.name}">
-            <h4>${p.name}</h4>
-            <p><strong>${p.price.toLocaleString()} KMF</strong></p>
-            <button class="add-cart-btn">Ajouter au panier</button>
-        `;
-        grid.appendChild(card);
-    });
+    if(grid) {
+        produits.forEach(p => {
+            grid.innerHTML += `
+                <div style="background:white; padding:15px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1); text-align:center;">
+                    <img src="${p.img}" alt="${p.name}" style="width:100%; height:150px; object-fit:contain;">
+                    <h3 style="font-size:1rem; margin:10px 0;">${p.name}</h3>
+                    <p style="color:#ff9800; font-weight:bold;">${p.price.toLocaleString()} KMF</p>
+                    <button style="background:#0A1F44; color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">Ajouter</button>
+                </div>
+            `;
+        });
+    }
+
+    // BOUTON "VOIR NOS PRODUITS" SUR L'ACCUEIL
+    const heroBtn = document.getElementById('go-to-products');
+    if(heroBtn) {
+        heroBtn.onclick = () => {
+            document.querySelector('[data-tab="produits"]').click();
+        };
+    }
 });

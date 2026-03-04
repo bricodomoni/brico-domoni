@@ -12,7 +12,7 @@ const slides = document.querySelectorAll(".slide");
 
 const cartPanel = document.getElementById("cart-panel");
 const overlay = document.getElementById("overlay");
-const cartCount = document.getElementById("cart-count"); // compteur dans l’icône
+const cartCount = document.getElementById("cart-count");
 
 const closeMobile = document.querySelector(".close-mobile");
 const mobileLinks = document.querySelectorAll(".mobile-link");
@@ -116,11 +116,8 @@ let cart = [];
 
 function addToCart(id) {
     const product = products.find(p => p.id === id);
-    if (!product) return;
-
     cart.push(product);
 
-    // compteur dans l’icône
     cartCount.textContent = cart.length;
 
     updateCart();

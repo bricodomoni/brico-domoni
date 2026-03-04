@@ -7,9 +7,10 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: #f7f9fc;
+    overflow-x: hidden; /* Empêche le défilement horizontal bizarre */
 }
 
-/* --- EN-TÊTE FIXÉ --- */
+/* --- HEADER --- */
 #main-header {
     display: flex;
     justify-content: space-between;
@@ -24,7 +25,7 @@ body {
 }
 
 #top-logo {
-    height: 70px; /* Taille fixe pour éviter le bug géant */
+    height: 70px;
     width: auto;
 }
 
@@ -49,13 +50,13 @@ body {
 
 /* --- GESTION DES PAGES --- */
 .tab-content {
-    display: none; /* Cache les pages */
+    display: none;
     padding: 40px 5%;
     animation: fadeIn 0.5s;
 }
 
 .tab-content.active {
-    display: block; /* Affiche la page active */
+    display: block;
 }
 
 @keyframes fadeIn {
@@ -83,20 +84,20 @@ body {
     background: white;
 }
 
-.slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    padding: 15px;
-    cursor: pointer;
-    border-radius: 50%;
+/* --- LE VOLET MOBILE (Celui qui bloquait) --- */
+#mobile-menu {
+    position: fixed;
+    right: -280px; /* Le pousse hors de l'écran par défaut */
+    top: 0;
+    width: 260px;
+    height: 100%;
+    background: white;
+    z-index: 3000;
+    padding: 20px;
+    transition: 0.4s;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    display: none; /* CACHE COMPLÈTEMENT LE VOLET SUR ORDINATEUR */
 }
-
-.next { right: 10px; }
-.prev { left: 10px; }
 
 /* --- PANIER --- */
 #cart-panel {
@@ -109,38 +110,9 @@ body {
     z-index: 3000;
     padding: 20px;
     transition: 0.4s;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
 }
 
 #cart-panel.open { right: 0; }
-
-/* --- MENU MOBILE (VOLET À DROITE) --- */
-#mobile-menu {
-    position: fixed;
-    right: -260px; /* Cacher par défaut en le poussant hors de l'écran */
-    top: 0;
-    width: 260px;
-    height: 100%;
-    background: white;
-    z-index: 3000;
-    padding: 20px;
-    transition: 0.4s;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-    display: block; /* Nécessaire pour l'animation */
-}
-
-/* Quand on ajoute une classe 'open' via JS (optionnel) ou si tu gères l'ouverture par le style */
-#mobile-menu.open {
-    right: 0;
-}
-
-.close-mobile {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    margin-bottom: 20px;
-}
 
 #overlay {
     position: fixed;
@@ -152,22 +124,7 @@ body {
 
 #overlay.show { display: block; }
 
-#whatsapp-btn {
-    display: block;
-    background: #25D366;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-/* --- MOBILE & RESPONSIVE --- */
-#hamburger {
-    display: none; /* Caché sur ordinateur */
-}
-
+/* --- RESPONSIVE (MOBILE) --- */
 @media (max-width: 850px) {
     #tabs-menu { display: none; }
     
@@ -177,12 +134,8 @@ body {
         border: none; 
         cursor: pointer;
     }
-    
-    #hamburger span { 
-        display: block; 
-        width: 25px; 
-        height: 3px; 
-        background: white; 
-        margin: 5px; 
+
+    #mobile-menu {
+        display: block; /* Réapparaît uniquement sur petit écran (téléphone) */
     }
 }

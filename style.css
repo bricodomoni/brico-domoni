@@ -1,34 +1,143 @@
-/* Garde TOUT ton code actuel et AJOUTE ces lignes à la fin */
+:root {
+    --bleu: #0A1F44;
+    --orange: #ff9800;
+}
 
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f7f9fc;
+}
+
+/* --- HEADER FIXÉ --- */
+#main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    background: var(--bleu);
+    height: 90px;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    color: white;
+}
+
+#top-logo {
+    height: 70px; /* Taille fixe pour éviter le bug géant */
+    width: auto;
+}
+
+#tabs-menu {
+    display: flex;
+    gap: 10px;
+}
+
+.tab-btn {
+    background: #1a3a6e;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tab-btn.active, .tab-btn:hover {
+    background: var(--orange);
+}
+
+/* --- GESTION DES PAGES --- */
 .tab-content {
-    display: none; /* Cache les sections par défaut */
-    padding: 20px;
+    display: none; /* Cache les pages */
+    padding: 40px 5%;
+    animation: fadeIn 0.5s;
 }
 
 .tab-content.active {
-    display: block; /* Affiche uniquement la section active */
+    display: block; /* Affiche la page active */
 }
 
-/* Fix pour les images du slider */
+@keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+}
+
+/* --- SLIDER --- */
+.slider {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
 .slides {
     display: flex;
-    width: 300%; /* Car tu as 3 images */
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s ease;
 }
 
 .slide {
-    width: 100.33%; /* Ajustement pour prendre toute la place */
+    min-width: 100%;
     height: 400px;
     object-fit: contain;
     background: white;
 }
 
-/* Bouton fermer mobile */
-.close-mobile {
-    align-self: flex-end;
-    background: none;
-    border: none;
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
     color: white;
-    font-size: 2rem;
+    border: none;
+    padding: 15px;
     cursor: pointer;
+    border-radius: 50%;
+}
+
+.next { right: 10px; }
+.prev { left: 10px; }
+
+/* --- PANIER --- */
+#cart-panel {
+    position: fixed;
+    right: -350px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background: white;
+    z-index: 3000;
+    padding: 20px;
+    transition: 0.4s;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+}
+
+#cart-panel.open { right: 0; }
+
+#overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 2500;
+}
+
+#overlay.show { display: block; }
+
+#whatsapp-btn {
+    display: block;
+    background: #25D366;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+/* --- MOBILE --- */
+@media (max-width: 850px) {
+    #tabs-menu { display: none; }
+    #hamburger { display: block; background: none; border: none; }
+    #hamburger span { display: block; width: 25px; height: 3px; background: white; margin: 5px; }
 }

@@ -7,10 +7,10 @@ body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: #f7f9fc;
-    overflow-x: hidden; /* Empêche le défilement horizontal */
+    overflow-x: hidden; /* Bloque le balancement vers la droite */
 }
 
-/* --- EN-TÊTE FIXÉ --- */
+/* --- EN-TÊTE (HEADER) --- */
 #main-header {
     display: flex;
     justify-content: space-between;
@@ -48,7 +48,7 @@ body {
     background: var(--orange);
 }
 
-/* --- CORRECTION DE L'ICÔNE PANIER --- */
+/* --- ICÔNE PANIER --- */
 .cart-icon {
     background: none;
     border: none;
@@ -59,7 +59,7 @@ body {
 }
 
 .cart-img {
-    width: 35px; /* Taille normale pour l'icône */
+    width: 35px;
     height: 35px;
     object-fit: contain;
 }
@@ -127,7 +127,7 @@ body {
 .next { right: 10px; }
 .prev { left: 10px; }
 
-/* --- PANIER (VOLET LATÉRAL) --- */
+/* --- PANIER LATÉRAL --- */
 #cart-panel {
     position: fixed;
     right: -350px;
@@ -148,7 +148,10 @@ body {
 
 #overlay {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
     background: rgba(0,0,0,0.5);
     display: none;
     z-index: 2500;
@@ -158,21 +161,10 @@ body {
     display: block; 
 }
 
-#whatsapp-btn {
-    display: block;
-    background: #25D366;
-    color: white;
-    text-align: center;
-    padding: 12px;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-/* --- MOBILE & VOLET MENU --- */
+/* --- MENU MOBILE & VOLET --- */
 #mobile-menu {
     position: fixed;
-    right: -280px; 
+    right: -300px; 
     top: 0;
     width: 260px;
     height: 100%;
@@ -180,8 +172,9 @@ body {
     z-index: 3000;
     padding: 20px;
     transition: 0.4s;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    display: none; /* CACHE TOTALEMENT LE VOLET SUR PC */
 }
+
 #hamburger {
     display: none;
 }
@@ -190,4 +183,8 @@ body {
     #tabs-menu { display: none; }
     #hamburger { display: block; background: none; border: none; cursor: pointer; }
     #hamburger span { display: block; width: 25px; height: 3px; background: white; margin: 5px; }
+    
+    #mobile-menu {
+        display: block; /* S'affiche uniquement sur mobile quand nécessaire */
+    }
 }

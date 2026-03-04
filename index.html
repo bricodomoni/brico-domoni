@@ -11,11 +11,13 @@
 
     <header id="main-header">
         <img src="logo.jpg" id="top-logo" alt="Logo Brico Domoni">
+        
         <nav id="tabs-menu">
             <button class="tab-btn active" data-tab="accueil">Accueil</button>
             <button class="tab-btn" data-tab="produits">Produits</button>
             <button class="tab-btn" data-tab="contact">Contact</button>
         </nav>
+
         <div class="cart-icon" id="open-cart-btn">
             <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" class="cart-img" alt="Panier">
             <span class="cart-count">0</span>
@@ -33,12 +35,12 @@
         </section>
         <div style="text-align:center; padding: 50px;">
             <h1>Bienvenue chez BRICO DOMONI</h1>
-            <p>Le meilleur du bricolage à Domoni.</p>
+            <p>Le spécialiste du bricolage et de la construction à Domoni.</p>
         </div>
     </main>
 
     <section class="tab-content" id="produits">
-        <h2 style="text-align:center; margin-top:30px;">Nos produits</h2>
+        <h2 style="text-align:center; margin-top:30px;">Nos Articles</h2>
         <div id="product-list" class="product-grid"></div>
     </section>
 
@@ -57,14 +59,14 @@
             <button id="close-cart" style="background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
         </div>
         <hr>
-        <div id="cart-items">
+        <div id="cart-items-container">
             </div>
         <div style="margin-top:20px; border-top: 2px solid #eee; padding-top: 15px;">
-            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1.2rem;">
+            <div style="display:flex; justify-content:space-between; font-weight:bold; font-size:1.1rem;">
                 <span>Total :</span>
                 <span id="cart-total">0 KMF</span>
             </div>
-            <a href="#" id="whatsapp-btn">Commander via WhatsApp</a>
+            <button id="whatsapp-order-btn">Commander via WhatsApp</button>
         </div>
     </div>
 

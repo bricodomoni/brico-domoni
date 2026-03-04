@@ -6,13 +6,12 @@
     <title>BRICO DOMONI</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/jpg" href="logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- HEADER -->
     <header id="main-header">
-
         <div class="header-left">
             <img src="logo.jpg" alt="BRICO DOMONI" id="top-logo">
         </div>
@@ -27,7 +26,7 @@
         </nav>
 
         <div class="header-right">
-            <button class="cart-icon" aria-label="Panier">
+            <button class="cart-icon" id="open-cart-btn" aria-label="Panier">
                 <img src="panier.png" class="cart-img" alt="Panier">
                 <span id="cart-count" class="cart-count">0</span>
             </button>
@@ -38,12 +37,10 @@
                 <span></span>
             </button>
         </div>
-
     </header>
 
-    <!-- MENU MOBILE -->
     <div id="mobile-menu">
-        <button class="close-mobile">✖</button>
+        <button class="close-mobile" id="close-mobile">✖</button>
         <button class="mobile-link" data-tab="accueil">Accueil</button>
         <button class="mobile-link" data-tab="services">Nos services</button>
         <button class="mobile-link" data-tab="galerie">Galerie</button>
@@ -52,100 +49,73 @@
         <button class="mobile-link" data-tab="contact">Contact</button>
     </div>
 
-    <!-- ACCUEIL -->
-    <div class="tab-content active" id="accueil">
-
-        <!-- SLIDER -->
-        <div class="slider">
-            <div class="slides">
-                <img src="Images/Brouette.jpg" class="slide">
-                <img src="Images/9641602024.jpg" class="slide">
-                <img src="Images/AST187429-XL.jpg" class="slide">
+    <main>
+        <div class="tab-content active" id="accueil">
+            <div class="slider">
+                <div class="slides">
+                    <img src="Images/Brouette.jpg" class="slide" alt="Brouette">
+                    <img src="Images/9641602024.jpg" class="slide" alt="Outil">
+                    <img src="Images/AST187429-XL.jpg" class="slide" alt="Évier">
+                </div>
+                <button class="slider-btn prev">❮</button>
+                <button class="slider-btn next">❯</button>
             </div>
-            <button class="slider-btn prev">❮</button>
-            <button class="slider-btn next">❯</button>
+
+            <div class="hero">
+                <p>Votre magasin de bricolage à Domoni Riadhu.</p>
+                <button class="hero-btn" id="go-to-products">Voir nos produits</button>
+            </div>
         </div>
 
-        <div class="hero">
-            <p>Votre magasin de bricolage à Domoni Riadhu.</p>
-            <button class="hero-btn" onclick="openProduits()">Voir nos produits</button>
-        </div>
-    </div>
-
-    <!-- SERVICES -->
-    <div class="tab-content" id="services">
-        <h2>Nos services</h2>
-        <ul>
-            <li>Vente d’outils et équipements</li>
-            <li>Matériaux pour la maison</li>
-            <li>Produits électriques et plomberie</li>
-            <li>Accessoires d’entretien</li>
-            <li>Conseils rapides en magasin</li>
-        </ul>
-    </div>
-
-    <!-- GALERIE -->
-    <div class="tab-content" id="galerie">
-        <h2>Galerie photos</h2>
-        <p>Aucune photo pour le moment.</p>
-        <div class="galerie-grid"></div>
-    </div>
-
-    <!-- PRODUITS -->
-    <div class="tab-content" id="produits">
-        <h2>Nos produits</h2>
-
-        <section id="search">
-            <input type="text" id="search-input" placeholder="Rechercher un produit...">
-        </section>
-
-        <section id="sort">
-            <select id="sort-select">
-                <option value="none">Trier par…</option>
-                <option value="price-asc">Prix croissant</option>
-                <option value="price-desc">Prix décroissant</option>
-                <option value="az">A → Z</option>
-                <option value="za">Z → A</option>
-            </select>
-        </section>
-
-        <p id="result-count"></p>
-        <div id="product-list" class="product-grid"></div>
-
-        <!-- PANIER -->
-        <div class="cart" id="cart-panel">
-            <button id="close-cart" class="close-cart">✖</button>
-            <h3>Panier</h3>
-            <ul id="cart-items"></ul>
-            <p>Total : <span id="total">0</span> KMF</p>
-
-            <a id="whatsapp-btn" class="btn-whatsapp" target="_blank">Commander via WhatsApp</a>
-            <a href="tel:+2694484047" class="btn-call">Appeler maintenant</a>
+        <div class="tab-content" id="services" style="display:none;">
+            <h2>Nos services</h2>
+            <ul>
+                <li>Vente d’outils et équipements</li>
+                <li>Matériaux pour la maison</li>
+                <li>Produits électriques et plomberie</li>
+                <li>Accessoires d’entretien</li>
+                <li>Conseils rapides en magasin</li>
+            </ul>
         </div>
 
-        <div id="overlay"></div>
+        <div class="tab-content" id="galerie" style="display:none;">
+            <h2>Galerie photos</h2>
+            <p>Aucune photo pour le moment.</p>
+        </div>
+
+        <div class="tab-content" id="produits" style="display:none;">
+            <h2>Nos produits</h2>
+            <div id="product-list" class="product-grid">
+                </div>
+        </div>
+
+        <div class="tab-content" id="apropos" style="display:none;">
+            <h2>À propos</h2>
+            <p>BRICO DOMONI est un magasin de matériaux et équipements situé à Domoni Riadhu.</p>
+        </div>
+
+        <div class="tab-content" id="contact" style="display:none;">
+            <h2>Contact</h2>
+            <p><strong>Adresse :</strong> Domoni Riadhu — en face de la pharmacie du Dr Salim</p>
+            <p><strong>Horaires :</strong> 08h00 → 20h00</p>
+            <p><strong>Téléphone :</strong> +269 44 84 047</p>
+        </div>
+    </main>
+
+    <div id="overlay"></div>
+    <div class="cart" id="cart-panel">
+        <button id="close-cart" class="close-cart">✖</button>
+        <h3>Votre Panier</h3>
+        <ul id="cart-items"></ul>
+        <p>Total : <span id="total">0</span> KMF</p>
+        <a id="whatsapp-btn" class="btn-whatsapp" href="#" target="_blank" style="display: block; background: #25D366; color: white; padding: 10px; text-align: center; border-radius: 8px; text-decoration: none; margin-top: 10px;">Commander via WhatsApp</a>
     </div>
 
-    <!-- À PROPOS -->
-    <div class="tab-content" id="apropos">
-        <h2>À propos</h2>
-        <p>BRICO DOMONI est un magasin de matériaux et équipements situé à Domoni Riadhu.</p>
-    </div>
-
-    <!-- CONTACT -->
-    <div class="tab-content" id="contact">
-        <h2>Contact</h2>
-        <p><strong>Adresse :</strong> Domoni Riadhu — en face de la pharmacie du Dr Salim</p>
-        <p><strong>Horaires :</strong> 08h00 → 20h00</p>
-        <p><strong>Téléphone / WhatsApp :</strong> +269 44 84 047</p>
-    </div>
-
-    <!-- FOOTER -->
     <footer>
         <p>© 2026 BRICO DOMONI — Tous droits réservés</p>
         <p class="dev">Site développé par Kaambi</p>
     </footer>
 
-    <script src="script.js" defer></script>
+    <script src="script.js"></script>
 </body>
 </html>

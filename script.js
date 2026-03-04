@@ -105,7 +105,4 @@ document.addEventListener('DOMContentLoaded', () => {
         msg += `Total: ${document.getElementById('cart-total').innerText}`;
         window.open(`https://wa.me/2693330000?text=${encodeURIComponent(msg)}`);
     };
-    <script src="script.js"></script>
-</body>
-</html>
 });

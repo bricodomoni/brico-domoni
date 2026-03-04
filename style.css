@@ -9,7 +9,7 @@ body {
     background: #f7f9fc;
 }
 
-/* --- HEADER FIXÉ --- */
+/* --- EN-TÊTE FIXÉ --- */
 #main-header {
     display: flex;
     justify-content: space-between;
@@ -114,6 +114,34 @@ body {
 
 #cart-panel.open { right: 0; }
 
+/* --- MENU MOBILE (VOLET À DROITE) --- */
+#mobile-menu {
+    position: fixed;
+    right: -260px; /* Cacher par défaut en le poussant hors de l'écran */
+    top: 0;
+    width: 260px;
+    height: 100%;
+    background: white;
+    z-index: 3000;
+    padding: 20px;
+    transition: 0.4s;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+    display: block; /* Nécessaire pour l'animation */
+}
+
+/* Quand on ajoute une classe 'open' via JS (optionnel) ou si tu gères l'ouverture par le style */
+#mobile-menu.open {
+    right: 0;
+}
+
+.close-mobile {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
 #overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -135,9 +163,26 @@ body {
     margin-top: 20px;
 }
 
-/* --- MOBILE --- */
+/* --- MOBILE & RESPONSIVE --- */
+#hamburger {
+    display: none; /* Caché sur ordinateur */
+}
+
 @media (max-width: 850px) {
     #tabs-menu { display: none; }
-    #hamburger { display: block; background: none; border: none; }
-    #hamburger span { display: block; width: 25px; height: 3px; background: white; margin: 5px; }
+    
+    #hamburger { 
+        display: block; 
+        background: none; 
+        border: none; 
+        cursor: pointer;
+    }
+    
+    #hamburger span { 
+        display: block; 
+        width: 25px; 
+        height: 3px; 
+        background: white; 
+        margin: 5px; 
+    }
 }

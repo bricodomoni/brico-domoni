@@ -56,21 +56,22 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
-    padding: 20px 5%;
+    padding: 40px 5%;
 }
 
 .product-card {
     background: white; padding: 20px;
     border-radius: 15px; text-align: center;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
 }
-
-.product-card img { width: 100%; height: 200px; object-fit: contain; }
+.product-card:hover { transform: translateY(-5px); }
+.product-card img { width: 100%; height: 200px; object-fit: contain; margin-bottom: 15px; }
 
 /* --- PANIER LATÉRAL --- */
 #cart-panel {
     position: fixed;
-    right: -350px; /* Caché à droite */
+    right: -350px; 
     top: 0;
     width: 320px;
     height: 100vh;
@@ -101,12 +102,50 @@ body {
 }
 
 /* --- PAGES --- */
-.tab-content { display: none; padding: 20px 0; }
+.tab-content { display: none; }
 .tab-content.active { display: block; }
 
-/* --- SLIDER --- */
-.slider { position: relative; max-width: 1000px; margin: 20px auto; overflow: hidden; border-radius: 15px; }
-.slides { display: flex; transition: 0.5s; }
-.slide { min-width: 100%; height: 400px; object-fit: cover; }
-.slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 15px; cursor: pointer; border-radius: 50%; }
-.next { right: 10px; } .prev { left: 10px; }
+/* --- SLIDER (CORRIGÉ) --- */
+.slider { 
+    position: relative; 
+    max-width: 1000px; 
+    height: 450px; /* Définit une hauteur fixe pour éviter les sauts d'image */
+    margin: 20px auto; 
+    overflow: hidden; 
+    border-radius: 15px; 
+    background: #eee;
+}
+
+/* On retire display: flex de .slides car ton JS utilise display: none/block */
+.slide { 
+    display: none; 
+    width: 100%; 
+    height: 100%; 
+}
+
+.slide.active { 
+    display: block; 
+}
+
+.slide img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* Remplit bien le cadre sans déformer l'image */
+}
+
+.slider-btn { 
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    background: rgba(0,0,0,0.5); 
+    color: white; 
+    border: none; 
+    padding: 15px; 
+    cursor: pointer; 
+    border-radius: 50%; 
+    z-index: 10;
+    transition: 0.3s;
+}
+.slider-btn:hover { background: var(--orange); }
+.next { right: 15px; } 
+.prev { left: 15px; }

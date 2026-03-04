@@ -1,31 +1,58 @@
-<section class="hero">
-    <div class="slider">
-        <div class="slide active">
-            <img src="Images/Brouette.jpg" alt="Brouette Verte">
-        </div>
-        <div class="slide">
-            <img src="Images/9641602024.jpg" alt="Pelle de chantier">
-        </div>
-        <div class="slide">
-            <img src="Images/AST187429-XL.jpg" alt="Évier Inox">
-        </div>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRICO DOMONI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-        <button class="prev">&#10094;</button>
-        <button class="next">&#10095;</button>
+    <header>
+        <nav class="navbar">
+            <div class="logo">BRICO DOMONI</div>
+            <div class="nav-links">
+                <button class="tab-btn active" data-tab="home">Accueil</button>
+                <button class="tab-btn" data-tab="products">Produits</button>
+            </div>
+            <div id="open-cart-btn" style="cursor:pointer; position:relative;">
+                🛒 <span class="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="tab-content active">
+        <div class="slider">
+            <div class="slide active">
+                <img src="Images/Brouette.jpg" alt="Brouette Verte">
+            </div>
+            <div class="slide">
+                <img src="Images/9641602024.jpg" alt="Pelle de chantier">
+            </div>
+            <div class="slide">
+                <img src="Images/AST187429-XL.jpg" alt="Évier Inox">
+            </div>
+            <button class="prev">&#10094;</button>
+            <button class="next">&#10095;</button>
+        </div>
+    </section>
+
+    <section id="products" class="tab-content">
+        <h2 style="text-align:center; margin-top:20px;">Nos Articles</h2>
+        <div id="product-list" class="product-grid"></div>
+    </section>
+
+    <div id="overlay"></div>
+    <div id="cart-panel">
+        <button id="close-cart">&times;</button>
+        <h2>Votre Panier</h2>
+        <div id="cart-items-container"></div>
+        <div class="cart-footer">
+            <h3>Total : <span id="cart-total">0 KMF</span></h3>
+            <button id="whatsapp-order-btn">Commander via WhatsApp</button>
+        </div>
     </div>
-</section>
 
-<div id="product-list" class="product-grid"></div>
-
-<div id="overlay"></div>
-<div id="cart-panel">
-    <button id="close-cart">×</button>
-    <h2>Votre Panier</h2>
-    <div id="cart-items-container"></div>
-    <p>Total : <span id="cart-total">0 KMF</span></p>
-    <button id="whatsapp-order-btn">Commander sur WhatsApp</button>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

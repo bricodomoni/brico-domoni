@@ -6,35 +6,28 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 3, nom: "Pelle de chantier", prix: 7500, img: "Images/9641602024.jpg" }
     ];
 
-    // --- 1. AFFICHAGE DES PRODUITS ---
     const container = document.getElementById('product-list');
     if (container) {
         produits.forEach(p => {
-            const div = document.createElement('div');
-            div.className = 'product-card';
-            div.innerHTML = `
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
                 <img src="${p.img}">
                 <h3>${p.nom}</h3>
                 <p class="price">${p.prix.toLocaleString()} KMF</p>
                 <button class="add-to-cart-btn" onclick="ajouter(${p.id})">Ajouter au panier</button>
             `;
-            container.appendChild(div);
+            container.appendChild(card);
         });
     }
 
-    // --- 2. LOGIQUE DU PANIER (FONCTIONS GLOBALES) ---
     window.ajouter = (id) => {
         const prod = produits.find(p => p.id === id);
-        const dejaDansPanier = panier.find(item => item.id === id);
-
-        if (dejaDansPanier) {
-            dejaDansPanier.qty++;
-        } else {
-            panier.push({ ...prod, qty: 1 });
-        }
-
+        const existant = panier.find(item => item.id === id);
+        if (existant) { existant.qty++; } else { panier.push({ ...prod, qty: 1 }); }
         majPanier();
-        alerte();
+        document.getElementById('toast-notification').classList.add('show');
+        setTimeout(() => document.getElementById('toast-notification').classList.remove('show'), 2000);
         document.getElementById('cart-sidebar').classList.add('open');
         document.getElementById('cart-overlay').classList.add('show');
     };
@@ -51,76 +44,48 @@ document.addEventListener('DOMContentLoaded', () => {
     function majPanier() {
         const liste = document.getElementById('cart-items-list');
         const totalHtml = document.getElementById('total-price');
-        if (!liste || !totalHtml) return;
-
         liste.innerHTML = "";
         let total = 0;
-
         panier.forEach(item => {
             total += item.prix * item.qty;
             const div = document.createElement('div');
-            div.className = 'cart-item'; // Utilise la classe CSS pour le style
+            div.style.borderBottom = "1px solid #eee";
+            div.style.padding = "10px";
             div.innerHTML = `
-                <div style="flex:1">
-                    <strong>${item.nom}</strong><br>
-                    <small>${item.prix.toLocaleString()} KMF</small>
-                </div>
-                <div>
-                    <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
-                    <span style="margin:0 10px">${item.qty}</span>
-                    <button class="qty-btn" onclick="modifierQty(${item.id}, 1)">+</button>
-                </div>
+                <strong>${item.nom}</strong><br>
+                <button onclick="modifierQty(${item.id}, -1)">-</button>
+                <span> ${item.qty} </span>
+                <button onclick="modifierQty(${item.id}, 1)">+</button>
+                <span> | ${(item.prix * item.qty).toLocaleString()} KMF</span>
             `;
             liste.appendChild(div);
         });
         totalHtml.innerText = total.toLocaleString() + " KMF";
     }
 
-    function alerte() {
-        const t = document.getElementById('toast-notification');
-        if (t) {
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2500);
-        }
-    }
-
-    // --- 3. SLIDER AUTOMATIQUE ---
+    // Slider et Onglets
     const slides = document.querySelectorAll('.slide');
-    let currentSlide = 0;
-    if (slides.length > 0) {
-        setInterval(() => {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 5000);
-    }
+    let cur = 0;
+    setInterval(() => {
+        if(slides.length > 0) {
+            slides[cur].classList.remove('active');
+            cur = (cur + 1) % slides.length;
+            slides[cur].classList.add('active');
+        }
+    }, 5000);
 
-    // --- 4. NAVIGATION PAR ONGLETS ---
-    const tabs = document.querySelectorAll('.tab-btn');
-    tabs.forEach(tab => {
-        tab.onclick = () => {
-            const target = tab.getAttribute('data-tab');
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.onclick = () => {
+            const target = btn.getAttribute('data-tab');
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            tabs.forEach(t => t.classList.remove('active'));
             document.getElementById(target).classList.add('active');
-            tab.classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
         };
     });
 
-    // --- 5. FERMETURE DU PANIER ---
-    const closeBtn = document.getElementById('close-cart');
-    const overlay = document.getElementById('cart-overlay');
-    
-    if (closeBtn) {
-        closeBtn.onclick = () => {
-            document.getElementById('cart-sidebar').classList.remove('open');
-            overlay.classList.remove('show');
-        };
-    }
-    if (overlay) {
-        overlay.onclick = () => {
-            document.getElementById('cart-sidebar').classList.remove('open');
-            overlay.classList.remove('show');
-        };
-    }
+    document.getElementById('close-cart').onclick = () => {
+        document.getElementById('cart-sidebar').classList.remove('open');
+        document.getElementById('cart-overlay').classList.remove('show');
+    };
 });

@@ -47,6 +47,34 @@ header {
     border-color: var(--orange);
     transform: translateY(-2px);
 }
+
+/* --- LA GRILLE DE PRODUITS --- */
+.product-list, .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 articles par ligne sur PC */
+    gap: 25px;
+    padding: 40px 5%;
+    width: 100%;
+}
+
+/* --- LA CARTE PRODUIT (DESIGN AMÉLIORÉ) --- */
+.product-card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    text-align: center;
+    transition: 0.4s ease;
+    border: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
 /* ANTI-GÉANT : Cadre les images strictement */
 .product-card {
     background: white;

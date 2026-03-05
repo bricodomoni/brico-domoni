@@ -4,24 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRICO DOMONI</title>
-    <link rel="stylesheet" href="style.css">
+
+    <!-- Police -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css?v=3">
 </head>
 
 <body>
 
-    <header id="main-header">
+    <!-- HEADER -->
+    <header>
         <img src="logo.jpg" id="top-logo" alt="Logo BRICO DOMONI">
 
-        <nav>
+        <nav class="nav-links">
             <button class="tab-btn active" data-tab="accueil">Accueil</button>
             <button class="tab-btn" data-tab="produits">Produits</button>
         </nav>
     </header>
 
-    <!-- ACCUEIL -->
+    <!-- ONGLET ACCUEIL -->
     <main id="accueil" class="tab-content active">
 
+        <!-- SLIDER -->
         <div class="slider">
             <img src="Images/Brouette.jpg" class="slide active" alt="Brouette">
             <img src="Images/AST187429-XL.jpg" class="slide" alt="Évier inox">
@@ -38,7 +44,7 @@
 
     </main>
 
-    <!-- PRODUITS -->
+    <!-- ONGLET PRODUITS -->
     <section id="produits" class="tab-content">
         <h2 style="text-align:center; margin-top:30px;">Nos Articles</h2>
 
@@ -72,6 +78,8 @@
 
     </div>
 
-    <script src="script.js"></script>
+    <!-- SCRIPT -->
+    <script src="script.js?v=3"></script>
+
 </body>
 </html>

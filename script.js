@@ -1,35 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* -------------------------
-       PRODUITS DISPONIBLES
-    --------------------------*/
-    const produits = [
-        { id: 1, nom: "Brouette Verte", prix: 25000, img: "Images/Brouette.jpg" },
-        { id: 2, nom: "Évier Inox Double", prix: 45000, img: "Images/AST187429-XL.jpg" },
-        { id: 3, nom: "Pelle de chantier", prix: 7500, img: "Images/9641602024.jpg" }
-    ];
-
-    let panier = [];
-    const productList = document.getElementById("product-list");
-
-    /* -------------------------
-       AFFICHAGE DES PRODUITS
-    --------------------------*/
-    if (productList) {
-        productList.innerHTML = ""; // Sécurité : on vide avant d'afficher
-        produits.forEach(p => {
-            const card = document.createElement("div");
-            card.className = "product-card";
-            card.innerHTML = `
-                <img src="${p.img}" alt="${p.nom}">
-                <h3>${p.nom}</h3>
-                <p><strong>${p.prix.toLocaleString()} KMF</strong></p>
-                <button class="add-to-cart-btn" onclick="ajouter(${p.id})">Ajouter au panier</button>
-            `;
-            productList.appendChild(card);
-        });
+   // Liste des produits
+const produits = [
+    {
+        nom: "Brouette",
+        prix: 15000,
+        image: "Images/Brouette.jpg"
+    },
+    {
+        nom: "Évier inox",
+        prix: 22000,
+        image: "Images/AST187429-XL.jpg"
+    },
+    {
+        nom: "Pelle de chantier",
+        prix: 8000,
+        image: "Images/9641602024.jpg"
+    },
+    {
+        nom: "Marteau",
+        prix: 3000,
+        image: "Images/marteau.jpg"
     }
+];
 
+// Injection dans la grille
+const productList = document.getElementById("product-list");
+
+produits.forEach(p => {
+    productList.innerHTML += `
+        <div class="product-card">
+            <img src="${p.image}" alt="${p.nom}">
+            <h3>${p.nom}</h3>
+            <p class="price">${p.prix} KMF</p>
+            <button class="add-to-cart-btn">Ajouter</button>
+        </div>
+    `;
+});
     /* -------------------------
        LOGIQUE DU PANIER
     --------------------------*/

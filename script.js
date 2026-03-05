@@ -109,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
-    // Fermer aussi en cliquant sur l'overlay sombre
     const overlay = document.getElementById('cart-overlay');
     if(overlay) {
         overlay.onclick = () => {
@@ -146,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000);
     }
 
-    // Gestion des onglets
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.onclick = () => {
             const target = btn.dataset.tab;
@@ -173,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const total = panier.reduce((t, i) => t + i.prix * i.qty, 0);
             message += `%0A*Total : ${total.toLocaleString()} KMF*`;
 
-            const numero = "269334XXXX"; // REMPLACE PAR TON NUMÉRO ICI
+            const numero = "269334XXXX"; // Mets ton numéro ici
             window.open(`https://wa.me/${numero}?text=${message}`, "_blank");
         };
     }

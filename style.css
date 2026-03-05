@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
 }
 
-header {
+header {   
     background: var(--bleu);
     padding: 15px 5%;
     display: flex;
@@ -47,6 +47,13 @@ header {
     border-color: var(--orange);
     transform: translateY(-2px);
 }
+
+/* Taille du logo */
+#top-logo {
+    height: 10px;
+    width: auto;
+}
+
 
 /* --- LA GRILLE DE PRODUITS --- */
 .product-list, .product-grid {

@@ -165,3 +165,11 @@ header {
     .product-grid { grid-template-columns: 1fr; }
     .sidebar { width: 100%; }
 }
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}

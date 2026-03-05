@@ -188,3 +188,33 @@ header {
     header { padding: 10px 3%; }
     .slider { height: 200px; }
 } 
+
+/* Bouton WhatsApp Modernisé */
+.btn-whatsapp {
+    background-color: #25D366; /* Vert officiel WhatsApp */
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 12px;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    margin-top: 20px;
+}
+
+.btn-whatsapp:hover {
+    background-color: #128C7E; /* Vert plus foncé au survol */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+}
+
+.btn-whatsapp:active {
+    transform: translateY(-1px);
+}

@@ -141,6 +141,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* -------------------------
+   ONGLET ACCUEIL / PRODUITS
+--------------------------*/
+document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.onclick = () => {
+        const target = btn.dataset.tab;
+
+        // Désactive tous les contenus
+        document.querySelectorAll(".tab-content").forEach(c =>
+            c.classList.remove("active")
+        );
+
+        // Active le contenu ciblé
+        document.getElementById(target).classList.add("active");
+
+        // Désactive tous les boutons
+        document.querySelectorAll(".tab-btn").forEach(b =>
+            b.classList.remove("active")
+        );
+
+        // Active le bouton cliqué
+        btn.classList.add("active");
+    };
+});
+
+    /* -------------------------
        ONGLETS & WHATSAPP
     --------------------------*/
     document.querySelectorAll(".tab-btn").forEach(btn => {

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- 0. VARIABLES GLOBALES ---
-    let panier = []; // INDISPENSABLE : On crée le panier vide ici
+    let panier = []; 
 
     // --- 1. BASE DE DONNÉES DES PRODUITS ---
     const produits = [
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         majPanier();
         showToast();
-        openCart(); // Ouvre le panier dès qu'on ajoute
+        openCart(); // Déclenche l'ouverture visuelle (Sidebar + Overlay)
     };
 
     window.modifierQty = (id, change) => {
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    function majPanier() {
+    function majPanier() {        
         const liste = document.getElementById('cart-items-list');
         const totalHtml = document.getElementById('total-price');
         if(!liste || !totalHtml) return;
@@ -65,19 +65,27 @@ document.addEventListener('DOMContentLoaded', () => {
             total += item.prix * item.qty;
             const div = document.createElement('div');
             div.className = 'cart-item-row'; 
+            div.style.padding = "10px";
+            div.style.borderBottom = "1px solid #eee";
             div.innerHTML = `
-                <strong>${item.nom}</strong><br>
-                <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
-                <span>${item.qty}</span>
-                <button class="qty-btn" onclick="modifierQty(${item.id}, 1)">+</button>
-                <span> | ${(item.prix * item.qty).toLocaleString()} KMF</span>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <strong>${item.nom}</strong><br>
+                        <small>${item.prix.toLocaleString()} KMF</small>
+                    </div>
+                    <div>
+                        <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
+                        <span>${item.qty}</span>
+                        <button class="qty-btn" onclick="modifierQty(${item.id}, 1)">+</button>
+                    </div>
+                </div>
             `;
             liste.appendChild(div);
         });
         totalHtml.innerText = total.toLocaleString() + " KMF";
     }
 
-    // --- 4. INTERFACE ---
+    // --- 4. INTERFACE (SIDEBAR & OVERLAY) ---
     function showToast() {
         const toast = document.getElementById('toast-notification');
         if(toast) {
@@ -87,14 +95,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function openCart() {
-        document.getElementById('cart-sidebar').classList.add('open');
-        document.getElementById('cart-overlay').classList.add('show');
+        const sidebar = document.getElementById('cart-sidebar');
+        const overlay = document.getElementById('cart-overlay');
+        if(sidebar) sidebar.classList.add('open');
+        if(overlay) overlay.classList.add('show');
     }
 
-    document.getElementById('close-cart').onclick = () => {
-        document.getElementById('cart-sidebar').classList.remove('open');
-        document.getElementById('cart-overlay').classList.remove('show');
-    };
+    const closeBtn = document.getElementById('close-cart');
+    if(closeBtn) {
+        closeBtn.onclick = () => {
+            document.getElementById('cart-sidebar').classList.remove('open');
+            document.getElementById('cart-overlay').classList.remove('show');
+        };
+    }
+
+    // Fermer aussi en cliquant sur l'overlay sombre
+    const overlay = document.getElementById('cart-overlay');
+    if(overlay) {
+        overlay.onclick = () => {
+            document.getElementById('cart-sidebar').classList.remove('open');
+            overlay.classList.remove('show');
+        };
+    }
 
     // --- 5. NAVIGATION & SLIDER ---
     const slides = document.querySelectorAll('.slide');
@@ -106,45 +128,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (slides.length > 0) {
-        document.querySelector('.next').onclick = () => {
+        const next = document.querySelector('.next');
+        const prev = document.querySelector('.prev');
+        
+        if(next) next.onclick = () => {
             cur = (cur + 1) % slides.length;
             showSlide(cur);
         };
-        document.querySelector('.prev').onclick = () => {
+        if(prev) prev.onclick = () => {
             cur = (cur - 1 + slides.length) % slides.length;
             showSlide(cur);
         };
+        
         setInterval(() => {
             cur = (cur + 1) % slides.length;
             showSlide(cur);
         }, 5000);
     }
 
+    // Gestion des onglets
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.onclick = () => {
             const target = btn.dataset.tab;
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.getElementById(target).classList.add('active');
+            const targetEl = document.getElementById(target);
+            if(targetEl) targetEl.classList.add('active');
+            
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         };
     });
 
     // --- 6. COMMANDE WHATSAPP ---
-    document.getElementById('whatsapp-send').onclick = () => {
-        if (panier.length === 0) return alert("Votre panier est vide.");
+    const waBtn = document.getElementById('whatsapp-send');
+    if(waBtn) {
+        waBtn.onclick = () => {
+            if (panier.length === 0) return alert("Votre panier est vide.");
 
-        let message = "Bonjour BRICO DOMONI, voici ma commande :%0A";
-        panier.forEach(item => {
-            message += `- ${item.nom} (x${item.qty}) : ${(item.prix * item.qty).toLocaleString()} KMF%0A`;
-        });
+            let message = "Bonjour BRICO DOMONI, voici ma commande :%0A";
+            panier.forEach(item => {
+                message += `- ${item.nom} (x${item.qty}) : ${(item.prix * item.qty).toLocaleString()} KMF%0A`;
+            });
 
-        const total = panier.reduce((t, i) => t + i.prix * i.qty, 0);
-        message += `%0A*Total : ${total.toLocaleString()} KMF*`;
+            const total = panier.reduce((t, i) => t + i.prix * i.qty, 0);
+            message += `%0A*Total : ${total.toLocaleString()} KMF*`;
 
-        const numero = "269334XXXX"; // Mets ton vrai numéro ici
-        window.open(`https://wa.me/${numero}?text=${message}`, "_blank");
-    };
+            const numero = "269334XXXX"; // REMPLACE PAR TON NUMÉRO ICI
+            window.open(`https://wa.me/${numero}?text=${message}`, "_blank");
+        };
+    }
 
     // --- INITIALISATION FINALE ---
     afficherProduits();

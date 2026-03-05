@@ -14,36 +14,39 @@ body {
     overflow-x: hidden;
 }
 
-/* --- HEADER --- */
-#main-header {
+header {
     background: var(--bleu);
-    padding: 10px 5%;
+    padding: 15px 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-#top-logo { height: 50px; width: auto; }
-
-/* --- GRILLE DE PRODUITS (4 articles par ligne) --- */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Force 4 colonnes sur PC */
-    gap: 20px;
-    padding: 40px 5%;
-}
-
-.product-card {
-    background: var(--blanc);
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+.nav-links {
     display: flex;
-    flex-direction: column;
+    gap: 20px;
 }
 
+.tab-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+.tab-btn:hover, .tab-btn.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    transform: translateY(-2px);
+}
 /* ANTI-GÉANT : Cadre les images strictement */
 .product-card img {
     width: 100%;

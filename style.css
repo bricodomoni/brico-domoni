@@ -94,3 +94,23 @@ body {
     }
     .sidebar { width: 100%; }
 }
+
+/* Empêche TOUTES les images du site de déborder */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Redimensionne les images des produits spécifiquement */
+.product-card img {
+    width: 100%;
+    height: 200px; /* Force une hauteur fixe */
+    object-fit: contain; /* Garde les proportions sans déformer */
+    margin-bottom: 15px;
+}
+
+/* Redimensionne le logo s'il est devenu énorme */
+#top-logo {
+    height: 60px;
+    width: auto;
+}

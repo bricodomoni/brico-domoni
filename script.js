@@ -1,4 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+   // --- 1. LISTE DES PRODUITS ---
+    const produits = [
+        { id: 1, nom: "Brouette Verte", prix: 25000, img: "Images/Brouette.jpg" },
+        { id: 2, nom: "Évier Inox Double", prix: 45000, img: "Images/AST187429-XL.jpg" },
+        { id: 3, nom: "Pelle de chantier", prix: 7500, img: "Images/9641602024.jpg" }
+    ];
+
+    const productList = document.getElementById('product-list');
+
+    if (productList) {
+        produits.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img src="${p.img}" alt="${p.nom}">
+                <h3>${p.nom}</h3>
+                <p class="price">${p.prix.toLocaleString()} KMF</p>
+                <button class="add-to-cart-btn" data-id="${p.id}">Ajouter au panier</button>
+            `;
+            productList.appendChild(card);
+        });
+    }
     
     // --- GESTION DU SLIDER ---
     const slides = document.querySelectorAll('.slide');

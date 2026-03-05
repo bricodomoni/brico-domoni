@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRICO DOMONI</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -23,39 +24,39 @@
             <button class="slider-btn prev">❮</button>
             <button class="slider-btn next">❯</button>
         </div>
-        <div style="text-align:center;">
+        <div style="text-align:center; padding: 20px;">
             <h1>Bienvenue chez BRICO DOMONI</h1>
+            <p>Votre partenaire bricolage aux Comores</p>
         </div>
     </main>
 
-<section id="produits" class="tab-content">
-    <h2 style="text-align:center; margin-top:30px;">Nos Articles</h2>
-    <div id="product-list" class="product-grid">
-        </div>
-</section>
-
-    <script src="script.js"></script>
+    <section id="produits" class="tab-content">
+        <h2 style="text-align:center; margin-top:30px;">Nos Articles</h2>
+        <div id="product-list" class="product-grid">
+            </div>
+    </section>
 
     <div id="toast-notification" class="toast">Produit ajouté !</div>
-
-<div id="cart-overlay" class="overlay"></div>
-<div id="cart-sidebar" class="sidebar">
-    <div class="sidebar-header">
-        <h2>Mon Panier</h2>
-        <button id="close-cart" class="close-btn">&times;</button>
-    </div>
-    <div id="cart-content" class="cart-items-container">
-        </div>
-    <div class="sidebar-footer">
-        <div class="total-container">
-            <span>Total:</span>
-            <span id="cart-total-price">0 KMF</span>
-        </div>
-        <button id="whatsapp-order-btn" class="whatsapp-btn">Commander sur WhatsApp</button>
-    </div>
-</div>
+    <div id="cart-overlay" class="overlay"></div>
     
+    <div id="cart-sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h2>Mon Panier</h2>
+            <button id="close-cart" class="close-btn">&times;</button>
+        </div>
+        
+        <div id="cart-items-list" class="cart-body">
+            </div>
+
+        <div class="sidebar-footer">
+            <div class="cart-total">
+                <span>Total :</span>
+                <span id="total-price">0 KMF</span>
+            </div>
+            <button id="whatsapp-send" class="btn-whatsapp">Commander sur WhatsApp</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
-
-

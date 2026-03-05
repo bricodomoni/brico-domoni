@@ -136,3 +136,10 @@ body {
 .add-to-cart-btn:hover {
     background: #ff9800;
 }
+
+@media (max-width: 600px) {
+    .product-grid {
+        padding: 20px 2%;
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
+}

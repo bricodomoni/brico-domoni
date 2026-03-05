@@ -10,6 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     let panier = [];
+    let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
+
+// Et on force la mise à jour visuelle immédiate si le panier n'est pas vide
+if (panier.length > 0) {
+    majPanier();
+}
 
     /* -------------------------
        2. AFFICHAGE DYNAMIQUE
@@ -65,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         list.innerHTML = "";
         let total = 0;
+        localStorage.setItem("panier_brico", JSON.stringify(panier));
 
         panier.forEach(item => {
             total += item.prix * item.qty;

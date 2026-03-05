@@ -164,12 +164,33 @@ header {
 @media (max-width: 600px) {
     .product-grid { grid-template-columns: 1fr; }
     .sidebar { width: 100%; }
-}
 
+/* Cache les sections par défaut */
 .tab-content {
     display: none;
+    width: 100%;
 }
 
 .tab-content.active {
     display: block;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Ajuste selon tes besoins */
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
 }

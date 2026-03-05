@@ -52,6 +52,20 @@ body {
 .slide.active { display: block; }
 .slide img { width: 100%; height: 100%; object-fit: contain; }
 
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    z-index: 10;
+}
+.next { right: 10px; }
+.prev { left: 10px; }
+
 .tab-content { display: none; padding: 20px; }
 .tab-content.active { display: block; }
 
@@ -71,38 +85,8 @@ body {
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     transition: 0.3s;
 }
-
 .product-card:hover { transform: translateY(-5px); }
-
-.product-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: contain;
-    margin-bottom: 15px;
-}
-
-.product-card h3 { color: var(--bleu); margin-bottom: 10px; }
-
-.price {
-    color: var(--orange);
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-}
-
-.add-to-cart-btn {
-    background: var(--bleu);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    width: 100%;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.add-to-cart-btn:hover { background: var(--orange); }
+.product-card img { width: 100%; height: 200px; object-fit: contain; margin-bottom: 15px; }
 
 /* --- PANIER LATÉRAL --- */
 .sidebar {
@@ -113,12 +97,11 @@ body {
     height: 100%;
     background: white;
     z-index: 5000;
-    transition: 0.4s;
+    transition: 0.4s ease;
     display: flex;
     flex-direction: column;
     box-shadow: -5px 0 15px rgba(0,0,0,0.2);
 }
-
 .sidebar.open { right: 0; }
 
 .overlay {
@@ -128,25 +111,15 @@ body {
     display: none;
     z-index: 4500;
 }
-
 .overlay.show { display: block; }
 
-/* --- CONTENU DU PANIER --- */
-.cart-item {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border-bottom: 1px solid #eee;
-}
+.cart-body { flex: 1; overflow-y: auto; padding: 15px; }
 
-.qty-btn {
-    background: #eee;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 4px;
-}
+.sidebar-header { padding: 20px; background: var(--bleu); color: white; display: flex; justify-content: space-between; align-items: center; }
+.close-btn { background: none; border: none; color: white; font-size: 25px; cursor: pointer; }
+
+.sidebar-footer { padding: 20px; border-top: 1px solid #eee; }
+.btn-whatsapp { background: #25d366; color: white; border: none; width: 100%; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
 
 /* --- NOTIFICATION TOAST --- */
 .toast {
@@ -162,5 +135,4 @@ body {
     transition: bottom 0.5s ease;
     z-index: 9999;
 }
-
 .toast.show { bottom: 30px; }

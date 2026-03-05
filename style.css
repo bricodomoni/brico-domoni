@@ -34,36 +34,37 @@ body {
 
 .tab-btn.active { background: var(--orange); }
 
-/* SLIDER (C'est ici que ça se joue) */
+/* --- SLIDER (Avec taille réduite) --- */
 .slider {
     position: relative;
-    width: 100%;
-    height: 400px; /* Hauteur fixe pour éviter que l'image soit géante */
-    background: #000;
+    max-width: 1000px; /* Taille max en largeur */
+    margin: 20px auto; /* Centre le slider avec un peu d'espace */
     overflow: hidden;
+    border-radius: 15px; /* Arrondit les coins pour faire plus propre */
+    background: #fff; /* Fond blanc si l'image est plus petite */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Petite ombre portée */
+    
+    /* MODIFIE CETTE VALEUR POUR CHANGER LA HAUTEUR */
+    height: 350px; 
 }
 
 .slide {
-    display: none; /* On cache tout par défaut */
+    display: none;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* L'image remplit le cadre sans se déformer */
 }
 
 .slide.active {
-    display: block; /* On n'affiche que celle qui a la classe active */
+    display: block;
 }
 
-.slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    padding: 20px;
-    cursor: pointer;
-    z-index: 10;
+.slide img {
+    width: 100%;
+    height: 100%;
+    
+    /* MODIFIE CECI SELON TON GOÛT */
+    object-fit: contain; /* L'image entière est visible, avec des bandes blanches si nécessaire */
+    /* object-fit: cover; */ /* L'image remplit tout l'espace, quitte à être un peu coupée */
 }
 
 .next { right: 0; }

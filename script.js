@@ -161,17 +161,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* -------------------------
-       6. WHATSAPP
-    --------------------------*/
-    const waBtn = document.getElementById("whatsapp-send");
-    if (waBtn) {
-        waBtn.onclick = () => {
-            if (panier.length === 0) return alert("Le panier est vide !");
-            let msg = "Bonjour BRICO DOMONI, voici ma commande :%0A";
-            panier.forEach(i => msg += `- ${i.nom} x${i.qty} (${(i.prix * i.qty).toLocaleString()} KMF)%0A`);
-            const total = panier.reduce((t, i) => t + (i.prix * i.qty), 0);
-            msg += `%0ATotal : ${total.toLocaleString()} KMF`;
-            window.open(`https://wa.me/269334XXXX?text=${msg}`, "_blank");
-        };
-    }
-});
+   6. ENVOI WHATSAPP OPTIMISÉ
+--------------------------*/
+const waBtn = document.getElementById("whatsapp-send");
+
+if (waBtn) {
+    waBtn.onclick = () => {
+        // 1. Vérification si le panier est vide
+        if (panier.length === 0) {
+            alert("Votre panier est vide. Ajoutez des articles avant de commander !");
+            return;
+        }
+
+        // 2. Construction du message professionnel
+        let message = "🛠️ *NOUVELLE COMMANDE - BRICO DOMONI*%0A";
+        message += "---------------------------------------%0A";
+
+        panier.forEach((item, index) => {
+            const sousTotal = item.prix * item.qty;
+            message += `*${index + 1}.* ${item.nom}%0A`;
+            message += `   Quantité : ${item.qty}%0A`;
+            message += `   Prix : ${sousTotal.toLocaleString()} KMF%0A%0A`;
+        });
+
+        const totalFinal = panier.reduce((t, i) => t + (i.prix * i.qty), 0);
+
+        message += "---------------------------------------%0A";
+        message += `💰 *TOTAL À PAYER : ${totalFinal.toLocaleString()} KMF*%0A%0A`;
+        message += "Merci de me confirmer la disponibilité et le créneau de livraison.";
+
+        // 3. Ton numéro de téléphone (Format international sans le +)
+        const monNumero = "269334XXXX"; // REMPLACE PAR TON VRAI NUMÉRO ICI
+
+        // 4. Ouverture du lien (Lien universel wa.me)
+        const url = `https://wa.me/${monNumero}?text=${message}`;
+        window.open(url, "_blank");
+    };
+}

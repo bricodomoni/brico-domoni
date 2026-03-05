@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    let panier = [];
+    // --- 0. VARIABLES GLOBALES ---
+    let panier = []; // INDISPENSABLE : On crée le panier vide ici
 
     // --- 1. BASE DE DONNÉES DES PRODUITS ---
     const produits = [
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('product-list');
 
     function afficherProduits() {
-        if (!container) return; // Sécurité si l'élément n'existe pas
+        if (!container) return; 
         container.innerHTML = ""; 
         produits.forEach(p => {
             const card = document.createElement('div');
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         majPanier();
         showToast();
-        openCart();
+        openCart(); // Ouvre le panier dès qu'on ajoute
     };
 
     window.modifierQty = (id, change) => {
@@ -55,13 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function majPanier() {
         const liste = document.getElementById('cart-items-list');
         const totalHtml = document.getElementById('total-price');
+        if(!liste || !totalHtml) return;
+
         liste.innerHTML = "";
         let total = 0;
 
         panier.forEach(item => {
             total += item.prix * item.qty;
             const div = document.createElement('div');
-            div.className = 'cart-item-row'; // Pour styliser tes lignes de panier
+            div.className = 'cart-item-row'; 
             div.innerHTML = `
                 <strong>${item.nom}</strong><br>
                 <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
@@ -74,11 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
         totalHtml.innerText = total.toLocaleString() + " KMF";
     }
 
-    // --- 4. INTERFACE (MODALS & NOTIFS) ---
+    // --- 4. INTERFACE ---
     function showToast() {
         const toast = document.getElementById('toast-notification');
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
+        if(toast) {
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
     }
 
     function openCart() {
@@ -105,12 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
             cur = (cur + 1) % slides.length;
             showSlide(cur);
         };
-
         document.querySelector('.prev').onclick = () => {
             cur = (cur - 1 + slides.length) % slides.length;
             showSlide(cur);
         };
-
         setInterval(() => {
             cur = (cur + 1) % slides.length;
             showSlide(cur);
@@ -139,10 +142,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const total = panier.reduce((t, i) => t + i.prix * i.qty, 0);
         message += `%0A*Total : ${total.toLocaleString()} KMF*`;
 
-        const numero = "269334XXXX"; // REMPLACE PAR TON NUMÉRO
+        const numero = "269334XXXX"; // Mets ton vrai numéro ici
         window.open(`https://wa.me/${numero}?text=${message}`, "_blank");
     };
 
-    // --- INITIALISATION ---
+    // --- INITIALISATION FINALE ---
     afficherProduits();
 });

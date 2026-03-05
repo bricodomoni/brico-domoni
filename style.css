@@ -3,17 +3,19 @@
     --bleu: #0A1F44;
     --orange: #ff9800;
     --blanc: #ffffff;
+    --gris-clair: #f0f2f5;
 }
 
-* { box-sizing: border-box; } /* Empêche les éléments de gonfler */
+* { box-sizing: border-box; } 
 
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: #f0f2f5;
+    background: var(--gris-clair);
     overflow-x: hidden;
 }
 
+/* --- HEADER & NAVIGATION --- */
 header {   
     background: var(--bleu);
     padding: 15px 5%;
@@ -24,6 +26,11 @@ header {
     top: 0;
     z-index: 1000;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#top-logo {
+    height: 60px;
+    width: auto;
 }
 
 .nav-links {
@@ -48,29 +55,53 @@ header {
     transform: translateY(-2px);
 }
 
-/* Taille du logo */
-#top-logo {
-    height: 60px;
-    width: auto;
+/* --- SYSTÈME D'ONGLETS --- */
+.tab-content {
+    display: none;
+    width: 100%;
 }
 
+.tab-content.active {
+    display: block;
+}
 
-/* --- LA GRILLE DE PRODUITS --- */
-.product-list, .product-grid {
+/* --- SLIDER D'ACCUEIL --- */
+.slider {
+    position: relative;
+    width: 100%;
+    height: 450px; 
+    overflow: hidden;
+    background: #000;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/* --- GRILLE DE PRODUITS --- */
+.product-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 articles par ligne sur PC */
+    grid-template-columns: repeat(4, 1fr); 
     gap: 25px;
     padding: 40px 5%;
     width: 100%;
 }
 
-/* --- LA CARTE PRODUIT (DESIGN AMÉLIORÉ) --- */
 .product-card {
     background: white;
-    padding: 25px;
+    padding: 20px;
     border-radius: 20px;
     text-align: center;
-    transition: 0.4s ease;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 1px solid #eee;
     display: flex;
     flex-direction: column;
@@ -79,28 +110,20 @@ header {
 
 .product-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-}
-
-/* ANTI-GÉANT : Cadre les images strictement */
-.product-card {
-    background: white;
-    padding: 20px;
-    border-radius: 20px;
-    text-align: center;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid #eee;
-}
-
-.product-card:hover {
-    transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 15px;
 }
 
 .product-card h3 {
     font-size: 1.1rem;
     color: var(--bleu);
-    margin: 15px 0 5px;
+    margin: 10px 0;
 }
 
 .product-card .price {
@@ -119,10 +142,6 @@ header {
     border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
     transition: 0.3s;
 }
 
@@ -130,11 +149,12 @@ header {
     background: #153a7a;
     letter-spacing: 0.5px;
 }
-/* --- LE PANIER (SIDEBAR FIXE) --- */
+
+/* --- PANIER (SIDEBAR) & OVERLAY --- */
 .sidebar {
     position: fixed;
     top: 0;
-    right: -100%; /* Caché par défaut */
+    right: -100%; 
     width: 350px;
     height: 100vh;
     background: white;
@@ -157,40 +177,14 @@ header {
 
 .overlay.show { display: block; }
 
-/* --- RESPONSIVE (MOBILE) --- */
+/* --- RESPONSIVE --- */
 @media (max-width: 1000px) {
     .product-grid { grid-template-columns: repeat(2, 1fr); }
 }
+
 @media (max-width: 600px) {
     .product-grid { grid-template-columns: 1fr; }
     .sidebar { width: 100%; }
-
-/* Cache les sections par défaut */
-.tab-content {
-    display: none;
-    width: 100%;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.slider {
-    position: relative;
-    width: 100%;
-    height: 400px; /* Ajuste selon tes besoins */
-    overflow: hidden;
-}
-
-.slide {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.slide.active {
-    opacity: 1;
-}
+    header { padding: 10px 3%; }
+    .slider { height: 250px; }
+} /* Ajout de l'accolade manquante ici */

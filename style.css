@@ -10,7 +10,6 @@ body {
     background: #f7f9fc;
 }
 
-/* --- HEADER --- */
 #main-header {
     display: flex;
     justify-content: space-between;
@@ -36,7 +35,6 @@ body {
 
 .tab-btn.active { background: var(--orange); }
 
-/* --- SLIDER --- */
 .slider {
     position: relative;
     max-width: 1000px;
@@ -52,24 +50,6 @@ body {
 .slide.active { display: block; }
 .slide img { width: 100%; height: 100%; object-fit: contain; }
 
-.slider-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    padding: 15px;
-    cursor: pointer;
-    z-index: 10;
-}
-.next { right: 10px; }
-.prev { left: 10px; }
-
-.tab-content { display: none; padding: 20px; }
-.tab-content.active { display: block; }
-
-/* --- GRILLE DE PRODUITS --- */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -83,12 +63,9 @@ body {
     border-radius: 15px;
     text-align: center;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    transition: 0.3s;
 }
-.product-card:hover { transform: translateY(-5px); }
-.product-card img { width: 100%; height: 200px; object-fit: contain; margin-bottom: 15px; }
 
-/* --- PANIER LATÉRAL --- */
+/* Le Panier */
 .sidebar {
     position: fixed;
     right: -400px;
@@ -97,10 +74,9 @@ body {
     height: 100%;
     background: white;
     z-index: 5000;
-    transition: 0.4s ease;
+    transition: 0.4s;
     display: flex;
     flex-direction: column;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.2);
 }
 .sidebar.open { right: 0; }
 
@@ -113,15 +89,6 @@ body {
 }
 .overlay.show { display: block; }
 
-.cart-body { flex: 1; overflow-y: auto; padding: 15px; }
-
-.sidebar-header { padding: 20px; background: var(--bleu); color: white; display: flex; justify-content: space-between; align-items: center; }
-.close-btn { background: none; border: none; color: white; font-size: 25px; cursor: pointer; }
-
-.sidebar-footer { padding: 20px; border-top: 1px solid #eee; }
-.btn-whatsapp { background: #25d366; color: white; border: none; width: 100%; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-
-/* --- NOTIFICATION TOAST --- */
 .toast {
     position: fixed;
     bottom: -100px;
@@ -131,8 +98,7 @@ body {
     color: white;
     padding: 15px 30px;
     border-radius: 50px;
-    font-weight: bold;
-    transition: bottom 0.5s ease;
+    transition: 0.5s;
     z-index: 9999;
 }
 .toast.show { bottom: 30px; }

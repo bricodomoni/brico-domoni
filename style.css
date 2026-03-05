@@ -186,5 +186,5 @@ header {
     .product-grid { grid-template-columns: 1fr; }
     .sidebar { width: 100%; }
     header { padding: 10px 3%; }
-    .slider { height: 250px; }
-} /* Ajout de l'accolade manquante ici */
+    .slider { height: 200px; }
+} 

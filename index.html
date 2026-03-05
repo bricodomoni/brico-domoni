@@ -7,54 +7,69 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <header id="main-header">
-        <img src="logo.jpg" id="top-logo" alt="Logo">
+        <img src="logo.jpg" id="top-logo" alt="Logo BRICO DOMONI">
+
         <nav>
             <button class="tab-btn active" data-tab="accueil">Accueil</button>
             <button class="tab-btn" data-tab="produits">Produits</button>
         </nav>
     </header>
 
+    <!-- ACCUEIL -->
     <main id="accueil" class="tab-content active">
+
         <div class="slider">
             <img src="Images/Brouette.jpg" class="slide active" alt="Brouette">
-            <img src="Images/AST187429-XL.jpg" class="slide" alt="Evier">
+            <img src="Images/AST187429-XL.jpg" class="slide" alt="Évier inox">
+            <img src="Images/9641602024.jpg" class="slide" alt="Pelle de chantier">
+
             <button class="slider-btn prev">❮</button>
             <button class="slider-btn next">❯</button>
         </div>
+
         <div style="text-align:center; padding: 20px;">
             <h1>Bienvenue chez BRICO DOMONI</h1>
             <p>Votre partenaire bricolage aux Comores</p>
         </div>
+
     </main>
 
+    <!-- PRODUITS -->
     <section id="produits" class="tab-content">
         <h2 style="text-align:center; margin-top:30px;">Nos Articles</h2>
-        <div id="product-list" class="product-grid">
-            </div>
+
+        <div id="product-list" class="product-grid"></div>
     </section>
 
+    <!-- TOAST -->
     <div id="toast-notification" class="toast">Produit ajouté !</div>
+
+    <!-- OVERLAY -->
     <div id="cart-overlay" class="overlay"></div>
-    
+
+    <!-- PANIER -->
     <div id="cart-sidebar" class="sidebar">
+
         <div class="sidebar-header">
             <h2>Mon Panier</h2>
             <button id="close-cart" class="close-btn">&times;</button>
         </div>
-        
-        <div id="cart-items-list" class="cart-body">
-            </div>
+
+        <div id="cart-items-list" class="cart-body"></div>
 
         <div class="sidebar-footer">
             <div class="cart-total">
                 <span>Total :</span>
                 <span id="total-price">0 KMF</span>
             </div>
+
             <button id="whatsapp-send" class="btn-whatsapp">Commander sur WhatsApp</button>
         </div>
+
     </div>
 
     <script src="script.js"></script>

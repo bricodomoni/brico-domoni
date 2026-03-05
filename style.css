@@ -1,66 +1,79 @@
+/* 1. VARIABLES ET BASE */
 :root {
     --bleu: #0A1F44;
     --orange: #ff9800;
     --vert: #28a745;
 }
 
+* { box-sizing: border-box; } /* Crucial pour que les tailles soient respectées */
+
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: #f7f9fc;
-    overflow-x: hidden; /* Empêche le défilement horizontal dû au panier caché */
+    overflow-x: hidden;
 }
 
-/* --- GRILLE DE PRODUITS (4 PAR LIGNE SUR PC) --- */
+/* 2. RÉGLAGE ANTI-GÉANT (GLOBAL) */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+#top-logo {
+    height: 60px;
+    width: auto;
+}
+
+/* 3. GRILLE DE PRODUITS (FORCÉE À 4 SUR PC) */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(22%, 1fr));
-    gap: 25px;
-    padding: 40px 5%;
+    /* On utilise 1fr pour que le navigateur calcule 4 colonnes égales */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    padding: 30px 5%;
+    width: 100%;
 }
 
+/* 4. CARTE PRODUIT */
 .product-card {
     background: white;
-    padding: 25px;
-    border-radius: 20px;
+    padding: 20px;
+    border-radius: 15px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: center; /* Centre tout horizontalement */
 }
 
 .product-card img {
     width: 100%;
-    height: 180px;
+    height: 180px; /* Taille fixe pour l'unité visuelle */
     object-fit: contain;
     margin-bottom: 15px;
 }
 
-/* --- LE PANIER (FIXÉ ET CACHÉ) --- */
+/* 5. LE PANIER ET NOTIFICATIONS (FIXÉS) */
 .sidebar {
-    position: fixed; /* TRÈS IMPORTANT : Sort le panier du flux de la page */
+    position: fixed;
     top: 0;
-    right: -100%; /* Complètement à droite, hors écran */
+    right: -100%;
     width: 350px;
     height: 100vh;
     background: white;
     z-index: 9999;
     transition: 0.4s ease;
     box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-    display: flex;
-    flex-direction: column;
 }
 
-.sidebar.open {
-    right: 0; /* Glisse vers l'intérieur */
-}
+.sidebar.open { right: 0; }
 
-/* --- NOTIFICATION TOAST --- */
 .toast {
     position: fixed;
-    bottom: -100px; /* Caché sous l'écran */
-    left: 20px; /* Positionné en bas à gauche comme sur ton image */
+    bottom: -100px;
+    left: 20px;
     background: var(--bleu);
     color: white;
     padding: 15px 25px;
@@ -69,11 +82,8 @@ body {
     z-index: 10000;
 }
 
-.toast.show {
-    bottom: 20px; /* Remonte pour être visible */
-}
+.toast.show { bottom: 20px; }
 
-/* --- OVERLAY SOMBRE --- */
 .overlay {
     position: fixed;
     top: 0; left: 0;
@@ -83,34 +93,19 @@ body {
     z-index: 9000;
 }
 
-.overlay.show {
-    display: block;
+.overlay.show { display: block; }
+
+/* 6. ADAPTATION MOBILE */
+@media (max-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 par ligne sur tablette */
+    }
 }
 
-/* --- MOBILE --- */
-@media (max-width: 800px) {
+@media (max-width: 600px) {
     .product-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+        grid-template-columns: 1fr; /* 1 seul par ligne sur téléphone */
+        padding: 20px 5%;
     }
     .sidebar { width: 100%; }
-}
-
-/* Empêche TOUTES les images du site de déborder */
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Redimensionne les images des produits spécifiquement */
-.product-card img {
-    width: 100%;
-    height: 200px; /* Force une hauteur fixe */
-    object-fit: contain; /* Garde les proportions sans déformer */
-    margin-bottom: 15px;
-}
-
-/* Redimensionne le logo s'il est devenu énorme */
-#top-logo {
-    height: 60px;
-    width: auto;
 }

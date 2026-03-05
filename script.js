@@ -6,88 +6,75 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 3, nom: "Pelle de chantier", prix: 7500, img: "Images/9641602024.jpg" }
     ];
 
-    // --- AFFICHAGE DES PRODUITS ---
-    const productList = document.getElementById('product-list');
-    if (productList) {
-        produits.forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
-                <img src="${p.img}" alt="${p.nom}">
-                <h3>${p.nom}</h3>
-                <p class="price">${p.prix.toLocaleString()} KMF</p>
-                <button class="add-btn" onclick="ajouterAuPanier(${p.id})">Ajouter au panier</button>
-            `;
-            productList.appendChild(card);
-        });
-    }
+    // --- AFFICHAGE INITIAL ---
+    const container = document.getElementById('product-list');
+    produits.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'product-card';
+        div.innerHTML = `
+            <img src="${p.img}">
+            <h3>${p.nom}</h3>
+            <p class="price">${p.prix.toLocaleString()} KMF</p>
+            <button class="add-to-cart" onclick="ajouter(${p.id})">Ajouter au panier</button>
+        `;
+        container.appendChild(div);
+    });
 
-    // --- FONCTION AJOUTER ---
-    window.ajouterAuPanier = (id) => {
-        const produit = produits.find(p => p.id === id);
-        const existant = panier.find(item => item.id === id);
+    // --- LOGIQUE DU PANIER ---
+    window.ajouter = (id) => {
+        const prod = produits.find(p => p.id === id);
+        const dejaDansPanier = panier.find(item => item.id === id);
 
-        if (existant) {
-            existant.quantite++;
+        if (dejaDansPanier) {
+            dejaDansPanier.qty++;
         } else {
-            panier.push({ ...produit, quantite: 1 });
+            panier.push({ ...prod, qty: 1 });
         }
 
-        afficherNotification();
-        mettreAJourPanier();
-        ouvrirPanier();
+        majPanier();
+        alerte();
+        document.getElementById('cart-sidebar').classList.add('open');
+        document.getElementById('cart-overlay').classList.add('show');
     };
 
-    function afficherNotification() {
-        const toast = document.getElementById('toast-notification');
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2000);
-    }
+    window.modifierQty = (id, change) => {
+        const item = panier.find(i => i.id === id);
+        if (item) {
+            item.qty += change;
+            if (item.qty <= 0) panier = panier.filter(i => i.id !== id);
+            majPanier();
+        }
+    };
 
-    function mettreAJourPanier() {
-        const content = document.getElementById('cart-content');
-        const totalEl = document.getElementById('cart-total-price');
-        content.innerHTML = "";
+    function majPanier() {
+        const liste = document.getElementById('cart-items-list');
+        const totalHtml = document.getElementById('total-price');
+        liste.innerHTML = "";
         let total = 0;
 
         panier.forEach(item => {
-            total += item.prix * item.quantite;
+            total += item.prix * item.qty;
             const div = document.createElement('div');
-            div.className = 'cart-item';
+            div.style.padding = "10px";
             div.innerHTML = `
-                <img src="${item.img}">
-                <div class="cart-item-info">
-                    <h4>${item.nom}</h4>
-                    <div class="qty-controls">
-                        <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
-                        <span>${item.quantite}</span>
-                        <button class="qty-btn" onclick="modifierQty(${item.id}, 1)">+</button>
-                    </div>
-                </div>
-                <span>${(item.prix * item.quantite).toLocaleString()} KMF</span>
+                <strong>${item.nom}</strong><br>
+                <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
+                <span> ${item.qty} </span>
+                <button class="qty-btn" onclick="modifierQty(${item.id}, 1)">+</button>
+                <span> | ${(item.prix * item.qty).toLocaleString()} KMF</span>
             `;
-            content.appendChild(div);
+            liste.appendChild(div);
         });
-        totalEl.innerText = total.toLocaleString() + " KMF";
+        totalHtml.innerText = total.toLocaleString() + " KMF";
     }
 
-    window.modifierQty = (id, delta) => {
-        const item = panier.find(i => i.id === id);
-        if (item) {
-            item.quantite += delta;
-            if (item.quantite <= 0) {
-                panier = panier.filter(i => i.id !== id);
-            }
-            mettreAJourPanier();
-        }
-    };
-
-    // --- OUVRIR/FERMER ---
-    function ouvrirPanier() {
-        document.getElementById('cart-sidebar').classList.add('open');
-        document.getElementById('cart-overlay').classList.add('show');
+    function alerte() {
+        const t = document.getElementById('toast-notification');
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
     }
-    
+
+    // FERMETURE
     document.getElementById('close-cart').onclick = () => {
         document.getElementById('cart-sidebar').classList.remove('open');
         document.getElementById('cart-overlay').classList.remove('show');

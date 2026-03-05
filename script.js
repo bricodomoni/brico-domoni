@@ -1,44 +1,38 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-   // Liste des produits
-const produits = [
-    {
-        nom: "Brouette",
-        prix: 15000,
-        image: "Images/Brouette.jpg"
-    },
-    {
-        nom: "Évier inox",
-        prix: 22000,
-        image: "Images/AST187429-XL.jpg"
-    },
-    {
-        nom: "Pelle de chantier",
-        prix: 8000,
-        image: "Images/9641602024.jpg"
-    },
-    {
-        nom: "Marteau",
-        prix: 3000,
-        image: "Images/marteau.jpg"
-    }
-];
-
-// Injection dans la grille
-const productList = document.getElementById("product-list");
-
-produits.forEach(p => {
-    productList.innerHTML += `
-        <div class="product-card">
-            <img src="${p.image}" alt="${p.nom}">
-            <h3>${p.nom}</h3>
-            <p class="price">${p.prix} KMF</p>
-            <button class="add-to-cart-btn">Ajouter</button>
-        </div>
-    `;
-});
     /* -------------------------
-       LOGIQUE DU PANIER
+       1. BASE DE DONNÉES PRODUITS
+    --------------------------*/
+    const produits = [
+        { id: 1, nom: "Brouette Verte", prix: 25000, img: "Images/Brouette.jpg" },
+        { id: 2, nom: "Évier Inox Double", prix: 45000, img: "Images/AST187429-XL.jpg" },
+        { id: 3, nom: "Pelle de chantier", prix: 7500, img: "Images/9641602024.jpg" }
+    ];
+
+    let panier = [];
+
+    /* -------------------------
+       2. AFFICHAGE DYNAMIQUE
+    --------------------------*/
+    const productList = document.getElementById("product-list");
+
+    if (productList) {
+        productList.innerHTML = ""; 
+        produits.forEach(p => {
+            const card = document.createElement("div");
+            card.className = "product-card";
+            card.innerHTML = `
+                <img src="${p.img}" alt="${p.nom}">
+                <h3>${p.nom}</h3>
+                <p class="price">${p.prix.toLocaleString()} KMF</p>
+                <button class="add-to-cart-btn" onclick="ajouter(${p.id})">Ajouter au panier</button>
+            `;
+            productList.appendChild(card);
+        });
+    }
+
+    /* -------------------------
+       3. LOGIQUE DU PANIER
     --------------------------*/
     window.ajouter = (id) => {
         const prod = produits.find(p => p.id === id);
@@ -75,14 +69,17 @@ produits.forEach(p => {
         panier.forEach(item => {
             total += item.prix * item.qty;
             const div = document.createElement("div");
-            div.className = "cart-item-row"; // Pour styliser en CSS
+            div.style.padding = "10px 0";
+            div.style.borderBottom = "1px solid #eee";
             div.innerHTML = `
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <span><strong>${item.nom}</strong> (x${item.qty})</span>
-                    <div>
-                        <button onclick="modifierQty(${item.id}, -1)">-</button>
-                        <button onclick="modifierQty(${item.id}, 1)">+</button>
-                    </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span><strong>${item.nom}</strong></span>
+                    <span>${(item.prix * item.qty).toLocaleString()} KMF</span>
+                </div>
+                <div style="margin-top:5px;">
+                    <button onclick="modifierQty(${item.id}, -1)">-</button>
+                    <span style="margin: 0 10px;">${item.qty}</span>
+                    <button onclick="modifierQty(${item.id}, 1)">+</button>
                 </div>
             `;
             list.appendChild(div);
@@ -92,8 +89,25 @@ produits.forEach(p => {
     }
 
     /* -------------------------
-       INTERFACE (SIDEBAR & TOAST)
+       4. INTERFACE (PANIER & TABS)
     --------------------------*/
+    function openCart() {
+        document.getElementById("cart-sidebar").classList.add("open");
+        document.getElementById("cart-overlay").classList.add("show");
+    }
+
+    const closeCart = () => {
+        document.getElementById("cart-sidebar").classList.remove("open");
+        document.getElementById("cart-overlay").classList.remove("show");
+    };
+
+    if (document.getElementById("close-cart")) {
+        document.getElementById("close-cart").onclick = closeCart;
+    }
+    if (document.getElementById("cart-overlay")) {
+        document.getElementById("cart-overlay").onclick = closeCart;
+    }
+
     function showToast() {
         const toast = document.getElementById("toast-notification");
         if (toast) {
@@ -102,41 +116,40 @@ produits.forEach(p => {
         }
     }
 
-    function openCart() {
-        const sidebar = document.getElementById("cart-sidebar");
-        const overlay = document.getElementById("cart-overlay");
-        if (sidebar) sidebar.classList.add("open");
-        if (overlay) overlay.classList.add("show");
-    }
-
-    const closeBtn = document.getElementById("close-cart");
-    if (closeBtn) {
-        closeBtn.onclick = () => {
-            document.getElementById("cart-sidebar").classList.remove("open");
-            document.getElementById("cart-overlay").classList.remove("show");
+    // Gestion des Onglets
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.onclick = () => {
+            const target = btn.dataset.tab;
+            
+            // Masquer tous les contenus
+            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+            // Désactiver tous les boutons
+            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+            
+            // Afficher la cible
+            document.getElementById(target).classList.add("active");
+            btn.classList.add("active");
         };
-    }
+    });
 
     /* -------------------------
-       SLIDER (SÉCURISÉ)
+       5. SLIDER AUTOMATIQUE
     --------------------------*/
     const slides = document.querySelectorAll(".slide");
     let slideIndex = 0;
 
     if (slides.length > 0) {
-        function showSlide(i) {
+        const showSlide = (n) => {
             slides.forEach(s => s.classList.remove("active"));
-            slides[i].classList.add("active");
-        }
+            slides[n].classList.add("active");
+        };
 
-        const nextBtn = document.querySelector(".next");
-        const prevBtn = document.querySelector(".prev");
-
-        if (nextBtn) nextBtn.onclick = () => {
+        document.querySelector(".next").onclick = () => {
             slideIndex = (slideIndex + 1) % slides.length;
             showSlide(slideIndex);
         };
-        if (prevBtn) prevBtn.onclick = () => {
+
+        document.querySelector(".prev").onclick = () => {
             slideIndex = (slideIndex - 1 + slides.length) % slides.length;
             showSlide(slideIndex);
         };
@@ -148,58 +161,17 @@ produits.forEach(p => {
     }
 
     /* -------------------------
-   ONGLET ACCUEIL / PRODUITS
---------------------------*/
-document.querySelectorAll(".tab-btn").forEach(btn => {
-    btn.onclick = () => {
-        const target = btn.dataset.tab;
-
-        // Désactive tous les contenus
-        document.querySelectorAll(".tab-content").forEach(c =>
-            c.classList.remove("active")
-        );
-
-        // Active le contenu ciblé
-        document.getElementById(target).classList.add("active");
-
-        // Désactive tous les boutons
-        document.querySelectorAll(".tab-btn").forEach(b =>
-            b.classList.remove("active")
-        );
-
-        // Active le bouton cliqué
-        btn.classList.add("active");
-    };
-});
-
-    /* -------------------------
-       ONGLETS & WHATSAPP
+       6. WHATSAPP
     --------------------------*/
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-        btn.onclick = () => {
-            const target = btn.dataset.tab;
-            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-            
-            const targetEl = document.getElementById(target);
-            if (targetEl) {
-                targetEl.classList.add("active");
-                btn.classList.add("active");
-            }
-        };
-    });
-
     const waBtn = document.getElementById("whatsapp-send");
     if (waBtn) {
         waBtn.onclick = () => {
-            if (panier.length === 0) return alert("Votre panier est vide.");
-            let message = "Bonjour BRICO DOMONI, voici ma commande :%0A";
-            panier.forEach(item => {
-                message += `- ${item.nom} x${item.qty} = ${(item.prix * item.qty).toLocaleString()} KMF%0A`;
-            });
-            const total = panier.reduce((t, i) => t + i.prix * i.qty, 0);
-            message += `%0ATotal : ${total.toLocaleString()} KMF`;
-            window.open(`https://wa.me/269334XXXX?text=${message}`, "_blank");
+            if (panier.length === 0) return alert("Le panier est vide !");
+            let msg = "Bonjour BRICO DOMONI, voici ma commande :%0A";
+            panier.forEach(i => msg += `- ${i.nom} x${i.qty} (${(i.prix * i.qty).toLocaleString()} KMF)%0A`);
+            const total = panier.reduce((t, i) => t + (i.prix * i.qty), 0);
+            msg += `%0ATotal : ${total.toLocaleString()} KMF`;
+            window.open(`https://wa.me/269334XXXX?text=${msg}`, "_blank");
         };
     }
 });

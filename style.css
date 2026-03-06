@@ -35,9 +35,8 @@ header {
 
 .nav-links {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     align-items: center;
-    margin-right: 40px; 
 }
 
 .tab-btn {
@@ -58,7 +57,7 @@ header {
 }
 
 /* --- ICÔNE PANIER TRANSPARENTE 🛒 --- */
-#cart-icon-btn, .cart-icon-container, .transparent-cart {
+#cart-icon-btn {
     background: transparent !important;
     border: none !important;
     color: white;
@@ -70,9 +69,6 @@ header {
     padding: 5px;
     position: relative;
     transition: 0.3s;
-    width: auto;
-    height: auto;
-    box-shadow: none;
 }
 
 #cart-icon-btn:hover {
@@ -83,7 +79,6 @@ header {
     background: var(--orange);
     color: white;
     border-radius: 50%;
-    padding: 0;
     font-size: 0.75rem;
     font-weight: 700;
     width: 20px;
@@ -95,7 +90,6 @@ header {
     align-items: center;
     justify-content: center;
     border: 2px solid var(--bleu);
-    z-index: 10;
 }
 
 /* --- SYSTÈME D'ONGLETS --- */
@@ -112,19 +106,18 @@ header {
 .slider {
     position: relative;
     width: 100%;
-    height: 177px; /* Ta hauteur personnalisée */
+    height: 177px; 
     overflow: hidden;
-    background: transparent;
+    background: #000; /* Fond noir si l'image met du temps à charger */
 }
 
 .slide {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* affiche l'image entière. contraire "cover" */
+    object-fit: contain; 
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
-
 }
 
 .slide.active {
@@ -166,7 +159,7 @@ header {
     border-radius: 25px;
     cursor: pointer;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: 0.3s;
 }
 
 .cat-btn:hover {
@@ -187,7 +180,6 @@ header {
     grid-template-columns: repeat(4, 1fr); 
     gap: 25px;
     padding: 20px 5% 40px 5%;
-    width: 100%;
 }
 
 .product-card {
@@ -195,12 +187,11 @@ header {
     padding: 20px;
     border-radius: 20px;
     text-align: center;
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.4s ease, opacity 0.4s ease; /* Ajout d'une transition sur l'opacité */
     border: 1px solid #eee;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    opacity: 1; /* Utilisé pour l'animation de filtrage */
 }
 
 .product-card:hover {
@@ -281,7 +272,7 @@ header {
     transform: translateX(-50%);
     background: #333;
     color: white;
-    padding: 15px 30px;
+    padding: 12px 30px;
     border-radius: 50px;
     transition: 0.5s;
     z-index: 10000;
@@ -289,7 +280,11 @@ header {
 .toast.show { bottom: 30px; }
 
 /* --- RESPONSIVE --- */
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
+    .product-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 850px) {
     .product-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -297,8 +292,9 @@ header {
     .product-grid { grid-template-columns: 1fr; }
     .sidebar { width: 100%; }
     header { padding: 10px 3%; }
-    .slider { height: 150px; } /* Plus petit sur mobile */
-    .nav-links { margin-right: 10px; gap: 10px; }
+    .slider { height: 150px; }
+    .nav-links { gap: 10px; }
+    .tab-btn { padding: 6px 12px; font-size: 0.9rem; }
 } 
 
 /* --- WHATSAPP --- */
@@ -306,7 +302,7 @@ header {
     background-color: #25D366;
     color: white;
     border: none;
-    padding: 15px 20px;
+    padding: 15px;
     border-radius: 12px;
     width: 100%;
     font-size: 1.1rem;
@@ -318,7 +314,6 @@ header {
     gap: 10px;
     transition: 0.3s;
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-    margin-top: auto;
 }
 
 .btn-whatsapp:hover {

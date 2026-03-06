@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     --------------------------*/
     let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
 
+    // On initialise l'affichage si le panier contient déjà des articles
     if (panier.length > 0) {
         setTimeout(() => { majPanier(); }, 100);
     }
@@ -54,8 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         majPanier();
         showToast();
-        animateBadge(); // Nouvelle animation
-        // openCart(); // Optionnel : décommente si tu veux que le panier s'ouvre seul
+        animateBadge();
     };
 
     window.modifierQty = (id, change) => {
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function majPanier() {
         const list = document.getElementById("cart-items-list");
         const totalHtml = document.getElementById("total-price");
-        const badge = document.getElementById("cart-count"); // Le badge dans le header
+        const badge = document.getElementById("cart-count");
         
         if (!list || !totalHtml) return;
 
@@ -105,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         totalHtml.innerText = total.toLocaleString() + " KMF";
         
-        // Mise à jour du badge (le petit rond sur l'onglet)
         if (badge) {
             badge.innerText = nombreArticles;
         }
@@ -113,12 +112,11 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("panier_brico", JSON.stringify(panier));
     }
 
-    // Fonction pour l'animation du badge
     function animateBadge() {
         const badge = document.getElementById("cart-count");
         if (badge) {
             badge.classList.remove("badge-pop");
-            void badge.offsetWidth; // Force le redémarrage de l'animation
+            void badge.offsetWidth; 
             badge.classList.add("badge-pop");
         }
     }
@@ -126,20 +124,22 @@ document.addEventListener("DOMContentLoaded", () => {
     /* -------------------------
        5. INTERFACE (MODALES & TABS)
     --------------------------*/
-    function openCart() {
+    const openCart = () => {
         document.getElementById("cart-sidebar").classList.add("open");
         document.getElementById("cart-overlay").classList.add("show");
-    }
-
-    const closeCart = () => {
-        const sidebar = document.getElementById("cart-sidebar");
-        const overlay = document.getElementById("cart-overlay");
-        if(sidebar) sidebar.classList.remove("open");
-        if(overlay) overlay.classList.remove("show");
     };
 
+    const closeCart = () => {
+        document.getElementById("cart-sidebar").classList.remove("open");
+        document.getElementById("cart-overlay").classList.remove("show");
+    };
+
+    // Liaison des événements d'ouverture/fermeture
+    const cartBtn = document.getElementById("cart-icon-btn");
     const closeBtn = document.getElementById("close-cart");
     const overlay = document.getElementById("cart-overlay");
+
+    if (cartBtn) cartBtn.onclick = openCart;
     if (closeBtn) closeBtn.onclick = closeCart;
     if (overlay) overlay.onclick = closeCart;
 
@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
             message += `💰 *TOTAL À PAYER : ${totalFinal.toLocaleString()} KMF*%0A%0A`;
             message += "Merci de confirmer la commande.";
 
-            const monNumero = "+2694484047"; // Mets ton vrai numéro ici
+            const monNumero = "+2694484047"; 
             window.open(`https://wa.me/${monNumero}?text=${message}`, "_blank");
         };
     }

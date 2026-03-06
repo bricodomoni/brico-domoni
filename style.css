@@ -25,7 +25,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Sécurité pour les images manquantes (évite le chargement infini visuel) */
+/* Sécurité pour les images manquantes */
 img:not([src]), img[src=""] { visibility: hidden; }
 
 /* ==========================================================================
@@ -55,7 +55,6 @@ header {
     align-items: center;
 }
 
-/* Barre de recherche */
 .search-box {
     display: flex;
     align-items: center;
@@ -77,14 +76,6 @@ header {
     font-size: 0.9rem;
 }
 
-#clear-search {
-    color: #999;
-    cursor: pointer;
-    font-weight: bold;
-    display: none; /* Affiché via JS si texte présent */
-}
-
-/* Boutons Navigation Onglets */
 .tab-btn {
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
@@ -102,7 +93,6 @@ header {
     transform: translateY(-2px);
 }
 
-/* Icône Panier */
 #cart-icon-btn {
     background: transparent;
     border: none;
@@ -130,12 +120,11 @@ header {
 }
 
 /* ==========================================================================
-   3. SECTIONS & GESTION ONGLETS
+   3. ACCUEIL & SLIDER
    ========================================================================== */
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 
-/* Accueil & Slider */
 .slider-container { width: 100%; background: #000; }
 
 .slider {
@@ -174,61 +163,9 @@ header {
 .next { right: 15px; }
 .prev { left: 15px; }
 
-/* Texte de Bienvenue */
-.hero-welcome {
-    text-align: center;
-    padding: 60px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.hero-welcome h1 {
-    font-size: 2.5rem;
-    color: var(--bleu);
-    margin-bottom: 10px;
-}
-
-.shop-now {
-    background: var(--bleu);
-    color: var(--blanc);
-    padding: 15px 35px;
-    border-radius: 30px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 25px;
-    transition: var(--transition);
-}
-
-.shop-now:hover { background: var(--orange); }
-
 /* ==========================================================================
-   4. BOUTIQUE (GRILLE & CATÉGORIES)
+   4. BOUTIQUE & PRODUITS (MIS À JOUR)
    ========================================================================== */
-.category-tabs {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 30px 0;
-}
-
-.cat-btn {
-    background: var(--blanc);
-    border: 1px solid #ddd;
-    padding: 8px 20px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.cat-btn.active {
-    background: var(--orange);
-    color: var(--blanc);
-    border-color: var(--orange);
-}
-
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -250,11 +187,6 @@ header {
     transition: var(--transition);
 }
 
-.product-card:hover { 
-    transform: translateY(-5px); 
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
-}
-
 .product-card img {
     width: 100%;
     height: 180px;
@@ -262,14 +194,33 @@ header {
     margin-bottom: 15px;
 }
 
+/* BOUTON AJOUTER AMÉLIORÉ */
+.add-to-cart-btn {
+    width: 100%;
+    background: var(--bleu);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.add-to-cart-btn:hover {
+    background: var(--orange);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+}
+
 /* ==========================================================================
-   5. PANIER SIDEBAR
+   5. PANIER SIDEBAR (MIS À JOUR)
    ========================================================================== */
 .sidebar {
     position: fixed;
-    top: 0; 
-    right: -100%;
-    width: 320px;
+    top: 0; right: -100%;
+    width: 350px;
     height: 100vh;
     background: var(--blanc);
     z-index: 9999;
@@ -282,27 +233,39 @@ header {
 
 .sidebar.open { right: 0; }
 
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
+/* Articles dans le panier */
+.cart-item-row {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border-left: 5px solid var(--orange);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-#close-cart {
-    background: #f0f0f0;
-    border: none;
-    padding: 5px 12px;
-    border-radius: 5px;
+/* Boutons de quantité */
+.qty-btn {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
     cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
 }
 
-#cart-items-list {
-    flex-grow: 1;
-    overflow-y: auto;
-    font-size: 0.9rem;
+.qty-btn:hover {
+    background: var(--bleu);
+    color: white;
+}
+
+/* Message Panier Vide */
+.empty-cart-msg {
+    text-align: center;
+    color: #999;
+    margin-top: 50px;
+    font-size: 1rem;
 }
 
 .btn-whatsapp {
@@ -315,7 +278,10 @@ header {
     font-weight: bold;
     cursor: pointer;
     margin-top: 15px;
+    transition: var(--transition);
 }
+
+.btn-whatsapp:hover { opacity: 0.9; transform: scale(0.98); }
 
 .overlay {
     position: fixed;
@@ -337,22 +303,9 @@ footer {
     margin-top: 50px;
 }
 
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 30px;
-}
-
 @media (max-width: 768px) {
     header { flex-direction: column; gap: 15px; }
     .nav-links { width: 100%; justify-content: space-around; }
     .search-box { width: 100%; order: 3; }
-    .slider { height: 220px; }
     .sidebar { width: 100%; }
-}
-
-@media (max-width: 480px) {
-    .slider { height: 180px; }
-    .hero-welcome h1 { font-size: 1.8rem; }
 }

@@ -33,12 +33,12 @@ document.addEventListener("DOMContentLoaded", () => {
     window.renderProducts = (data) => {
         if (!productList) return;
         if (data.length === 0) {
-            productList.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 20px;">Aucun produit trouvé.</p>`;
+            productList.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px;">Aucun produit trouvé.</p>`;
             return;
         }
         productList.innerHTML = data.map(p => `
             <div class="product-card">
-                <img src="${p.img}" alt="${p.nom}" onerror="this.src='https://via.placeholder.com/150?text=Image+Manquante'">
+                <img src="${p.img}" alt="${p.nom}" onerror="this.onerror=null;this.src='https://placehold.co/300x300?text=Image+à+venir'">
                 <h3>${p.nom}</h3>
                 <p class="price">${p.prix.toLocaleString()} KMF</p>
                 <button class="add-to-cart-btn" onclick="ajouter(${p.id})">Ajouter</button>
@@ -50,26 +50,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* --- 3. RECHERCHE & FILTRES --- */
     window.searchProducts = () => {
-        const term = document.getElementById("search-input").value.toLowerCase();
-        document.getElementById("clear-search").style.display = term ? "block" : "none";
+        const input = document.getElementById("search-input");
+        const clearBtn = document.getElementById("clear-search");
+        const term = input.value.toLowerCase();
+        
+        if (clearBtn) clearBtn.style.display = term ? "block" : "none";
         
         const filtered = produits.filter(p => p.nom.toLowerCase().includes(term));
         renderProducts(filtered);
 
-        if (term) {
-            const btnProduits = document.querySelector('[data-tab="produits"]');
-            if (btnProduits) btnProduits.click();
-        }
+        if (term) showTab('produits');
     };
 
     window.clearSearch = () => {
-        document.getElementById("search-input").value = "";
-        window.searchProducts();
+        const input = document.getElementById("search-input");
+        if (input) {
+            input.value = "";
+            window.searchProducts();
+        }
     };
 
     window.filterProducts = (cat, btn) => {
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        if (btn) btn.classList.add('active');
         const filtered = cat === 'all' ? produits : produits.filter(p => p.category === cat);
         renderProducts(filtered);
     };
@@ -78,17 +81,16 @@ document.addEventListener("DOMContentLoaded", () => {
     window.ajouter = (id) => {
         const p = produits.find(item => item.id === id);
         const inCart = panier.find(item => item.id === id);
-        if (inCart) { inCart.qty++; } 
-        else { panier.push({ ...p, qty: 1 }); }
+        inCart ? inCart.qty++ : panier.push({ ...p, qty: 1 });
         majPanier();
         showToast();
     };
 
     window.changeQty = (id, delta) => {
-        const p = panier.find(item => item.id === id);
-        if (p) {
-            p.qty += delta;
-            if (p.qty <= 0) panier = panier.filter(item => item.id !== id);
+        const item = panier.find(i => i.id === id);
+        if (item) {
+            item.qty += delta;
+            if (item.qty <= 0) panier = panier.filter(i => i.id !== id);
             majPanier();
         }
     };
@@ -98,74 +100,60 @@ document.addEventListener("DOMContentLoaded", () => {
         const totalEl = document.getElementById("total-price");
         const countEl = document.getElementById("cart-count");
         
-        let total = 0;
-        let count = 0;
+        if (!list) return;
 
-        list.innerHTML = panier.map(item => {
-            const st = item.prix * item.qty;
-            total += st;
-            count += item.qty;
-            return `
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
-                    <div style="max-width:60%; font-size:0.85rem;"><strong>${item.nom}</strong><br>${item.prix} KMF</div>
+        list.innerHTML = panier.length === 0 ? 
+            "<p style='text-align:center; margin-top:20px;'>Votre panier est vide.</p>" :
+            panier.map(item => `
+                <div class="cart-item" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+                    <div style="max-width:60%; font-size:0.85rem;"><strong>${item.nom}</strong><br>${item.prix.toLocaleString()} KMF</div>
                     <div style="text-align:right">
                         <div style="margin-bottom:5px;">
                             <button onclick="changeQty(${item.id}, -1)" style="padding:2px 8px;">-</button> 
                             <span style="margin:0 5px">${item.qty}</span> 
                             <button onclick="changeQty(${item.id}, 1)" style="padding:2px 8px;">+</button>
                         </div>
-                        <strong style="color:var(--orange)">${st.toLocaleString()} KMF</strong>
+                        <strong style="color:var(--orange)">${(item.prix * item.qty).toLocaleString()} KMF</strong>
                     </div>
                 </div>
-            `;
-        }).join('');
+            `).join('');
 
-        if (panier.length === 0) list.innerHTML = "<p style='text-align:center; margin-top:20px;'>Votre panier est vide.</p>";
-        
-        if(totalEl) totalEl.innerText = total.toLocaleString() + " KMF";
-        if(countEl) countEl.innerText = count;
+        const total = panier.reduce((acc, i) => acc + (i.prix * i.qty), 0);
+        const count = panier.reduce((acc, i) => acc + i.qty, 0);
+
+        if (totalEl) totalEl.innerText = `${total.toLocaleString()} KMF`;
+        if (countEl) countEl.innerText = count;
         localStorage.setItem("panier_brico", JSON.stringify(panier));
     }
 
-    majPanier();
+    /* --- 5. NAVIGATION --- */
+    window.showTab = (target) => {
+        document.querySelectorAll(".tab-content").forEach(tab => {
+            tab.style.display = (tab.id === target) ? "block" : "none";
+        });
+        document.querySelectorAll(".tab-btn").forEach(btn => {
+            btn.classList.toggle("active", btn.dataset.tab === target);
+        });
+        window.scrollTo(0, 0);
+    };
 
-    /* --- 5. INTERFACE & NAVIGATION (FIXÉ) --- */
     document.querySelectorAll(".tab-btn").forEach(btn => {
-        btn.onclick = () => {
-            const target = btn.dataset.tab;
-
-            // Mise à jour des boutons
-            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-            btn.classList.add("active");
-
-            // Masquage/Affichage des sections
-            document.querySelectorAll(".tab-content").forEach(section => {
-                if (section.id === target) {
-                    section.style.display = "block";
-                } else {
-                    section.style.display = "none";
-                }
-            });
-            window.scrollTo(0,0);
-        };
+        btn.onclick = () => showTab(btn.dataset.tab);
     });
 
+    // Panier Sidebar
     const sidebar = document.getElementById("cart-sidebar");
     const overlay = document.getElementById("cart-overlay");
+    const openCart = document.getElementById("cart-icon-btn");
+    const closeCart = document.getElementById("close-cart");
 
-    if(document.getElementById("cart-icon-btn")) {
-        document.getElementById("cart-icon-btn").onclick = () => { sidebar.classList.add("open"); overlay.classList.add("show"); };
-    }
-    if(document.getElementById("close-cart")) {
-        document.getElementById("close-cart").onclick = () => { sidebar.classList.remove("open"); overlay.classList.remove("show"); };
-    }
-    if(overlay) {
-        overlay.onclick = () => { sidebar.classList.remove("open"); overlay.classList.remove("show"); };
-    }
+    if (openCart) openCart.onclick = () => { sidebar.classList.add("open"); overlay.classList.add("show"); };
+    if (closeCart) closeCart.onclick = () => { sidebar.classList.remove("open"); overlay.classList.remove("show"); };
+    if (overlay) overlay.onclick = () => { sidebar.classList.remove("open"); overlay.classList.remove("show"); };
 
     function showToast() {
         const t = document.getElementById("toast-notification");
-        if(t) {
+        if (t) {
             t.classList.add("show");
             setTimeout(() => t.classList.remove("show"), 2000);
         }
@@ -182,27 +170,29 @@ document.addEventListener("DOMContentLoaded", () => {
         slides[currentSlide].classList.add("active");
     };
 
-    if(document.querySelector(".next")) document.querySelector(".next").onclick = () => moveSlide(1);
-    if(document.querySelector(".prev")) document.querySelector(".prev").onclick = () => moveSlide(-1);
+    const nextBtn = document.querySelector(".next");
+    const prevBtn = document.querySelector(".prev");
+    if (nextBtn) nextBtn.onclick = () => moveSlide(1);
+    if (prevBtn) prevBtn.onclick = () => moveSlide(-1);
     
-    // Auto-slide uniquement si on est sur l'accueil
     setInterval(() => {
         const accueil = document.getElementById("accueil");
-        if (accueil && accueil.style.display !== "none") {
-            moveSlide(1);
-        }
+        if (accueil && getComputedStyle(accueil).display !== "none") moveSlide(1);
     }, 5000);
 
     /* --- 7. WHATSAPP --- */
     const waBtn = document.getElementById("whatsapp-send");
-    if(waBtn) {
+    if (waBtn) {
         waBtn.onclick = () => {
             if (panier.length === 0) return alert("Votre panier est vide !");
             let msg = "Bonjour BRICO DOMONI, voici ma commande :%0A%0A";
-            panier.forEach(i => msg += `• ${i.nom} (x${i.qty}) : ${i.prix * i.qty} KMF%0A`);
+            panier.forEach(i => msg += `• ${i.nom} (x${i.qty}) : ${(i.prix * i.qty).toLocaleString()} KMF%0A`);
             const total = panier.reduce((acc, i) => acc + (i.prix * i.qty), 0);
             msg += `%0A*TOTAL : ${total.toLocaleString()} KMF*`;
             window.open(`https://wa.me/2694484047?text=${msg}`, "_blank");
         };
     }
+
+    // Init
+    majPanier();
 });

@@ -35,24 +35,46 @@ header {
 
 .nav-links {
     display: flex;
-    gap: 20px;
+    gap: 15px;
+    align-items: center;
 }
 
 .tab-btn {
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
     color: white;
-    padding: 8px 20px;
+    padding: 8px 18px;
     border-radius: 25px;
     cursor: pointer;
     transition: 0.3s;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .tab-btn:hover, .tab-btn.active {
     background: var(--orange);
     border-color: var(--orange);
     transform: translateY(-2px);
+}
+
+/* --- BADGE PANIER --- */
+#cart-count {
+    background: var(--blanc);
+    color: var(--bleu);
+    border-radius: 50%;
+    padding: 2px 7px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    min-width: 20px;
+    text-align: center;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.badge-pop {
+    transform: scale(1.4);
+    background-color: var(--blanc) !important;
 }
 
 /* --- SYSTÈME D'ONGLETS --- */
@@ -87,7 +109,6 @@ header {
     opacity: 1;
 }
 
-/* Boutons du slider */
 .slider-btn {
     position: absolute;
     top: 50%;
@@ -198,7 +219,6 @@ header {
 
 .overlay.show { display: block; }
 
-/* Boutons quantité dans panier */
 .qty-btn {
     background: #eee;
     border: none;
@@ -253,7 +273,7 @@ header {
     gap: 10px;
     transition: 0.3s;
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-    margin-top: auto; /* Pousse le bouton en bas du panier */
+    margin-top: auto;
 }
 
 .btn-whatsapp:hover {

@@ -121,17 +121,17 @@ header {
 /* --- SLIDER D'ACCUEIL --- */
 .slider {
     position: relative;
-    width: 100%;
-    height: 200px; 
+    width: 100%; /* On baisse la hauteur pour coller à ton image panoramique */
+    height: 180px; 
     overflow: hidden;
-    background: #000;
+    background: transparent; /* On enlève le fond noir par défaut */
 }
 
 .slide {
     position: absolute;
     width: 100%;
-    height: 100%;
-    object-fit: contain; /* L'image s'affichera entièrement, sans être coupée, le contraire "cover" */
+    height: 100%; /* 'cover' va étirer l'image pour qu'elle ne laisse aucun vide */
+    object-fit: cover; /* le contraire de "cover" est "contain" l'image s'affichera entièrement, sans être coupée*/
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
 }

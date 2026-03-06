@@ -59,16 +59,16 @@ header {
 
 /* --- ICÔNE PANIER TRANSPARENTE 🛒 --- */
 #cart-icon-btn, .cart-icon-container, .transparent-cart {
-    background: transparent !important; /* Force la transparence */
+    background: transparent !important;
     border: none !important;
     color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.8rem; /* Taille de l'émoji */
+    font-size: 1.8rem;
     padding: 5px;
-    position: relative; /* INDISPENSABLE pour fixer le badge sur l'icône */
+    position: relative;
     transition: 0.3s;
     width: auto;
     height: auto;
@@ -79,7 +79,6 @@ header {
     transform: scale(1.1);
 }
 
-/* --- LE BADGE (COMPTEUR) FIXÉ SUR L'ICÔNE --- */
 #cart-count {
     background: var(--orange);
     color: white;
@@ -87,25 +86,16 @@ header {
     padding: 0;
     font-size: 0.75rem;
     font-weight: 700;
-    
-    /* Taille fixe pour un cercle parfait */
     width: 20px;
     height: 20px;
-    
-    /* Positionnement ABSOLU par rapport au bouton */
     position: absolute;
-    top: -5px;   /* Ajuste pour monter/descendre la bulle */
-    right: -5px; /* Ajuste pour décaler à gauche/droite */
-    
+    top: -5px;
+    right: -5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid var(--bleu); /* Pour le détacher du fond bleu */
+    border: 2px solid var(--bleu);
     z-index: 10;
-}
-
-.badge-pop {
-    transform: scale(1.4);
 }
 
 /* --- SYSTÈME D'ONGLETS --- */
@@ -121,17 +111,17 @@ header {
 /* --- SLIDER D'ACCUEIL --- */
 .slider {
     position: relative;
-    width: 100%; /* On baisse la hauteur pour coller à ton image panoramique */
-    height: 177px; 
+    width: 100%;
+    height: 177px; /* Ta hauteur personnalisée */
     overflow: hidden;
-    background: transparent; /* On enlève le fond noir par défaut */
+    background: transparent;
 }
 
 .slide {
     position: absolute;
     width: 100%;
-    height: 100%; /* 'cover' va étirer l'image pour qu'elle ne laisse aucun vide */
-    object-fit: cover; /* le contraire de "cover" est "contain" l'image s'affichera entièrement, sans être coupée*/
+    height: 100%;
+    object-fit: cover;
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
 }
@@ -158,12 +148,44 @@ header {
 .prev { left: 20px; }
 .next { right: 20px; }
 
+/* --- BARRE DE CATÉGORIES (PRODUITS) --- */
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 5% 30px 5%;
+}
+
+.cat-btn {
+    background: white;
+    color: var(--bleu);
+    border: 1px solid var(--bleu);
+    padding: 8px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.cat-btn:hover {
+    background: #f0f2f5;
+    transform: translateY(-2px);
+}
+
+.cat-btn.active {
+    background: var(--orange) !important;
+    color: white !important;
+    border-color: var(--orange);
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+}
+
 /* --- GRILLE DE PRODUITS --- */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
     gap: 25px;
-    padding: 40px 5%;
+    padding: 20px 5% 40px 5%;
     width: 100%;
 }
 
@@ -177,6 +199,7 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    opacity: 1; /* Utilisé pour l'animation de filtrage */
 }
 
 .product-card:hover {
@@ -218,7 +241,6 @@ header {
 
 .add-to-cart-btn:hover {
     background: #153a7a;
-    letter-spacing: 0.5px;
 }
 
 /* --- PANIER (SIDEBAR) & OVERLAY --- */
@@ -250,16 +272,6 @@ header {
 
 .overlay.show { display: block; }
 
-.qty-btn {
-    background: #eee;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-.qty-btn:hover { background: #ddd; }
-
 /* --- NOTIFICATIONS (TOAST) --- */
 .toast {
     position: fixed;
@@ -284,8 +296,8 @@ header {
     .product-grid { grid-template-columns: 1fr; }
     .sidebar { width: 100%; }
     header { padding: 10px 3%; }
-    .slider { height: 200px; }
-    .nav-links { margin-right: 10px; }
+    .slider { height: 150px; } /* Plus petit sur mobile */
+    .nav-links { margin-right: 10px; gap: 10px; }
 } 
 
 /* --- WHATSAPP --- */

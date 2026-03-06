@@ -30,7 +30,7 @@ header {
 }
 
 #top-logo {
-    height: 90px; /* Taille augmentée comme demandé */
+    height: 90px; 
     width: auto;
     transition: 0.3s;
 }
@@ -41,11 +41,11 @@ header {
     align-items: center;
 }
 
-/* --- STYLE BARRE DE RECHERCHE (ZONE ROUGE) --- */
+/* --- STYLE BARRE DE RECHERCHE --- */
 .search-box {
     display: flex;
     align-items: center;
-    background: white; /* Contraste maximal sur le bleu */
+    background: white;
     border-radius: 30px;
     padding: 3px 15px;
     margin-right: 10px;
@@ -69,11 +69,26 @@ header {
     color: var(--bleu);
 }
 
+/* Bouton X (Clear) */
+#clear-search {
+    font-size: 1.4rem;
+    color: #999;
+    font-weight: bold;
+    margin-right: 8px;
+    transition: 0.2s;
+}
+
+#clear-search:hover {
+    color: var(--orange);
+}
+
 .search-btn {
     background: none;
     border: none;
-    cursor: default;
+    cursor: pointer;
     font-size: 1.1rem;
+    display: flex;
+    align-items: center;
 }
 
 /* --- BOUTONS NAVIGATION --- */
@@ -94,7 +109,7 @@ header {
     transform: translateY(-2px);
 }
 
-/* --- ICÔNE PANIER TRANSPARENTE 🛒 --- */
+/* --- ICÔNE PANIER 🛒 --- */
 #cart-icon-btn {
     background: transparent !important;
     border: none !important;
@@ -130,6 +145,17 @@ header {
     border: 2px solid var(--bleu);
 }
 
+/* Animation de pop pour le badge */
+.badge-pop {
+    animation: pop 0.3s ease-out;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+
 /* --- SYSTÈME D'ONGLETS --- */
 .tab-content {
     display: none;
@@ -138,13 +164,19 @@ header {
 
 .tab-content.active {
     display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- SLIDER D'ACCUEIL --- */
 .slider {
     position: relative;
     width: 100%;
-    height: 350px; /* Hauteur ajustée pour une meilleure visibilité */
+    height: 350px; 
     overflow: hidden;
     background: #000;
 }
@@ -239,6 +271,12 @@ header {
     margin-bottom: 15px;
 }
 
+.product-card h3 {
+    font-size: 1.1rem;
+    margin: 10px 0;
+    color: var(--bleu);
+}
+
 .product-card .price {
     font-size: 1.3rem;
     color: var(--orange);
@@ -256,6 +294,10 @@ header {
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
+}
+
+.add-to-cart-btn:hover {
+    background: var(--orange);
 }
 
 /* --- PANIER (SIDEBAR) --- */
@@ -286,19 +328,45 @@ header {
 
 .overlay.show { display: block; }
 
+.qty-btn {
+    background: #eee;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.qty-btn:hover { background: #ddd; }
+
+/* --- TOAST NOTIFICATION --- */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--bleu);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    transition: 0.5s;
+    z-index: 10000;
+}
+
+.toast.show { transform: translateX(-50%) translateY(0); }
+
 /* --- RESPONSIVE --- */
 @media (max-width: 850px) {
     #top-logo { height: 70px; }
     .nav-links { flex-direction: row; flex-wrap: wrap; justify-content: center; }
     .search-box { width: 100%; order: 3; margin: 10px 0 0 0; }
-    #search-input { width: 100%; }
+    #search-input { width: calc(100% - 40px); }
 }
 
 @media (max-width: 600px) {
     #top-logo { height: 60px; }
     .product-grid { grid-template-columns: 1fr; }
     .sidebar { width: 100%; }
-    .slider { height: 200px; }
+    .slider { height: 220px; }
     .tab-btn { padding: 6px 12px; font-size: 0.8rem; }
 } 
 

@@ -121,7 +121,7 @@ header {
 /* --- SLIDER D'ACCUEIL --- */
 .slider {
     position: relative;
-    width: 100%;
+    width: 85%;
     height: auto; /* Le slider prend la hauteur de l'image */
     aspect-ratio: 1000 / 250; /* Indique ici les dimensions de ton design Canva */
 }

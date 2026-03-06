@@ -30,9 +30,8 @@ header {   
 }
 
 #top-logo {
-    height: 90px; /* Taille augmentée comme demandé */
+    height: 90px;
     width: auto;
-    transition: 0.3s;
 }
 
 .nav-links {
@@ -41,42 +40,6 @@ header {   
     align-items: center;
 }
 
-/* --- STYLE BARRE DE RECHERCHE (ZONE ROUGE) --- */
-.search-box {
-    display: flex;
-    align-items: center;
-    background: white; /* Contraste maximal sur le bleu */
-    border-radius: 30px;
-    padding: 3px 15px;
-    margin-right: 10px;
-    border: 2px solid transparent;
-    transition: 0.3s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.search-box:focus-within {
-    border-color: var(--orange);
-    box-shadow: 0 0 10px rgba(255, 152, 0, 0.4);
-}
-
-#search-input {
-    border: none;
-    outline: none;
-    padding: 8px;
-    width: 200px;
-    font-size: 0.9rem;
-    font-family: 'Poppins', sans-serif;
-    color: var(--bleu);
-}
-
-.search-btn {
-    background: none;
-    border: none;
-    cursor: default;
-    font-size: 1.1rem;
-}
-
-/* --- BOUTONS NAVIGATION --- */
 .tab-btn {
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
@@ -144,7 +107,7 @@ header {   
 .slider {
     position: relative;
     width: 100%;
-    height: 350px; /* Hauteur ajustée pour une meilleure visibilité */
+    height: 177px; 
     overflow: hidden;
     background: #000;
 }
@@ -153,7 +116,7 @@ header {   
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: contain; 
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
 }
@@ -180,7 +143,7 @@ header {   
 .prev { left: 20px; }
 .next { right: 20px; }
 
-/* --- BARRE DE CATÉGORIES --- */
+/* --- BARRE DE CATÉGORIES (PRODUITS) --- */
 .category-tabs {
     display: flex;
     justify-content: center;
@@ -200,6 +163,11 @@ header {   
     transition: 0.3s;
 }
 
+.cat-btn:hover {
+    background: #f0f2f5;
+    transform: translateY(-2px);
+}
+
 .cat-btn.active {
     background: var(--orange) !important;
     color: white !important;
@@ -210,7 +178,7 @@ header {   
 /* --- GRILLE DE PRODUITS --- */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    grid-template-columns: repeat(4, 1fr); 
     gap: 25px;
     padding: 20px 5% 40px 5%;
 }
@@ -220,7 +188,7 @@ header {   
     padding: 20px;
     border-radius: 20px;
     text-align: center;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.4s ease;
     border: 1px solid #eee;
     display: flex;
     flex-direction: column;
@@ -237,6 +205,12 @@ header {   
     height: 180px;
     object-fit: contain;
     margin-bottom: 15px;
+}
+
+.product-card h3 {
+    font-size: 1.1rem;
+    color: var(--bleu);
+    margin: 10px 0;
 }
 
 .product-card .price {
@@ -258,7 +232,53 @@ header {   
     transition: 0.3s;
 }
 
-/* --- PANIER (SIDEBAR) --- */
+.add-to-cart-btn:hover {
+    background: #153a7a;
+}
+
+/* --- PIED DE PAGE (FOOTER) --- */
+footer {
+    background: var(--bleu);
+    color: white;
+    margin-top: 50px;
+}
+
+.footer-section h3 {
+    color: var(--orange);
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.footer-section p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
+.footer-section a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-section a:hover {
+    color: var(--orange);
+    text-decoration: underline;
+}
+
+/* --- RÉSEAUX SOCIAUX --- */
+.social-links a {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    transform: translateX(5px);
+}
+
+/* --- PANIER (SIDEBAR) & OVERLAY --- */
 .sidebar {
     position: fixed;
     top: 0;
@@ -286,20 +306,40 @@ header {   
 
 .overlay.show { display: block; }
 
+/* --- NOTIFICATIONS (TOAST) --- */
+.toast {
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    transition: 0.5s;
+    z-index: 10000;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+.toast.show { bottom: 30px; }
+
 /* --- RESPONSIVE --- */
+@media (max-width: 1100px) {
+    .product-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
 @media (max-width: 850px) {
-    #top-logo { height: 70px; }
-    .nav-links { flex-direction: row; flex-wrap: wrap; justify-content: center; }
-    .search-box { width: 100%; order: 3; margin: 10px 0 0 0; }
-    #search-input { width: 100%; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
+    .sidebar { width: 350px; }
 }
 
 @media (max-width: 600px) {
-    #top-logo { height: 60px; }
     .product-grid { grid-template-columns: 1fr; }
     .sidebar { width: 100%; }
+    header { padding: 10px 3%; }
     .slider { height: 200px; }
-    .tab-btn { padding: 6px 12px; font-size: 0.8rem; }
+    .nav-links { gap: 8px; }
+    .tab-btn { padding: 6px 12px; font-size: 0.85rem; }
+    #top-logo { height: 45px; }
 } 
 
 /* --- WHATSAPP --- */
@@ -310,8 +350,13 @@ header {   
     padding: 15px;
     border-radius: 12px;
     width: 100%;
+    font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     transition: 0.3s;
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
 }

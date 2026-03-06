@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         afficherProduits(filtered);
     };
 
-    /* --- 3. LOGIQUE DU PANIER --- */
+    /* --- 3. LOGIQUE DU PANIER (MIS À JOUR AVEC STYLES) --- */
     window.ajouter = (id) => {
         const prod = produits.find(p => p.id === id);
         const existant = panier.find(item => item.id === id);
@@ -100,29 +100,36 @@ document.addEventListener("DOMContentLoaded", () => {
         let total = 0;
         let nombreArticles = 0;
 
-        list.innerHTML = panier.length === 0 ? 
-            `<p style="text-align:center; color:#888; margin-top:50px;">Votre panier est vide.</p>` :
-            panier.map(item => {
+        if (panier.length === 0) {
+            list.innerHTML = `<p class="empty-cart-msg">🛒 Votre panier est vide.<br>Ajoutez des articles pour commander !</p>`;
+        } else {
+            list.innerHTML = panier.map(item => {
                 const sousTotal = item.prix * item.qty;
                 total += sousTotal;
                 nombreArticles += item.qty;
                 return `
-                    <div class="cart-item-row" style="padding: 10px 0; border-bottom: 1px solid #eee;">
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div class="cart-item-row">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                             <span><strong>${item.nom}</strong></span>
-                            <span>${sousTotal.toLocaleString()} KMF</span>
+                            <span style="color:var(--orange); font-weight:bold;">${sousTotal.toLocaleString()} KMF</span>
                         </div>
-                        <div style="margin-top:5px; display:flex; align-items:center; gap:10px;">
+                        <div style="display:flex; align-items:center; gap:12px;">
                             <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
-                            <span>${item.qty}</span>
+                            <span style="font-weight:600;">${item.qty}</span>
                             <button class="qty-btn" onclick="modifierQty(${item.id}, 1)">+</button>
                         </div>
                     </div>`;
             }).join('');
+        }
 
         if (totalHtml) totalHtml.innerText = total.toLocaleString() + " KMF";
         if (badge) badge.innerText = nombreArticles;
-        if (waBtn) waBtn.innerHTML = `Commander sur WhatsApp (${total.toLocaleString()} KMF)`;
+        
+        if (waBtn) {
+            waBtn.innerHTML = panier.length > 0 
+                ? `🛍️ Commander sur WhatsApp (${total.toLocaleString()} KMF)` 
+                : `Commander sur WhatsApp`;
+        }
 
         localStorage.setItem("panier_brico", JSON.stringify(panier));
     }

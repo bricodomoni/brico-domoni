@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     /* -------------------------
-       1. BASE DE DONNÉES PRODUITS (Mise à jour avec Catégories)
+       1. BASE DE DONNÉES PRODUITS
     --------------------------*/
     const produits = [
         { id: 1, nom: "Brouette Verte", prix: 25000, img: "Images/sl Brouette.jpg", category: "jardin" },
@@ -15,10 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     /* -------------------------
-       2. GESTION DU PANIER
+       2. GESTION DU PANIER (LocalStorage)
     --------------------------*/
     let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
 
+    // On initialise l'affichage du panier au chargement
     if (panier.length > 0) {
         setTimeout(() => { majPanier(); }, 100);
     }
@@ -34,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
         liste.forEach(p => {
             const card = document.createElement("div");
             card.className = "product-card";
-            card.setAttribute("data-category", p.category); // Important pour le filtre
+            card.setAttribute("data-category", p.category); 
             card.innerHTML = `
                 <img src="${p.img}" alt="${p.nom}">
                 <h3>${p.nom}</h3>
@@ -45,26 +46,30 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Affichage initial
+    // Affichage de tous les produits au départ
     afficherProduits(produits);
 
-    // Fonction de filtrage globale
+    // Fonction de filtrage globale (appelée par onclick dans le HTML)
     window.filterProducts = (category) => {
-        // Gestion visuelle des boutons
+        // 1. Mise à jour visuelle des boutons
         const buttons = document.querySelectorAll('.cat-btn');
         buttons.forEach(btn => btn.classList.remove('active'));
-        event.currentTarget.classList.add('active');
+        if (event) event.currentTarget.classList.add('active');
 
-        // Filtrage logique
+        // 2. Logique de masquage/affichage
         const cards = document.querySelectorAll('.product-card');
         cards.forEach(card => {
             const productCat = card.getAttribute('data-category');
+            
+            // Si c'est 'all' ou si la catégorie correspond, on affiche
             if (category === 'all' || productCat === category) {
                 card.style.display = 'flex';
+                // Petit délai pour l'animation d'opacité (CSS)
                 setTimeout(() => card.style.opacity = "1", 10);
             } else {
+                // Sinon on cache
                 card.style.opacity = "0";
-                setTimeout(() => card.style.display = 'none', 300);
+                card.style.display = 'none';
             }
         });
     };
@@ -161,11 +166,12 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const cartBtn = document.getElementById("cart-icon-btn");
-    const closeBtn = document.getElementById("close-cart");
-    const overlay = document.getElementById("cart-overlay");
-
     if (cartBtn) cartBtn.onclick = openCart;
+
+    const closeBtn = document.getElementById("close-cart");
     if (closeBtn) closeBtn.onclick = closeCart;
+
+    const overlay = document.getElementById("cart-overlay");
     if (overlay) overlay.onclick = closeCart;
 
     function showToast() {

@@ -37,6 +37,8 @@ header {
     display: flex;
     gap: 15px;
     align-items: center;
+    /* Décalage vers la gauche pour laisser de l'espace à droite */
+    margin-right: 40px; 
 }
 
 .tab-btn {
@@ -48,9 +50,6 @@ header {
     cursor: pointer;
     transition: 0.3s;
     font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 8px;
 }
 
 .tab-btn:hover, .tab-btn.active {
@@ -59,7 +58,28 @@ header {
     transform: translateY(-2px);
 }
 
-/* --- BADGE PANIER --- */
+/* --- NOUVELLE ICÔNE PANIER 🛒 --- */
+.cart-icon-container {
+    background: var(--orange);
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.cart-icon-container:hover {
+    transform: scale(1.05);
+    background-color: #e68a00;
+}
+
+/* --- BADGE PANIER DYNAMIQUE --- */
 #cart-count {
     background: var(--blanc);
     color: var(--bleu);
@@ -67,14 +87,13 @@ header {
     padding: 2px 7px;
     font-size: 0.75rem;
     font-weight: 700;
-    min-width: 20px;
+    min-width: 22px;
     text-align: center;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .badge-pop {
     transform: scale(1.4);
-    background-color: var(--blanc) !important;
 }
 
 /* --- SYSTÈME D'ONGLETS --- */
@@ -254,6 +273,7 @@ header {
     .sidebar { width: 100%; }
     header { padding: 10px 3%; }
     .slider { height: 200px; }
+    .nav-links { margin-right: 10px; }
 } 
 
 /* --- WHATSAPP --- */

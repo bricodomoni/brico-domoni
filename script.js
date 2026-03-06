@@ -19,9 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     --------------------------*/
     let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
 
-    if (panier.length > 0) {
-        setTimeout(() => { majPanier(); }, 100);
-    }
+    // Initialisation immédiate du panier au chargement
+    majPanier();
 
     /* -------------------------
        3. AFFICHAGE DYNAMIQUE & FILTRAGE
@@ -47,21 +46,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     afficherProduits(produits);
 
-    // Fonction de filtrage corrigée avec passage de 'this'
     window.filterProducts = (category, btnElement) => {
-        // Mise à jour visuelle des boutons
         const buttons = document.querySelectorAll('.cat-btn');
         buttons.forEach(btn => btn.classList.remove('active'));
         
         if (btnElement) {
             btnElement.classList.add('active');
-        } else {
-            // Sécurité : si appelé sans 'this', on cherche le bouton par texte
-            const fallbackBtn = Array.from(buttons).find(b => b.innerText.toLowerCase().includes(category));
-            if (fallbackBtn) fallbackBtn.classList.add('active');
         }
 
-        // Logique de filtrage des éléments
         const cards = document.querySelectorAll('.product-card');
         cards.forEach(card => {
             const productCat = card.getAttribute('data-category');
@@ -116,28 +108,33 @@ document.addEventListener("DOMContentLoaded", () => {
         let total = 0;
         let nombreArticles = 0;
 
-        panier.forEach(item => {
-            const sousTotal = item.prix * item.qty;
-            total += sousTotal;
-            nombreArticles += item.qty;
-            
-            const div = document.createElement("div");
-            div.className = "cart-item-row";
-            div.style.padding = "10px 0";
-            div.style.borderBottom = "1px solid #eee";
-            div.innerHTML = `
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span><strong>${item.nom}</strong></span>
-                    <span>${sousTotal.toLocaleString()} KMF</span>
-                </div>
-                <div style="margin-top:5px; display:flex; align-items:center; gap:10px;">
-                    <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
-                    <span>${item.qty}</span>
-                    <button class="qty-btn" onclick="modifierQty(${item.id}, 1)">+</button>
-                </div>
-            `;
-            list.appendChild(div);
-        });
+        // Gestion de l'affichage si le panier est vide
+        if (panier.length === 0) {
+            list.innerHTML = `<p style="text-align:center; color:#888; margin-top:50px;">Votre panier est vide.</p>`;
+        } else {
+            panier.forEach(item => {
+                const sousTotal = item.prix * item.qty;
+                total += sousTotal;
+                nombreArticles += item.qty;
+                
+                const div = document.createElement("div");
+                div.className = "cart-item-row";
+                div.style.padding = "10px 0";
+                div.style.borderBottom = "1px solid #eee";
+                div.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span><strong>${item.nom}</strong></span>
+                        <span>${sousTotal.toLocaleString()} KMF</span>
+                    </div>
+                    <div style="margin-top:5px; display:flex; align-items:center; gap:10px;">
+                        <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
+                        <span>${item.qty}</span>
+                        <button class="qty-btn" onclick="modifierQty(${item.id}, 1)">+</button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+        }
 
         totalHtml.innerText = total.toLocaleString() + " KMF";
         if (badge) badge.innerText = nombreArticles;
@@ -155,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* -------------------------
-       5. INTERFACE (SIDEBAR & TABS)
+       5. INTERFACE (MODALES & TABS)
     --------------------------*/
     const openCart = () => {
         document.getElementById("cart-sidebar").classList.add("open");

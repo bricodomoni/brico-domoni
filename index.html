@@ -3,45 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRICO DOMONI</title>
+    <title>BRICO DOMONI | Votre quincaillerie aux Comores</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-   <header>
-    <img src="logo.jpg" id="top-logo" alt="Logo BRICO DOMONI">
+    <header>
+        <img src="logo.jpg" id="top-logo" alt="Logo BRICO DOMONI">
 
-    <nav class="nav-links">
-        <button class="tab-btn active" data-tab="accueil">Accueil</button>
-        <button class="tab-btn" data-tab="produits">Articles</button>
-        
-        <button id="cart-icon-btn" class="transparent-cart">
-            🛒 <span id="cart-count">0</span>
-        </button>
-    </nav>
-</header>
+        <nav class="nav-links">
+            <button class="tab-btn active" data-tab="accueil">Accueil</button>
+            <button class="tab-btn" data-tab="produits">Articles</button>
+            
+            <button id="cart-icon-btn" class="transparent-cart">
+                🛒 <span id="cart-count">0</span>
+            </button>
+        </nav>
+    </header>
 
-    <main id="accueil" class="tab-content active">
-        <div class="slider">
-            <img src="Images/sl Brouette.jpg" class="slide active" alt="Brouette Brico Domoni">
-            <img src="Images/sl Evier.jpg" class="slide" alt="Evier Inox">
-            <img src="Images/sl lame de scie circulaire.jpg" class="slide" alt="Lame de scie circulaire">
+    <main>
+        <section id="accueil" class="tab-content active">
+            <div class="slider">
+                <img src="Images/sl Brouette.jpg" class="slide active" alt="Brouette Brico Domoni">
+                <img src="Images/sl Evier.jpg" class="slide" alt="Evier Inox">
+                <img src="Images/sl lame de scie circulaire.jpg" class="slide" alt="Lame de scie circulaire">
 
-            <button class="slider-btn prev">❮</button>
-            <button class="slider-btn next">❯</button>
-        </div>
+                <button class="slider-btn prev">❮</button>
+                <button class="slider-btn next">❯</button>
+            </div>
 
-        <div style="text-align:center; padding: 40px 20px;">
-            <h1>Bienvenue chez BRICO DOMONI</h1>
-            <p>Votre partenaire bricolage à Domoni Anjouan</p>
-        </div>
+            <div class="hero-welcome" style="text-align:center; padding: 40px 20px;">
+                <h1>Bienvenue chez BRICO DOMONI</h1>
+                <p>Votre partenaire bricolage à Domoni Anjouan</p>
+            </div>
+        </section>
+
+        <section id="produits" class="tab-content">
+            <h2 style="text-align:center; margin-top:30px;">Nos Articles</h2>
+
+            <div class="category-tabs">
+                <button class="cat-btn active" onclick="filterProducts('all')">Tous</button>
+                <button class="cat-btn" onclick="filterProducts('outils')">Outils</button>
+                <button class="cat-btn" onclick="filterProducts('jardin')">Jardin</button>
+                <button class="cat-btn" onclick="filterProducts('electricite')">Électricité</button>
+                <button class="cat-btn" onclick="filterProducts('plomberie')">Plomberie</button>
+                <button class="cat-btn" onclick="filterProducts('maconnerie')">Maçonnerie</button>
+                <button class="cat-btn" onclick="filterProducts('carreleur')">Carreleur</button>
+                <button class="cat-btn" onclick="filterProducts('divers')">Divers</button>
+            </div>
+
+            <div id="product-list" class="product-grid">
+                <div class="product-card" data-category="jardin">
+                    <img src="Images/sl Brouette.jpg" alt="Brouette">
+                    <h3>Brouette de chantier</h3>
+                    <p class="price">45.000 KMF</p>
+                    <button class="add-to-cart-btn">Ajouter au panier</button>
+                </div>
+            </div>
+        </section>
     </main>
-
-    <section id="produits" class="tab-content">
-        <h2 style="text-align:center; margin-top:30px;">Nos Articles</h2>
-        <div id="product-list" class="product-grid"></div>
-    </section>
 
     <div id="toast-notification" class="toast">Produit ajouté !</div>
 
@@ -53,20 +74,20 @@
             <button id="close-cart" style="background:none; border:none; font-size:2rem; cursor:pointer;">&times;</button>
         </div>
 
-        <div id="cart-items-list" style="flex-grow:1; overflow-y:auto; padding:20px 0;"></div>
+        <div id="cart-items-list" style="flex-grow:1; overflow-y:auto; padding:20px 0;">
+            </div>
 
         <div class="sidebar-footer" style="border-top:1px solid #eee; padding-top:20px;">
             <div class="cart-total" style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:600; margin-bottom:20px;">
                 <span>Total :</span>
                 <span id="total-price">0 KMF</span>
             </div>
-            <button id="whatsapp-send" class="btn-whatsapp">Commander sur WhatsApp</button>
+            <button id="whatsapp-send" class="btn-whatsapp">
+                Commander sur WhatsApp
+            </button>
         </div>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
-
-

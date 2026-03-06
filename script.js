@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
     --------------------------*/
     let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
 
-    // On initialise l'affichage du panier au chargement
     if (panier.length > 0) {
         setTimeout(() => { majPanier(); }, 100);
     }
@@ -46,28 +45,31 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Affichage de tous les produits au départ
     afficherProduits(produits);
 
-    // Fonction de filtrage globale (appelée par onclick dans le HTML)
-    window.filterProducts = (category) => {
-        // 1. Mise à jour visuelle des boutons
+    // Fonction de filtrage corrigée avec passage de 'this'
+    window.filterProducts = (category, btnElement) => {
+        // Mise à jour visuelle des boutons
         const buttons = document.querySelectorAll('.cat-btn');
         buttons.forEach(btn => btn.classList.remove('active'));
-        if (event) event.currentTarget.classList.add('active');
+        
+        if (btnElement) {
+            btnElement.classList.add('active');
+        } else {
+            // Sécurité : si appelé sans 'this', on cherche le bouton par texte
+            const fallbackBtn = Array.from(buttons).find(b => b.innerText.toLowerCase().includes(category));
+            if (fallbackBtn) fallbackBtn.classList.add('active');
+        }
 
-        // 2. Logique de masquage/affichage
+        // Logique de filtrage des éléments
         const cards = document.querySelectorAll('.product-card');
         cards.forEach(card => {
             const productCat = card.getAttribute('data-category');
             
-            // Si c'est 'all' ou si la catégorie correspond, on affiche
             if (category === 'all' || productCat === category) {
                 card.style.display = 'flex';
-                // Petit délai pour l'animation d'opacité (CSS)
                 setTimeout(() => card.style.opacity = "1", 10);
             } else {
-                // Sinon on cache
                 card.style.opacity = "0";
                 card.style.display = 'none';
             }
@@ -153,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* -------------------------
-       5. INTERFACE (MODALES & TABS)
+       5. INTERFACE (SIDEBAR & TABS)
     --------------------------*/
     const openCart = () => {
         document.getElementById("cart-sidebar").classList.add("open");
@@ -166,12 +168,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     const cartBtn = document.getElementById("cart-icon-btn");
-    if (cartBtn) cartBtn.onclick = openCart;
-
     const closeBtn = document.getElementById("close-cart");
-    if (closeBtn) closeBtn.onclick = closeCart;
-
     const overlay = document.getElementById("cart-overlay");
+
+    if (cartBtn) cartBtn.onclick = openCart;
+    if (closeBtn) closeBtn.onclick = closeCart;
     if (overlay) overlay.onclick = closeCart;
 
     function showToast() {

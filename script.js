@@ -1,40 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* --- BASE DE DONNÉES PRODUITS (DEPUIS TON EXCEL) --- */
-const produits = [
-    { id: 1, nom: "Adaptateur de Mandrin à pince", prix: 1000, img: "Images/mandrin.jpg", category: "outils" },
-    { id: 2, nom: "Adaptateur prise électrique européen", prix: 500, img: "Images/adaptateur-eu.jpg", category: "electricite" },
-    { id: 3, nom: "Adaptateur prise électrique TRAVELKING", prix: 500, img: "Images/travelking.jpg", category: "electricite" },
-    { id: 4, nom: "Adaptateur prise Marken", prix: 750, img: "Images/marken.jpg", category: "electricite" },
-    { id: 5, nom: "Adhésif silicone", prix: 2000, img: "Images/silicone.jpg", category: "divers" },
-    { id: 6, nom: "Agrafe 1008J", prix: 2000, img: "Images/agrafe1008.jpg", category: "outils" },
-    { id: 7, nom: "Agrafe 1010J", prix: 2000, img: "Images/agrafe1010.jpg", category: "outils" },
-    { id: 8, nom: "Agrafe 1013J", prix: 2000, img: "Images/agrafe1013.jpg", category: "outils" },
-    { id: 9, nom: "Agrafeuse pneumatique 1013J", prix: 25000, img: "Images/agrafeuse.jpg", category: "outils" },
-    { id: 10, nom: "Ampoule Led 10w 230v", prix: 900, img: "Images/led10w.jpg", category: "electricite" },
-    { id: 11, nom: "Ampoule Led 12w 12v", prix: 1600, img: "Images/led12w12v.jpg", category: "electricite" },
-    { id: 12, nom: "Ampoule Led 12w 12v/85v", prix: 1350, img: "Images/led12w85v.jpg", category: "electricite" },
-    { id: 13, nom: "Ampoule Led 18w 12v", prix: 1700, img: "Images/led18w12v.jpg", category: "electricite" },
-    { id: 14, nom: "Ampoule Led 18w 12v/85v", prix: 1700, img: "Images/led18w85v.jpg", category: "electricite" },
-    { id: 15, nom: "Ampoule Led 24w 12v/85v", prix: 2500, img: "Images/led24w.jpg", category: "electricite" },
-    { id: 16, nom: "Ampoule Led 28w 230v", prix: 1500, img: "Images/led28w.jpg", category: "electricite" },
-    { id: 17, nom: "Ampoule Led 5w 12v", prix: 850, img: "Images/led5w12v.jpg", category: "electricite" },
-    { id: 18, nom: "Ampoule Led 5w 12v/85v", prix: 900, img: "Images/led5w85v.jpg", category: "electricite" },
-    { id: 19, nom: "Ampoule Led 5w 230v", prix: 750, img: "Images/led5w230v.jpg", category: "electricite" },
-    { id: 20, nom: "Ampoule Led 7w 12v", prix: 1000, img: "Images/led7w12v.jpg", category: "electricite" },
-    { id: 21, nom: "Ampoule Led 7w 12v/85v", prix: 1000, img: "Images/led7w85v.jpg", category: "electricite" }
-];
+    /* -------------------------
+       1. BASE DE DONNÉES PRODUITS
+    --------------------------*/
+    const produits = [
+        { id: 1, nom: "Adaptateur de Mandrin à pince", prix: 1000, img: "Images/mandrin.jpg", category: "outils" },
+        { id: 2, nom: "Adaptateur prise électrique européen", prix: 500, img: "Images/adaptateur-eu.jpg", category: "electricite" },
+        { id: 3, nom: "Adaptateur prise électrique TRAVELKING", prix: 500, img: "Images/travelking.jpg", category: "electricite" },
+        { id: 4, nom: "Adaptateur prise Marken", prix: 750, img: "Images/marken.jpg", category: "electricite" },
+        { id: 5, nom: "Adhésif silicone", prix: 2000, img: "Images/silicone.jpg", category: "divers" },
+        { id: 6, nom: "Agrafe 1008J", prix: 2000, img: "Images/agrafe1008.jpg", category: "outils" },
+        { id: 7, nom: "Agrafe 1010J", prix: 2000, img: "Images/agrafe1010.jpg", category: "outils" },
+        { id: 8, nom: "Agrafe 1013J", prix: 2000, img: "Images/agrafe1013.jpg", category: "outils" },
+        { id: 9, nom: "Agrafeuse pneumatique 1013J", prix: 25000, img: "Images/agrafeuse.jpg", category: "outils" },
+        { id: 10, nom: "Ampoule Led 10w 230v", prix: 900, img: "Images/led10w.jpg", category: "electricite" },
+        { id: 11, nom: "Ampoule Led 12w 12v", prix: 1600, img: "Images/led12w12v.jpg", category: "electricite" },
+        { id: 12, nom: "Ampoule Led 12w 12v/85v", prix: 1350, img: "Images/led12w85v.jpg", category: "electricite" },
+        { id: 13, nom: "Ampoule Led 18w 12v", prix: 1700, img: "Images/led18w12v.jpg", category: "electricite" },
+        { id: 14, nom: "Ampoule Led 18w 12v/85v", prix: 1700, img: "Images/led18w85v.jpg", category: "electricite" },
+        { id: 15, nom: "Ampoule Led 24w 12v/85v", prix: 2500, img: "Images/led24w.jpg", category: "electricite" },
+        { id: 16, nom: "Ampoule Led 28w 230v", prix: 1500, img: "Images/led28w.jpg", category: "electricite" },
+        { id: 17, nom: "Ampoule Led 5w 12v", prix: 850, img: "Images/led5w12v.jpg", category: "electricite" },
+        { id: 18, nom: "Ampoule Led 5w 12v/85v", prix: 900, img: "Images/led5w85v.jpg", category: "electricite" },
+        { id: 19, nom: "Ampoule Led 5w 230v", prix: 750, img: "Images/led5w230v.jpg", category: "electricite" },
+        { id: 20, nom: "Ampoule Led 7w 12v", prix: 1000, img: "Images/led7w12v.jpg", category: "electricite" },
+        { id: 21, nom: "Ampoule Led 7w 12v/85v", prix: 1000, img: "Images/led7w85v.jpg", category: "electricite" }
+    ];
 
     /* -------------------------
-       2. GESTION DU PANIER (LocalStorage)
+       2. GESTION DU PANIER
     --------------------------*/
     let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
 
-    // Initialisation immédiate du panier au chargement
+    // Initialisation immédiate
     majPanier();
 
     /* -------------------------
-       3. AFFICHAGE DYNAMIQUE & FILTRAGE
+       3. AFFICHAGE & FILTRAGE
     --------------------------*/
     const productList = document.getElementById("product-list");
 
@@ -60,15 +62,11 @@ const produits = [
     window.filterProducts = (category, btnElement) => {
         const buttons = document.querySelectorAll('.cat-btn');
         buttons.forEach(btn => btn.classList.remove('active'));
-        
-        if (btnElement) {
-            btnElement.classList.add('active');
-        }
+        if (btnElement) btnElement.classList.add('active');
 
         const cards = document.querySelectorAll('.product-card');
         cards.forEach(card => {
             const productCat = card.getAttribute('data-category');
-            
             if (category === 'all' || productCat === category) {
                 card.style.display = 'flex';
                 setTimeout(() => card.style.opacity = "1", 10);
@@ -112,6 +110,7 @@ const produits = [
         const list = document.getElementById("cart-items-list");
         const totalHtml = document.getElementById("total-price");
         const badge = document.getElementById("cart-count");
+        const waBtn = document.getElementById("whatsapp-send");
         
         if (!list || !totalHtml) return;
 
@@ -119,9 +118,9 @@ const produits = [
         let total = 0;
         let nombreArticles = 0;
 
-        // Gestion de l'affichage si le panier est vide
         if (panier.length === 0) {
             list.innerHTML = `<p style="text-align:center; color:#888; margin-top:50px;">Votre panier est vide.</p>`;
+            if (waBtn) waBtn.innerHTML = "Commander sur WhatsApp";
         } else {
             panier.forEach(item => {
                 const sousTotal = item.prix * item.qty;
@@ -145,6 +144,8 @@ const produits = [
                 `;
                 list.appendChild(div);
             });
+            // Mise à jour du texte du bouton WhatsApp avec le total
+            if (waBtn) waBtn.innerHTML = `Commander sur WhatsApp (${total.toLocaleString()} KMF)`;
         }
 
         totalHtml.innerText = total.toLocaleString() + " KMF";
@@ -165,23 +166,24 @@ const produits = [
     /* -------------------------
        5. INTERFACE (MODALES & TABS)
     --------------------------*/
-    const openCart = () => {
-        document.getElementById("cart-sidebar").classList.add("open");
-        document.getElementById("cart-overlay").classList.add("show");
-    };
-
-    const closeCart = () => {
-        document.getElementById("cart-sidebar").classList.remove("open");
-        document.getElementById("cart-overlay").classList.remove("show");
-    };
-
     const cartBtn = document.getElementById("cart-icon-btn");
     const closeBtn = document.getElementById("close-cart");
     const overlay = document.getElementById("cart-overlay");
 
-    if (cartBtn) cartBtn.onclick = openCart;
-    if (closeBtn) closeBtn.onclick = closeCart;
-    if (overlay) overlay.onclick = closeCart;
+    if (cartBtn) cartBtn.onclick = () => {
+        document.getElementById("cart-sidebar").classList.add("open");
+        document.getElementById("cart-overlay").classList.add("show");
+    };
+
+    if (closeBtn) closeBtn.onclick = () => {
+        document.getElementById("cart-sidebar").classList.remove("open");
+        document.getElementById("cart-overlay").classList.remove("show");
+    };
+
+    if (overlay) overlay.onclick = () => {
+        document.getElementById("cart-sidebar").classList.remove("open");
+        document.getElementById("cart-overlay").classList.remove("show");
+    };
 
     function showToast() {
         const toast = document.getElementById("toast-notification");
@@ -196,7 +198,6 @@ const produits = [
             const target = btn.dataset.tab;
             document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
             document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-            
             document.getElementById(target).classList.add("active");
             btn.classList.add("active");
         };
@@ -259,7 +260,7 @@ const produits = [
             message += `💰 *TOTAL À PAYER : ${totalFinal.toLocaleString()} KMF*%0A%0A`;
             message += "Merci de confirmer la commande.";
 
-            const monNumero = "+2694484047"; 
+            const monNumero = "2694484047"; 
             window.open(`https://wa.me/${monNumero}?text=${message}`, "_blank");
         };
     }

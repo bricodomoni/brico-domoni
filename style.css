@@ -57,46 +57,50 @@ header {
     transform: translateY(-2px);
 }
 
-/* --- ICÔNE PANIER TRANSPARENTE 🛒 (CORRIGÉ) --- */
-.transparent-cart, .cart-icon-container {
-    background: transparent !important; /* Force la suppression du fond blanc */
-    border: none;
+/* --- ICÔNE PANIER TRANSPARENTE 🛒 --- */
+#cart-icon-btn, .cart-icon-container, .transparent-cart {
+    background: transparent !important; /* Force la transparence */
+    border: none !important;
     color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.8rem; /* Un peu plus grand pour la visibilité */
+    font-size: 1.8rem; /* Taille de l'émoji */
     padding: 5px;
-    position: relative; /* CRUCIAL : Définit le point d'ancrage pour le badge */
+    position: relative; /* INDISPENSABLE pour fixer le badge sur l'icône */
     transition: 0.3s;
-    outline: none;
+    width: auto;
+    height: auto;
+    box-shadow: none;
 }
 
-.transparent-cart:hover, .cart-icon-container:hover {
+#cart-icon-btn:hover {
     transform: scale(1.1);
 }
 
-/* --- BADGE ORANGE SUR L'ICÔNE (CORRIGÉ) --- */
+/* --- LE BADGE (COMPTEUR) FIXÉ SUR L'ICÔNE --- */
 #cart-count {
     background: var(--orange);
     color: white;
     border-radius: 50%;
-    font-size: 0.7rem;
+    padding: 0;
+    font-size: 0.75rem;
     font-weight: 700;
+    
+    /* Taille fixe pour un cercle parfait */
     width: 20px;
     height: 20px;
     
     /* Positionnement ABSOLU par rapport au bouton */
     position: absolute;
-    top: -2px; /* Ajuste la hauteur sur l'émoji */
-    right: -2px; /* Ajuste la position latérale sur l'émoji */
+    top: -5px;   /* Ajuste pour monter/descendre la bulle */
+    right: -5px; /* Ajuste pour décaler à gauche/droite */
     
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 2px solid var(--bleu); /* Détache la bulle du fond bleu du header */
+    border: 2px solid var(--bleu); /* Pour le détacher du fond bleu */
     z-index: 10;
 }
 

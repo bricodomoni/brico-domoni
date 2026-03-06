@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRICO DOMONI | Quincaillerie & Outillage Anjouan</title>
-    <meta name="description" content="Quincaillerie BRICO DOMONI à Domoni, Anjouan. Vente d'outillage, électricité, plomberie et matériel de construction aux meilleurs prix.">
+    <title>BRICO DOMONI | Quincaillerie Anjouan</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <img src="logo.jpg" id="top-logo" alt="Logo BRICO DOMONI" onclick="document.querySelector('[data-tab=\'accueil\']').click()">
-        
+        <img src="logo.jpg" id="top-logo" alt="Logo" onclick="showTab('accueil')">
         <nav class="nav-links">
             <div class="search-box">
-                <input type="text" id="search-input" placeholder="Trouver un produit..." onkeyup="searchProducts()">
+                <input type="text" id="search-input" placeholder="Rechercher..." onkeyup="searchProducts()">
                 <span id="clear-search" onclick="clearSearch()">&times;</span>
             </div>
             <button class="tab-btn active" data-tab="accueil">Accueil</button>
@@ -28,18 +26,17 @@
         <section id="accueil" class="tab-content active">
             <div class="slider-container">
                 <div class="slider">
-                    <img src="Images/sl Brouette.jpg" class="slide active" alt="Brouette">
-                    <img src="Images/sl Evier.jpg" class="slide" alt="Evier">
-                    <img src="Images/sl lame de scie circulaire.jpg" class="slide" alt="Lame de scie">
+                    <img src="Images/sl-brouette.jpg" class="slide active" alt="Brouette">
+                    <img src="Images/sl-evier.jpg" class="slide" alt="Evier">
+                    <img src="Images/sl-lame.jpg" class="slide" alt="Lame">
                     <button class="slider-btn prev">❮</button>
                     <button class="slider-btn next">❯</button>
                 </div>
             </div>
-            
             <div class="hero-welcome">
                 <h1>BRICO DOMONI</h1>
                 <p>La qualité professionnelle à Domoni, Anjouan.</p>
-                <button class="shop-now" onclick="document.querySelector('[data-tab=\'produits\']').click()">Découvrir nos produits</button>
+                <button class="shop-now" onclick="showTab('produits')">Découvrir nos produits</button>
             </div>
         </section>
 
@@ -59,7 +56,7 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>BRICO DOMONI</h3>
-                <p>📍 Riadhu, face Pharmacie Dr Salim, Domoni</p>
+                <p>📍 Riadhu, face Pharmacie Dr Salim</p>
                 <p>📞 +269 448 40 47</p>
             </div>
             <div class="footer-section">
@@ -77,9 +74,7 @@
             <h2>Mon Panier</h2>
             <button id="close-cart">&times;</button>
         </div>
-        
         <div id="cart-items-list"></div>
-        
         <div class="sidebar-footer">
             <div class="total-box">Total : <strong id="total-price">0 KMF</strong></div>
             <button id="whatsapp-send" class="btn-whatsapp">Commander sur WhatsApp</button>

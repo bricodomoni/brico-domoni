@@ -52,6 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const filtered = produits.filter(p => p.nom.toLowerCase().includes(query));
         
+        // Si on cherche, on bascule automatiquement sur l'onglet produits
         if (query) {
             const btnProduits = document.querySelector('[data-tab="produits"]');
             if (btnProduits) btnProduits.click();
@@ -71,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
         afficherProduits(filtered);
     };
 
-    /* --- 3. LOGIQUE DU PANIER (MIS À JOUR AVEC STYLES) --- */
+    /* --- 3. LOGIQUE DU PANIER --- */
     window.ajouter = (id) => {
         const prod = produits.find(p => p.id === id);
         const existant = panier.find(item => item.id === id);
@@ -101,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let nombreArticles = 0;
 
         if (panier.length === 0) {
-            list.innerHTML = `<p class="empty-cart-msg">🛒 Votre panier est vide.<br>Ajoutez des articles pour commander !</p>`;
+            list.innerHTML = `<div class="empty-cart-msg">🛒 Votre panier est vide.<br><small>Ajoutez des articles pour commander !</small></div>`;
         } else {
             list.innerHTML = panier.map(item => {
                 const sousTotal = item.prix * item.qty;
@@ -134,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.setItem("panier_brico", JSON.stringify(panier));
     }
 
-    /* --- 4. SLIDER (RESTAURÉ) --- */
+    /* --- 4. SLIDER AUTOMATIQUE --- */
     const slides = document.querySelectorAll(".slide");
     let slideIndex = 0;
 
@@ -161,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 5000);
     }
 
-    /* --- 5. INTERFACE & WHATSAPP --- */
+    /* --- 5. INTERFACE & NAVIGATION --- */
     document.querySelectorAll(".tab-btn").forEach(btn => {
         btn.onclick = () => {
             const target = btn.dataset.tab;
@@ -182,21 +183,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showToast() {
         const toast = document.getElementById("toast-notification");
-        if (toast) { toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2000); }
+        if (toast) { 
+            toast.classList.add("show"); 
+            setTimeout(() => toast.classList.remove("show"), 2500); 
+        }
     }
 
+    /* --- 6. COMMANDE WHATSAPP --- */
     document.getElementById("whatsapp-send").onclick = () => {
         if (panier.length === 0) return alert("Votre panier est vide !");
-        let message = "🛠️ *NOUVELLE COMMANDE - BRICO DOMONI*%0A";
+        
+        let message = "🛠️ *NOUVELLE COMMANDE - BRICO DOMONI*%0A%0A";
         panier.forEach((item, index) => {
-            message += `*${index + 1}.* ${item.nom} (x${item.qty}) - ${(item.prix * item.qty).toLocaleString()} KMF%0A`;
+            message += `*${index + 1}.* ${item.nom}%0A   👉 Qté: ${item.qty} | Total: ${(item.prix * item.qty).toLocaleString()} KMF%0A%0A`;
         });
+        
         const total = panier.reduce((t, i) => t + (i.prix * i.qty), 0);
-        message += `%0A💰 *TOTAL : ${total.toLocaleString()} KMF*`;
+        message += `💰 *TOTAL À PAYER : ${total.toLocaleString()} KMF*`;
+        
         window.open(`https://wa.me/2694484047?text=${message}`, "_blank");
     };
 
-    // Initialisation
+    // Initialisation au chargement
     afficherProduits(produits);
     majPanier();
 });

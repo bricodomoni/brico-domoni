@@ -107,7 +107,7 @@ header {
 .slider {
     position: relative;
     width: 100%;
-    height: 350px; /* Augmenté pour un meilleur rendu visuel */
+    height: 350px; 
     overflow: hidden;
     background: #000;
 }
@@ -116,7 +116,7 @@ header {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Changez en 'contain' si vous préférez voir l'image entière */
+    object-fit: cover; 
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
 }
@@ -264,6 +264,18 @@ footer {
 .footer-section a:hover {
     color: var(--orange);
     text-decoration: underline;
+}
+
+/* --- RÉSEAUX SOCIAUX --- */
+.social-links a {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.social-links a:hover {
+    transform: translateX(5px);
 }
 
 /* --- PANIER (SIDEBAR) & OVERLAY --- */

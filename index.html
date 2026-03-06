@@ -11,7 +11,8 @@
 <body>
 
     <header>
-        <img src="logo.jpg" id="top-logo" alt="Logo BRICO DOMONI" onclick="document.querySelector('[data-tab=\'accueil\']').click()" style="cursor:pointer;">
+        <img src="logo.jpg" id="top-logo" alt="Logo BRICO DOMONI" onclick="document.querySelector('[data-tab=\'accueil\']').click()">
+        
         <nav class="nav-links">
             <div class="search-box">
                 <input type="text" id="search-input" placeholder="Trouver un produit..." onkeyup="searchProducts()">
@@ -34,6 +35,7 @@
                     <button class="slider-btn next">❯</button>
                 </div>
             </div>
+            
             <div class="hero-welcome">
                 <h1>BRICO DOMONI</h1>
                 <p>La qualité professionnelle à Domoni, Anjouan.</p>
@@ -75,9 +77,11 @@
             <h2>Mon Panier</h2>
             <button id="close-cart">&times;</button>
         </div>
+        
         <div id="cart-items-list"></div>
+        
         <div class="sidebar-footer">
-            <div class="total-box">Total : <span id="total-price">0 KMF</span></div>
+            <div class="total-box">Total : <strong id="total-price">0 KMF</strong></div>
             <button id="whatsapp-send" class="btn-whatsapp">Commander sur WhatsApp</button>
         </div>
     </div>

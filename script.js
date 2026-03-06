@@ -1,35 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     /* -------------------------
-       1. BASE DE DONNÉES PRODUITS
+       1. BASE DE DONNÉES PRODUITS (Mise à jour avec Catégories)
     --------------------------*/
     const produits = [
-        { id: 1, nom: "Brouette Verte", prix: 25000, img: "Images/Brouette.jpg" },
-        { id: 2, nom: "Évier Inox Double", prix: 45000, img: "Images/AST187429-XL.jpg" },
-        { id: 3, nom: "Pelle de chantier", prix: 7500, img: "Images/9641602024.jpg" },
-        { id: 4, nom: "Marteau de coffreur", prix: 3500, img: "Images/marteau.jpg" }
+        { id: 1, nom: "Brouette Verte", prix: 25000, img: "Images/sl Brouette.jpg", category: "jardin" },
+        { id: 2, nom: "Évier Inox Double", prix: 45000, img: "Images/sl Evier.jpg", category: "plomberie" },
+        { id: 3, nom: "Pelle de chantier", prix: 7500, img: "Images/9641602024.jpg", category: "maconnerie" },
+        { id: 4, nom: "Lame Scie Circulaire", prix: 12500, img: "Images/sl lame de scie circulaire.jpg", category: "outils" },
+        { id: 5, nom: "Marteau de coffreur", prix: 3500, img: "Images/marteau.jpg", category: "maconnerie" },
+        { id: 6, nom: "Ampoule LED 12W", prix: 1500, img: "Images/ampoule.jpg", category: "electricite" },
+        { id: 7, nom: "Truelle Italienne", prix: 2500, img: "Images/truelle.jpg", category: "maconnerie" },
+        { id: 8, nom: "Coupe-carreaux Pro", prix: 55000, img: "Images/coupe-carreau.jpg", category: "carreleur" }
     ];
 
     /* -------------------------
-       2. GESTION DE LA MÉMOIRE (LocalStorage)
+       2. GESTION DU PANIER
     --------------------------*/
     let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
 
-    // On initialise l'affichage si le panier contient déjà des articles
     if (panier.length > 0) {
         setTimeout(() => { majPanier(); }, 100);
     }
 
     /* -------------------------
-       3. AFFICHAGE DYNAMIQUE DES PRODUITS
+       3. AFFICHAGE DYNAMIQUE & FILTRAGE
     --------------------------*/
     const productList = document.getElementById("product-list");
 
-    if (productList) {
+    function afficherProduits(liste) {
+        if (!productList) return;
         productList.innerHTML = ""; 
-        produits.forEach(p => {
+        liste.forEach(p => {
             const card = document.createElement("div");
             card.className = "product-card";
+            card.setAttribute("data-category", p.category); // Important pour le filtre
             card.innerHTML = `
                 <img src="${p.img}" alt="${p.nom}">
                 <h3>${p.nom}</h3>
@@ -40,8 +45,32 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Affichage initial
+    afficherProduits(produits);
+
+    // Fonction de filtrage globale
+    window.filterProducts = (category) => {
+        // Gestion visuelle des boutons
+        const buttons = document.querySelectorAll('.cat-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+
+        // Filtrage logique
+        const cards = document.querySelectorAll('.product-card');
+        cards.forEach(card => {
+            const productCat = card.getAttribute('data-category');
+            if (category === 'all' || productCat === category) {
+                card.style.display = 'flex';
+                setTimeout(() => card.style.opacity = "1", 10);
+            } else {
+                card.style.opacity = "0";
+                setTimeout(() => card.style.display = 'none', 300);
+            }
+        });
+    };
+
     /* -------------------------
-       4. LOGIQUE DU PANIER (FONCTIONS GLOBALES)
+       4. LOGIQUE DU PANIER
     --------------------------*/
     window.ajouter = (id) => {
         const prod = produits.find(p => p.id === id);
@@ -104,10 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         totalHtml.innerText = total.toLocaleString() + " KMF";
-        
-        if (badge) {
-            badge.innerText = nombreArticles;
-        }
+        if (badge) badge.innerText = nombreArticles;
 
         localStorage.setItem("panier_brico", JSON.stringify(panier));
     }
@@ -134,7 +160,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("cart-overlay").classList.remove("show");
     };
 
-    // Liaison des événements d'ouverture/fermeture
     const cartBtn = document.getElementById("cart-icon-btn");
     const closeBtn = document.getElementById("close-cart");
     const overlay = document.getElementById("cart-overlay");

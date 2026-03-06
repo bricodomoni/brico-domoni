@@ -32,9 +32,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.renderProducts = (data) => {
         if (!productList) return;
+        if (data.length === 0) {
+            productList.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 20px;">Aucun produit trouvé.</p>`;
+            return;
+        }
         productList.innerHTML = data.map(p => `
             <div class="product-card">
-                <img src="${p.img}" alt="${p.nom}">
+                <img src="${p.img}" alt="${p.nom}" onerror="this.src='https://via.placeholder.com/150?text=Image+Manquante'">
                 <h3>${p.nom}</h3>
                 <p class="price">${p.prix.toLocaleString()} KMF</p>
                 <button class="add-to-cart-btn" onclick="ajouter(${p.id})">Ajouter</button>
@@ -42,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
         `).join('');
     };
 
-    renderProducts(produits); // Premier affichage
+    renderProducts(produits);
 
     /* --- 3. RECHERCHE & FILTRES --- */
     window.searchProducts = () => {
@@ -52,9 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const filtered = produits.filter(p => p.nom.toLowerCase().includes(term));
         renderProducts(filtered);
 
-        // Si on cherche, on force l'affichage de l'onglet produits
         if (term) {
-            document.querySelector('[data-tab="produits"]').click();
+            const btnProduits = document.querySelector('[data-tab="produits"]');
+            if (btnProduits) btnProduits.click();
         }
     };
 
@@ -66,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.filterProducts = (cat, btn) => {
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        
         const filtered = cat === 'all' ? produits : produits.filter(p => p.category === cat);
         renderProducts(filtered);
     };
@@ -75,10 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
     window.ajouter = (id) => {
         const p = produits.find(item => item.id === id);
         const inCart = panier.find(item => item.id === id);
-        
         if (inCart) { inCart.qty++; } 
         else { panier.push({ ...p, qty: 1 }); }
-        
         majPanier();
         showToast();
     };
@@ -105,31 +106,46 @@ document.addEventListener("DOMContentLoaded", () => {
             total += st;
             count += item.qty;
             return `
-                <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:5px;">
-                    <div style="max-width:60%"><strong>${item.nom}</strong><br>${item.prix} KMF</div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
+                    <div style="max-width:60%; font-size:0.85rem;"><strong>${item.nom}</strong><br>${item.prix} KMF</div>
                     <div style="text-align:right">
-                        <button onclick="changeQty(${item.id}, -1)">-</button> ${item.qty} <button onclick="changeQty(${item.id}, 1)">+</button>
-                        <br><strong>${st} KMF</strong>
+                        <div style="margin-bottom:5px;">
+                            <button onclick="changeQty(${item.id}, -1)" style="padding:2px 8px;">-</button> 
+                            <span style="margin:0 5px">${item.qty}</span> 
+                            <button onclick="changeQty(${item.id}, 1)" style="padding:2px 8px;">+</button>
+                        </div>
+                        <strong style="color:var(--orange)">${st.toLocaleString()} KMF</strong>
                     </div>
                 </div>
             `;
         }).join('');
 
-        if (panier.length === 0) list.innerHTML = "Votre panier est vide.";
+        if (panier.length === 0) list.innerHTML = "<p style='text-align:center; margin-top:20px;'>Votre panier est vide.</p>";
         
-        totalEl.innerText = total.toLocaleString() + " KMF";
-        countEl.innerText = count;
+        if(totalEl) totalEl.innerText = total.toLocaleString() + " KMF";
+        if(countEl) countEl.innerText = count;
         localStorage.setItem("panier_brico", JSON.stringify(panier));
     }
 
-    majPanier(); // Charger au démarrage
+    majPanier();
 
-    /* --- 5. INTERFACE & NAVIGATION --- */
+    /* --- 5. INTERFACE & NAVIGATION (FIXÉ) --- */
     document.querySelectorAll(".tab-btn").forEach(btn => {
         btn.onclick = () => {
-            document.querySelectorAll(".tab-content, .tab-btn").forEach(el => el.classList.remove("active"));
-            document.getElementById(btn.dataset.tab).classList.add("active");
+            const target = btn.dataset.tab;
+
+            // Mise à jour des boutons
+            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
             btn.classList.add("active");
+
+            // Masquage/Affichage des sections
+            document.querySelectorAll(".tab-content").forEach(section => {
+                if (section.id === target) {
+                    section.style.display = "block";
+                } else {
+                    section.style.display = "none";
+                }
+            });
             window.scrollTo(0,0);
         };
     });
@@ -137,14 +153,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const sidebar = document.getElementById("cart-sidebar");
     const overlay = document.getElementById("cart-overlay");
 
-    document.getElementById("cart-icon-btn").onclick = () => { sidebar.classList.add("open"); overlay.classList.add("show"); };
-    document.getElementById("close-cart").onclick = () => { sidebar.classList.remove("open"); overlay.classList.remove("show"); };
-    overlay.onclick = () => { sidebar.classList.remove("open"); overlay.classList.remove("show"); };
+    if(document.getElementById("cart-icon-btn")) {
+        document.getElementById("cart-icon-btn").onclick = () => { sidebar.classList.add("open"); overlay.classList.add("show"); };
+    }
+    if(document.getElementById("close-cart")) {
+        document.getElementById("close-cart").onclick = () => { sidebar.classList.remove("open"); overlay.classList.remove("show"); };
+    }
+    if(overlay) {
+        overlay.onclick = () => { sidebar.classList.remove("open"); overlay.classList.remove("show"); };
+    }
 
     function showToast() {
         const t = document.getElementById("toast-notification");
-        t.classList.add("show");
-        setTimeout(() => t.classList.remove("show"), 2000);
+        if(t) {
+            t.classList.add("show");
+            setTimeout(() => t.classList.remove("show"), 2000);
+        }
     }
 
     /* --- 6. SLIDER --- */
@@ -152,22 +176,33 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentSlide = 0;
 
     const moveSlide = (dir) => {
+        if (slides.length === 0) return;
         slides[currentSlide].classList.remove("active");
         currentSlide = (currentSlide + dir + slides.length) % slides.length;
         slides[currentSlide].classList.add("active");
     };
 
-    document.querySelector(".next").onclick = () => moveSlide(1);
-    document.querySelector(".prev").onclick = () => moveSlide(-1);
-    setInterval(() => moveSlide(1), 5000);
+    if(document.querySelector(".next")) document.querySelector(".next").onclick = () => moveSlide(1);
+    if(document.querySelector(".prev")) document.querySelector(".prev").onclick = () => moveSlide(-1);
+    
+    // Auto-slide uniquement si on est sur l'accueil
+    setInterval(() => {
+        const accueil = document.getElementById("accueil");
+        if (accueil && accueil.style.display !== "none") {
+            moveSlide(1);
+        }
+    }, 5000);
 
     /* --- 7. WHATSAPP --- */
-    document.getElementById("whatsapp-send").onclick = () => {
-        if (panier.length === 0) return alert("Panier vide !");
-        let msg = "Bonjour BRICO DOMONI, voici ma commande :%0A";
-        panier.forEach(i => msg += `- ${i.nom} (x${i.qty}) : ${i.prix * i.qty} KMF%0A`);
-        const total = panier.reduce((acc, i) => acc + (i.prix * i.qty), 0);
-        msg += `%0A*TOTAL : ${total} KMF*`;
-        window.open(`https://wa.me/2694484047?text=${msg}`, "_blank");
-    };
+    const waBtn = document.getElementById("whatsapp-send");
+    if(waBtn) {
+        waBtn.onclick = () => {
+            if (panier.length === 0) return alert("Votre panier est vide !");
+            let msg = "Bonjour BRICO DOMONI, voici ma commande :%0A%0A";
+            panier.forEach(i => msg += `• ${i.nom} (x${i.qty}) : ${i.prix * i.qty} KMF%0A`);
+            const total = panier.reduce((acc, i) => acc + (i.prix * i.qty), 0);
+            msg += `%0A*TOTAL : ${total.toLocaleString()} KMF*`;
+            window.open(`https://wa.me/2694484047?text=${msg}`, "_blank");
+        };
+    }
 });

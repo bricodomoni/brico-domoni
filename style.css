@@ -30,7 +30,7 @@ header {
 }
 
 #top-logo {
-    height: 60px;
+    height: 90px;
     width: auto;
 }
 
@@ -107,7 +107,7 @@ header {
 .slider {
     position: relative;
     width: 100%;
-    height: 350px; 
+    height: 177px; 
     overflow: hidden;
     background: #000;
 }
@@ -116,7 +116,7 @@ header {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: contain; /* "contain" afficher l'image entière. contraire "cover"*/
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
 }

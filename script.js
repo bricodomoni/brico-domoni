@@ -31,8 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
        2. GESTION DU PANIER
     --------------------------*/
     let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
-
-    // Initialisation immédiate
     majPanier();
 
     /* -------------------------
@@ -78,7 +76,36 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     /* -------------------------
-       4. LOGIQUE DU PANIER
+       4. LOGIQUE DE RECHERCHE (AJOUTÉ)
+    --------------------------*/
+    window.searchProducts = () => {
+        const query = document.getElementById("search-input").value.toLowerCase();
+        const clearBtn = document.getElementById("clear-search");
+        
+        // Afficher/Cacher la croix d'effacement
+        if (clearBtn) clearBtn.style.display = query.length > 0 ? "inline" : "none";
+
+        const filtered = produits.filter(p => 
+            p.nom.toLowerCase().includes(query)
+        );
+
+        // Si on cherche, on bascule automatiquement sur l'onglet produits
+        if (query.length > 0) {
+            document.querySelector('[data-tab="produits"]').click();
+        }
+
+        afficherProduits(filtered);
+    };
+
+    window.clearSearch = () => {
+        const input = document.getElementById("search-input");
+        input.value = "";
+        searchProducts();
+        input.focus();
+    };
+
+    /* -------------------------
+       5. LOGIQUE DU PANIER
     --------------------------*/
     window.ajouter = (id) => {
         const prod = produits.find(p => p.id === id);
@@ -144,7 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
                 list.appendChild(div);
             });
-            // Mise à jour du texte du bouton WhatsApp avec le total
             if (waBtn) waBtn.innerHTML = `Commander sur WhatsApp (${total.toLocaleString()} KMF)`;
         }
 
@@ -164,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* -------------------------
-       5. INTERFACE (MODALES & TABS)
+       6. INTERFACE (MODALES & TABS)
     --------------------------*/
     const cartBtn = document.getElementById("cart-icon-btn");
     const closeBtn = document.getElementById("close-cart");
@@ -204,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     /* -------------------------
-       6. SLIDER AUTOMATIQUE
+       7. SLIDER AUTOMATIQUE
     --------------------------*/
     const slides = document.querySelectorAll(".slide");
     const nextBtn = document.querySelector(".next");
@@ -234,12 +260,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* -------------------------
-       7. ENVOI WHATSAPP
+       8. ENVOI WHATSAPP
     --------------------------*/
-    const waBtn = document.getElementById("whatsapp-send");
+    const waSendBtn = document.getElementById("whatsapp-send");
 
-    if (waBtn) {
-        waBtn.onclick = () => {
+    if (waSendBtn) {
+        waSendBtn.onclick = () => {
             if (panier.length === 0) {
                 alert("Votre panier est vide !");
                 return;

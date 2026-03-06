@@ -31,12 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
        2. GESTION DU PANIER
     --------------------------*/
     let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
-
-    // Initialisation immédiate
     majPanier();
 
     /* -------------------------
-       3. AFFICHAGE & FILTRAGE
+       3. AFFICHAGE & RECHERCHE
     --------------------------*/
     const productList = document.getElementById("product-list");
 
@@ -59,22 +57,57 @@ document.addEventListener("DOMContentLoaded", () => {
 
     afficherProduits(produits);
 
+    // RECHERCHE AVEC GESTION DE LA CROIX (X)
+    window.searchProducts = () => {
+        const input = document.getElementById("search-input");
+        const clearBtn = document.getElementById("clear-search");
+        const query = input.value.toLowerCase();
+        
+        // Afficher/Cacher la croix d'effacement
+        if (clearBtn) {
+            clearBtn.style.display = query.length > 0 ? "inline" : "none";
+        }
+
+        // Redirection vers onglet Articles si on commence à chercher
+        const tabArticles = document.querySelector('[data-tab="produits"]');
+        if (query.length > 0 && tabArticles && !tabArticles.classList.contains('active')) {
+            tabArticles.click();
+        }
+
+        const filtered = produits.filter(p => 
+            p.nom.toLowerCase().includes(query) || 
+            p.category.toLowerCase().includes(query)
+        );
+
+        afficherProduits(filtered);
+
+        if (filtered.length === 0) {
+            productList.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:50px; color:#666;">
+                Aucun article ne correspond à "${query}"</div>`;
+        }
+    };
+
+    // FONCTION POUR EFFACER LA RECHERCHE
+    window.clearSearch = () => {
+        const input = document.getElementById("search-input");
+        input.value = "";
+        input.focus();
+        window.searchProducts(); // Relance l'affichage complet
+    };
+
     window.filterProducts = (category, btnElement) => {
         const buttons = document.querySelectorAll('.cat-btn');
         buttons.forEach(btn => btn.classList.remove('active'));
         if (btnElement) btnElement.classList.add('active');
 
-        const cards = document.querySelectorAll('.product-card');
-        cards.forEach(card => {
-            const productCat = card.getAttribute('data-category');
-            if (category === 'all' || productCat === category) {
-                card.style.display = 'flex';
-                setTimeout(() => card.style.opacity = "1", 10);
-            } else {
-                card.style.opacity = "0";
-                card.style.display = 'none';
-            }
-        });
+        // Reset recherche quand on filtre par catégorie
+        const input = document.getElementById("search-input");
+        if(input) input.value = "";
+        const clearBtn = document.getElementById("clear-search");
+        if(clearBtn) clearBtn.style.display = "none";
+
+        const filtered = category === 'all' ? produits : produits.filter(p => p.category === category);
+        afficherProduits(filtered);
     };
 
     /* -------------------------
@@ -144,7 +177,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
                 list.appendChild(div);
             });
-            // Mise à jour du texte du bouton WhatsApp avec le total
             if (waBtn) waBtn.innerHTML = `Commander sur WhatsApp (${total.toLocaleString()} KMF)`;
         }
 
@@ -157,9 +189,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function animateBadge() {
         const badge = document.getElementById("cart-count");
         if (badge) {
-            badge.classList.remove("badge-pop");
-            void badge.offsetWidth; 
-            badge.classList.add("badge-pop");
+            badge.style.transition = "transform 0.2s";
+            badge.style.transform = "scale(1.4)";
+            setTimeout(() => badge.style.transform = "scale(1)", 200);
         }
     }
 
@@ -175,93 +207,15 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("cart-overlay").classList.add("show");
     };
 
-    if (closeBtn) closeBtn.onclick = () => {
-        document.getElementById("cart-sidebar").classList.remove("open");
-        document.getElementById("cart-overlay").classList.remove("show");
-    };
-
-    if (overlay) overlay.onclick = () => {
-        document.getElementById("cart-sidebar").classList.remove("open");
-        document.getElementById("cart-overlay").classList.remove("show");
-    };
+    if (closeBtn || overlay) {
+        const closeAction = () => {
+            document.getElementById("cart-sidebar").classList.remove("open");
+            document.getElementById("cart-overlay").classList.remove("show");
+        };
+        if(closeBtn) closeBtn.onclick = closeAction;
+        if(overlay) overlay.onclick = closeAction;
+    }
 
     function showToast() {
         const toast = document.getElementById("toast-notification");
         if (toast) {
-            toast.classList.add("show");
-            setTimeout(() => toast.classList.remove("show"), 2000);
-        }
-    }
-
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-        btn.onclick = () => {
-            const target = btn.dataset.tab;
-            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-            document.getElementById(target).classList.add("active");
-            btn.classList.add("active");
-        };
-    });
-
-    /* -------------------------
-       6. SLIDER AUTOMATIQUE
-    --------------------------*/
-    const slides = document.querySelectorAll(".slide");
-    const nextBtn = document.querySelector(".next");
-    const prevBtn = document.querySelector(".prev");
-    let slideIndex = 0;
-
-    if (slides.length > 0) {
-        const showSlide = (n) => {
-            slides.forEach(s => s.classList.remove("active"));
-            slides[n].classList.add("active");
-        };
-
-        if (nextBtn) nextBtn.onclick = () => {
-            slideIndex = (slideIndex + 1) % slides.length;
-            showSlide(slideIndex);
-        };
-
-        if (prevBtn) prevBtn.onclick = () => {
-            slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-            showSlide(slideIndex);
-        };
-
-        setInterval(() => {
-            slideIndex = (slideIndex + 1) % slides.length;
-            showSlide(slideIndex);
-        }, 5000);
-    }
-
-    /* -------------------------
-       7. ENVOI WHATSAPP
-    --------------------------*/
-    const waBtn = document.getElementById("whatsapp-send");
-
-    if (waBtn) {
-        waBtn.onclick = () => {
-            if (panier.length === 0) {
-                alert("Votre panier est vide !");
-                return;
-            }
-
-            let message = "🛠️ *NOUVELLE COMMANDE - BRICO DOMONI*%0A";
-            message += "---------------------------------------%0A";
-
-            panier.forEach((item, index) => {
-                const sTotal = item.prix * item.qty;
-                message += `*${index + 1}.* ${item.nom}%0A`;
-                message += `   Quantité : ${item.qty}%0A`;
-                message += `   Prix : ${sTotal.toLocaleString()} KMF%0A%0A`;
-            });
-
-            const totalFinal = panier.reduce((t, i) => t + (i.prix * i.qty), 0);
-            message += "---------------------------------------%0A";
-            message += `💰 *TOTAL À PAYER : ${totalFinal.toLocaleString()} KMF*%0A%0A`;
-            message += "Merci de confirmer la commande.";
-
-            const monNumero = "2694484047"; 
-            window.open(`https://wa.me/${monNumero}?text=${message}`, "_blank");
-        };
-    }
-});

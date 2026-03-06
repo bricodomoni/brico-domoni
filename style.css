@@ -43,7 +43,7 @@ header {
 }
 
 #top-logo {
-    height: 70px;
+    height: 80px;
     width: auto;
     cursor: pointer;
 }
@@ -143,7 +143,7 @@ header {
     position: relative;
     width: 100%;
     max-width: 1200px;
-    height: 350px; /* Taille Desktop optimisée */
+    height: 177px; /* Taille Desktop optimisée */
     margin: 0 auto;
     overflow: hidden;
 }

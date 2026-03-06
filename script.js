@@ -13,10 +13,8 @@ document.addEventListener("DOMContentLoaded", () => {
     /* -------------------------
        2. GESTION DE LA MÉMOIRE (LocalStorage)
     --------------------------*/
-    // On récupère le panier sauvegardé OU on crée un tableau vide
     let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
 
-    // Si le panier n'est pas vide au chargement, on met à jour l'affichage
     if (panier.length > 0) {
         setTimeout(() => { majPanier(); }, 100);
     }
@@ -56,7 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         majPanier();
         showToast();
-        openCart();
+        animateBadge(); // Nouvelle animation
+        // openCart(); // Optionnel : décommente si tu veux que le panier s'ouvre seul
     };
 
     window.modifierQty = (id, change) => {
@@ -73,17 +72,21 @@ document.addEventListener("DOMContentLoaded", () => {
     function majPanier() {
         const list = document.getElementById("cart-items-list");
         const totalHtml = document.getElementById("total-price");
+        const badge = document.getElementById("cart-count"); // Le badge dans le header
+        
         if (!list || !totalHtml) return;
 
         list.innerHTML = "";
         let total = 0;
+        let nombreArticles = 0;
 
         panier.forEach(item => {
             const sousTotal = item.prix * item.qty;
             total += sousTotal;
+            nombreArticles += item.qty;
             
             const div = document.createElement("div");
-            div.className = "cart-item-row"; // Assure-toi d'avoir ce style en CSS
+            div.className = "cart-item-row";
             div.style.padding = "10px 0";
             div.style.borderBottom = "1px solid #eee";
             div.innerHTML = `
@@ -101,9 +104,23 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         totalHtml.innerText = total.toLocaleString() + " KMF";
+        
+        // Mise à jour du badge (le petit rond sur l'onglet)
+        if (badge) {
+            badge.innerText = nombreArticles;
+        }
 
-        // Sauvegarde dans la mémoire du navigateur
         localStorage.setItem("panier_brico", JSON.stringify(panier));
+    }
+
+    // Fonction pour l'animation du badge
+    function animateBadge() {
+        const badge = document.getElementById("cart-count");
+        if (badge) {
+            badge.classList.remove("badge-pop");
+            void badge.offsetWidth; // Force le redémarrage de l'animation
+            badge.classList.add("badge-pop");
+        }
     }
 
     /* -------------------------
@@ -115,11 +132,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const closeCart = () => {
-        document.getElementById("cart-sidebar").classList.remove("open");
-        document.getElementById("cart-overlay").classList.remove("show");
+        const sidebar = document.getElementById("cart-sidebar");
+        const overlay = document.getElementById("cart-overlay");
+        if(sidebar) sidebar.classList.remove("open");
+        if(overlay) overlay.classList.remove("show");
     };
 
-    // Événements de fermeture
     const closeBtn = document.getElementById("close-cart");
     const overlay = document.getElementById("cart-overlay");
     if (closeBtn) closeBtn.onclick = closeCart;
@@ -133,7 +151,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Gestion des Onglets (Accueil / Produits)
     document.querySelectorAll(".tab-btn").forEach(btn => {
         btn.onclick = () => {
             const target = btn.dataset.tab;
@@ -169,7 +186,6 @@ document.addEventListener("DOMContentLoaded", () => {
             showSlide(slideIndex);
         };
 
-        // Défilement auto
         setInterval(() => {
             slideIndex = (slideIndex + 1) % slides.length;
             showSlide(slideIndex);
@@ -177,7 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     /* -------------------------
-       7. ENVOI WHATSAPP OPTIMISÉ
+       7. ENVOI WHATSAPP
     --------------------------*/
     const waBtn = document.getElementById("whatsapp-send");
 
@@ -203,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
             message += `💰 *TOTAL À PAYER : ${totalFinal.toLocaleString()} KMF*%0A%0A`;
             message += "Merci de confirmer la commande.";
 
-            const monNumero = "269334XXXX"; // Mets ton vrai numéro ici
+            const monNumero = "+2694484047"; // Mets ton vrai numéro ici
             window.open(`https://wa.me/${monNumero}?text=${message}`, "_blank");
         };
     }

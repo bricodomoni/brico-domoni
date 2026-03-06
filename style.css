@@ -122,7 +122,7 @@ header {
 .slider {
     position: relative;
     width: 100%; /* On baisse la hauteur pour coller à ton image panoramique */
-    height: 180px; 
+    height: 177px; 
     overflow: hidden;
     background: transparent; /* On enlève le fond noir par défaut */
 }

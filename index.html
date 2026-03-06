@@ -39,18 +39,17 @@
             <h2 style="text-align:center; margin-top:30px;">Nos Articles</h2>
 
             <div class="category-tabs">
-                <button class="cat-btn active" data-filter="all">Tous</button>
-                <button class="cat-btn" data-filter="outils">Outils</button>
-                <button class="cat-btn" data-filter="jardin">Jardin</button>
-                <button class="cat-btn" data-filter="electricite">Électricité</button>
-                <button class="cat-btn" data-filter="plomberie">Plomberie</button>
-                <button class="cat-btn" data-filter="maconnerie">Maçonnerie</button>
-                <button class="cat-btn" data-filter="carreleur">Carreleur</button>
-                <button class="cat-btn" data-filter="divers">Divers</button>
+                <button class="cat-btn active" onclick="filterProducts('all', this)">Tous</button>
+                <button class="cat-btn" onclick="filterProducts('outils', this)">Outils</button>
+                <button class="cat-btn" onclick="filterProducts('jardin', this)">Jardin</button>
+                <button class="cat-btn" onclick="filterProducts('electricite', this)">Électricité</button>
+                <button class="cat-btn" onclick="filterProducts('plomberie', this)">Plomberie</button>
+                <button class="cat-btn" onclick="filterProducts('maconnerie', this)">Maçonnerie</button>
+                <button class="cat-btn" onclick="filterProducts('carreleur', this)">Carreleur</button>
+                <button class="cat-btn" onclick="filterProducts('divers', this)">Divers</button>
             </div>
 
-            <div id="product-list" class="product-grid">
-                </div>
+            <div id="product-list" class="product-grid"></div>
         </section>
     </main>
 
@@ -62,7 +61,10 @@
             <h2 style="margin:0;">Mon Panier</h2>
             <button id="close-cart" style="background:none; border:none; font-size:2rem; cursor:pointer;">&times;</button>
         </div>
-        <div id="cart-items-list" style="flex-grow:1; overflow-y:auto; padding:20px 0;"></div>
+        
+        <div id="cart-items-list" style="flex-grow:1; overflow-y:auto; padding:20px 0;">
+            </div>
+
         <div class="sidebar-footer" style="border-top:1px solid #eee; padding-top:20px;">
             <div class="cart-total" style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:600; margin-bottom:20px;">
                 <span>Total :</span>

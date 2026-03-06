@@ -47,7 +47,10 @@ header {
     height: 90px;
     width: auto;
     cursor: pointer;
+    transition: transform 0.3s ease;
 }
+
+#top-logo:hover { transform: scale(1.05); }
 
 .nav-links {
     display: flex;
@@ -74,6 +77,13 @@ header {
     padding: 5px;
     width: 180px;
     font-size: 0.9rem;
+}
+
+#clear-search {
+    cursor: pointer;
+    color: #999;
+    font-weight: bold;
+    display: none;
 }
 
 .tab-btn {
@@ -122,16 +132,16 @@ header {
 /* ==========================================================================
    3. ACCUEIL & SLIDER
    ========================================================================== */
-.tab-content { display: none; }
+.tab-content { display: none; padding-bottom: 50px; }
 .tab-content.active { display: block; }
 
-.slider-container { width: 100%; background: #000; }
+.slider-container { width: 100%; background: #000; position: relative; }
 
 .slider {
     position: relative;
     width: 100%;
     max-width: 1200px;
-    height: 177px;
+    height: 177px; /* Hauteur ajustée pour une meilleure visibilité */
     margin: 0 auto;
     overflow: hidden;
 }
@@ -154,18 +164,67 @@ header {
     background: rgba(0,0,0,0.5);
     color: var(--blanc);
     border: none;
-    padding: 12px;
+    padding: 12px 15px;
     cursor: pointer;
     z-index: 10;
     border-radius: 50%;
+    font-size: 1.2rem;
+    transition: background 0.3s;
 }
 
+.slider-btn:hover { background: var(--orange); }
 .next { right: 15px; }
 .prev { left: 15px; }
 
+.hero-welcome {
+    text-align: center;
+    padding: 60px 5%;
+    background: var(--blanc);
+}
+
+.hero-welcome h1 { font-size: 2.5rem; color: var(--bleu); margin-bottom: 10px; }
+
+.shop-now {
+    margin-top: 25px;
+    padding: 15px 40px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.shop-now:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(255,152,0,0.3); }
+
 /* ==========================================================================
-   4. BOUTIQUE & PRODUITS (MIS À JOUR)
+   4. BOUTIQUE & PRODUITS
    ========================================================================== */
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 30px 5% 10px;
+    flex-wrap: wrap;
+}
+
+.cat-btn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cat-btn.active, .cat-btn:hover {
+    background: var(--bleu);
+    color: white;
+    border-color: var(--bleu);
+}
+
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -187,6 +246,8 @@ header {
     transition: var(--transition);
 }
 
+.product-card:hover { transform: translateY(-10px); box-shadow: var(--shadow); }
+
 .product-card img {
     width: 100%;
     height: 180px;
@@ -194,7 +255,8 @@ header {
     margin-bottom: 15px;
 }
 
-/* BOUTON AJOUTER AMÉLIORÉ */
+.price { color: var(--orange); font-weight: 700; font-size: 1.2rem; margin: 10px 0; }
+
 .add-to-cart-btn {
     width: 100%;
     background: var(--bleu);
@@ -205,93 +267,103 @@ header {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 10px;
 }
 
-.add-to-cart-btn:hover {
-    background: var(--orange);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
-}
+.add-to-cart-btn:hover { background: var(--orange); }
 
 /* ==========================================================================
-   5. PANIER SIDEBAR (MIS À JOUR)
+   5. PANIER SIDEBAR & TOAST
    ========================================================================== */
 .sidebar {
     position: fixed;
     top: 0; right: -100%;
-    width: 350px;
+    width: 380px;
     height: 100vh;
     background: var(--blanc);
     z-index: 9999;
-    transition: 0.4s ease;
+    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
-    padding: 20px;
 }
 
 .sidebar.open { right: 0; }
 
-/* Articles dans le panier */
+.sidebar-header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bleu);
+    color: white;
+}
+
+#close-cart { background: transparent; border: none; color: white; font-size: 2rem; cursor: pointer; }
+
+#cart-items-list { flex: 1; overflow-y: auto; padding: 20px; }
+
 .cart-item-row {
     background: #f8f9fa;
     padding: 15px;
     border-radius: 12px;
     margin-bottom: 15px;
     border-left: 5px solid var(--orange);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* Boutons de quantité */
 .qty-btn {
     background: #ffffff;
     border: 1px solid #ddd;
-    width: 30px;
-    height: 30px;
+    width: 30px; height: 30px;
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
-    transition: 0.2s;
 }
 
-.qty-btn:hover {
-    background: var(--bleu);
-    color: white;
-}
+.sidebar-footer { padding: 20px; border-top: 1px solid #eee; }
 
-/* Message Panier Vide */
-.empty-cart-msg {
-    text-align: center;
-    color: #999;
-    margin-top: 50px;
-    font-size: 1rem;
+.total-box {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
 }
 
 .btn-whatsapp {
     background: var(--whatsapp);
     color: var(--blanc);
     border: none;
-    padding: 15px;
-    border-radius: 10px;
+    padding: 18px;
+    border-radius: 12px;
     width: 100%;
     font-weight: bold;
+    font-size: 1rem;
     cursor: pointer;
-    margin-top: 15px;
-    transition: var(--transition);
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-.btn-whatsapp:hover { opacity: 0.9; transform: scale(0.98); }
-
-.overlay {
+/* NOTIFICATION TOAST */
+.toast {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
-    display: none;
-    z-index: 9000;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--bleu);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    z-index: 10001;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 2px solid var(--orange);
 }
-.overlay.show { display: block; }
+
+.toast.show { transform: translateX(-50%) translateY(0); }
 
 /* ==========================================================================
    6. FOOTER & RESPONSIVE
@@ -300,12 +372,27 @@ footer {
     background: var(--bleu);
     color: var(--blanc);
     padding: 40px 5% 20px;
-    margin-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.8rem;
 }
 
 @media (max-width: 768px) {
-    header { flex-direction: column; gap: 15px; }
-    .nav-links { width: 100%; justify-content: space-around; }
-    .search-box { width: 100%; order: 3; }
+    header { padding: 15px; }
+    #top-logo { height: 60px; }
+    #search-input { width: 120px; }
     .sidebar { width: 100%; }
+    .hero-welcome h1 { font-size: 1.8rem; }
 }

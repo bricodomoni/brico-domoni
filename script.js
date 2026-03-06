@@ -1,282 +1,267 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* -------------------------
-       1. BASE DE DONNÉES PRODUITS
-    --------------------------*/
-    const produits = [
-        { id: 1, nom: "Adaptateur de Mandrin à pince", prix: 1000, img: "Images/mandrin.jpg", category: "outils" },
-        { id: 2, nom: "Adaptateur prise électrique européen", prix: 500, img: "Images/adaptateur-eu.jpg", category: "electricite" },
-        { id: 3, nom: "Adaptateur prise électrique TRAVELKING", prix: 500, img: "Images/travelking.jpg", category: "electricite" },
-        { id: 4, nom: "Adaptateur prise Marken", prix: 750, img: "Images/marken.jpg", category: "electricite" },
-        { id: 5, nom: "Adhésif silicone", prix: 2000, img: "Images/silicone.jpg", category: "divers" },
-        { id: 6, nom: "Agrafe 1008J", prix: 2000, img: "Images/agrafe1008.jpg", category: "outils" },
-        { id: 7, nom: "Agrafe 1010J", prix: 2000, img: "Images/agrafe1010.jpg", category: "outils" },
-        { id: 8, nom: "Agrafe 1013J", prix: 2000, img: "Images/agrafe1013.jpg", category: "outils" },
-        { id: 9, nom: "Agrafeuse pneumatique 1013J", prix: 25000, img: "Images/agrafeuse.jpg", category: "outils" },
-        { id: 10, nom: "Ampoule Led 10w 230v", prix: 900, img: "Images/led10w.jpg", category: "electricite" },
-        { id: 11, nom: "Ampoule Led 12w 12v", prix: 1600, img: "Images/led12w12v.jpg", category: "electricite" },
-        { id: 12, nom: "Ampoule Led 12w 12v/85v", prix: 1350, img: "Images/led12w85v.jpg", category: "electricite" },
-        { id: 13, nom: "Ampoule Led 18w 12v", prix: 1700, img: "Images/led18w12v.jpg", category: "electricite" },
-        { id: 14, nom: "Ampoule Led 18w 12v/85v", prix: 1700, img: "Images/led18w85v.jpg", category: "electricite" },
-        { id: 15, nom: "Ampoule Led 24w 12v/85v", prix: 2500, img: "Images/led24w.jpg", category: "electricite" },
-        { id: 16, nom: "Ampoule Led 28w 230v", prix: 1500, img: "Images/led28w.jpg", category: "electricite" },
-        { id: 17, nom: "Ampoule Led 5w 12v", prix: 850, img: "Images/led5w12v.jpg", category: "electricite" },
-        { id: 18, nom: "Ampoule Led 5w 12v/85v", prix: 900, img: "Images/led5w85v.jpg", category: "electricite" },
-        { id: 19, nom: "Ampoule Led 5w 230v", prix: 750, img: "Images/led5w230v.jpg", category: "electricite" },
-        { id: 20, nom: "Ampoule Led 7w 12v", prix: 1000, img: "Images/led7w12v.jpg", category: "electricite" },
-        { id: 21, nom: "Ampoule Led 7w 12v/85v", prix: 1000, img: "Images/led7w85v.jpg", category: "electricite" }
-    ];
+    /* -------------------------
+       1. BASE DE DONNÉES PRODUITS
+    --------------------------*/
+    const produits = [
+        { id: 1, nom: "Adaptateur de Mandrin à pince", prix: 1000, img: "Images/mandrin.jpg", category: "outils" },
+        { id: 2, nom: "Adaptateur prise électrique européen", prix: 500, img: "Images/adaptateur-eu.jpg", category: "electricite" },
+        { id: 3, nom: "Adaptateur prise électrique TRAVELKING", prix: 500, img: "Images/travelking.jpg", category: "electricite" },
+        { id: 4, nom: "Adaptateur prise Marken", prix: 750, img: "Images/marken.jpg", category: "electricite" },
+        { id: 5, nom: "Adhésif silicone", prix: 2000, img: "Images/silicone.jpg", category: "divers" },
+        { id: 6, nom: "Agrafe 1008J", prix: 2000, img: "Images/agrafe1008.jpg", category: "outils" },
+        { id: 7, nom: "Agrafe 1010J", prix: 2000, img: "Images/agrafe1010.jpg", category: "outils" },
+        { id: 8, nom: "Agrafe 1013J", prix: 2000, img: "Images/agrafe1013.jpg", category: "outils" },
+        { id: 9, nom: "Agrafeuse pneumatique 1013J", prix: 25000, img: "Images/agrafeuse.jpg", category: "outils" },
+        { id: 10, nom: "Ampoule Led 10w 230v", prix: 900, img: "Images/led10w.jpg", category: "electricite" },
+        { id: 11, nom: "Ampoule Led 12w 12v", prix: 1600, img: "Images/led12w12v.jpg", category: "electricite" },
+        { id: 12, nom: "Ampoule Led 12w 12v/85v", prix: 1350, img: "Images/led12w85v.jpg", category: "electricite" },
+        { id: 13, nom: "Ampoule Led 18w 12v", prix: 1700, img: "Images/led18w12v.jpg", category: "electricite" },
+        { id: 14, nom: "Ampoule Led 18w 12v/85v", prix: 1700, img: "Images/led18w85v.jpg", category: "electricite" },
+        { id: 15, nom: "Ampoule Led 24w 12v/85v", prix: 2500, img: "Images/led24w.jpg", category: "electricite" },
+        { id: 16, nom: "Ampoule Led 28w 230v", prix: 1500, img: "Images/led28w.jpg", category: "electricite" },
+        { id: 17, nom: "Ampoule Led 5w 12v", prix: 850, img: "Images/led5w12v.jpg", category: "electricite" },
+        { id: 18, nom: "Ampoule Led 5w 12v/85v", prix: 900, img: "Images/led5w85v.jpg", category: "electricite" },
+        { id: 19, nom: "Ampoule Led 5w 230v", prix: 750, img: "Images/led5w230v.jpg", category: "electricite" },
+        { id: 20, nom: "Ampoule Led 7w 12v", prix: 1000, img: "Images/led7w12v.jpg", category: "electricite" },
+        { id: 21, nom: "Ampoule Led 7w 12v/85v", prix: 1000, img: "Images/led7w85v.jpg", category: "electricite" }
+    ];
 
-    /* -------------------------
-       2. GESTION DU PANIER
-    --------------------------*/
-    let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
-    majPanier();
+    /* -------------------------
+       2. GESTION DU PANIER
+    --------------------------*/
+    let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
 
-    /* -------------------------
-       3. AFFICHAGE & RECHERCHE
-    --------------------------*/
-    const productList = document.getElementById("product-list");
+    // Initialisation immédiate
+    majPanier();
 
-    function afficherProduits(liste) {
-        if (!productList) return;
-        productList.innerHTML = ""; 
-        liste.forEach(p => {
-            const card = document.createElement("div");
-            card.className = "product-card";
-            card.setAttribute("data-category", p.category); 
-            card.innerHTML = `
-                <img src="${p.img}" alt="${p.nom}">
-                <h3>${p.nom}</h3>
-                <p class="price">${p.prix.toLocaleString()} KMF</p>
-                <button class="add-to-cart-btn" onclick="ajouter(${p.id})">Ajouter au panier</button>
-            `;
-            productList.appendChild(card);
-        });
-    }
+    /* -------------------------
+       3. AFFICHAGE & FILTRAGE
+    --------------------------*/
+    const productList = document.getElementById("product-list");
 
-    // Initialisation affichage complet
-    afficherProduits(produits);
+    function afficherProduits(liste) {
+        if (!productList) return;
+        productList.innerHTML = ""; 
+        liste.forEach(p => {
+            const card = document.createElement("div");
+            card.className = "product-card";
+            card.setAttribute("data-category", p.category); 
+            card.innerHTML = `
+                <img src="${p.img}" alt="${p.nom}">
+                <h3>${p.nom}</h3>
+                <p class="price">${p.prix.toLocaleString()} KMF</p>
+                <button class="add-to-cart-btn" onclick="ajouter(${p.id})">Ajouter au panier</button>
+            `;
+            productList.appendChild(card);
+        });
+    }
 
-    // SYSTÈME DE RECHERCHE (Global pour HTML onkeyup)
-    window.searchProducts = () => {
-        const query = document.getElementById("search-input").value.toLowerCase();
-        
-        // Redirection vers onglet Articles si recherche active
-        const tabArticles = document.querySelector('[data-tab="produits"]');
-        if (query.length > 0 && !tabArticles.classList.contains('active')) {
-            tabArticles.click();
-        }
+    afficherProduits(produits);
 
-        const filtered = produits.filter(p => 
-            p.nom.toLowerCase().includes(query) || 
-            p.category.toLowerCase().includes(query)
-        );
+    window.filterProducts = (category, btnElement) => {
+        const buttons = document.querySelectorAll('.cat-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        if (btnElement) btnElement.classList.add('active');
 
-        afficherProduits(filtered);
+        const cards = document.querySelectorAll('.product-card');
+        cards.forEach(card => {
+            const productCat = card.getAttribute('data-category');
+            if (category === 'all' || productCat === category) {
+                card.style.display = 'flex';
+                setTimeout(() => card.style.opacity = "1", 10);
+            } else {
+                card.style.opacity = "0";
+                card.style.display = 'none';
+            }
+        });
+    };
 
-        if (filtered.length === 0) {
-            productList.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:50px; color:#666;">
-                Aucun article ne correspond à "${query}"</div>`;
-        }
-    };
+    /* -------------------------
+       4. LOGIQUE DU PANIER
+    --------------------------*/
+    window.ajouter = (id) => {
+        const prod = produits.find(p => p.id === id);
+        const existant = panier.find(item => item.id === id);
 
-    window.filterProducts = (category, btnElement) => {
-        const buttons = document.querySelectorAll('.cat-btn');
-        buttons.forEach(btn => btn.classList.remove('active'));
-        if (btnElement) btnElement.classList.add('active');
+        if (existant) {
+            existant.qty++;
+        } else {
+            panier.push({ ...prod, qty: 1 });
+        }
 
-        // On réinitialise la barre de recherche lors d'un clic par catégorie
-        document.getElementById("search-input").value = "";
+        majPanier();
+        showToast();
+        animateBadge();
+    };
 
-        const filtered = category === 'all' ? produits : produits.filter(p => p.category === category);
-        afficherProduits(filtered);
-    };
+    window.modifierQty = (id, change) => {
+        const item = panier.find(i => i.id === id);
+        if (item) {
+            item.qty += change;
+            if (item.qty <= 0) {
+                panier = panier.filter(i => i.id !== id);
+            }
+            majPanier();
+        }
+    };
 
-    /* -------------------------
-       4. LOGIQUE DU PANIER
-    --------------------------*/
-    window.ajouter = (id) => {
-        const prod = produits.find(p => p.id === id);
-        const existant = panier.find(item => item.id === id);
+    function majPanier() {
+        const list = document.getElementById("cart-items-list");
+        const totalHtml = document.getElementById("total-price");
+        const badge = document.getElementById("cart-count");
+        const waBtn = document.getElementById("whatsapp-send");
+        
+        if (!list || !totalHtml) return;
 
-        if (existant) {
-            existant.qty++;
-        } else {
-            panier.push({ ...prod, qty: 1 });
-        }
+        list.innerHTML = "";
+        let total = 0;
+        let nombreArticles = 0;
 
-        majPanier();
-        showToast();
-        animateBadge();
-    };
+        if (panier.length === 0) {
+            list.innerHTML = `<p style="text-align:center; color:#888; margin-top:50px;">Votre panier est vide.</p>`;
+            if (waBtn) waBtn.innerHTML = "Commander sur WhatsApp";
+        } else {
+            panier.forEach(item => {
+                const sousTotal = item.prix * item.qty;
+                total += sousTotal;
+                nombreArticles += item.qty;
+                
+                const div = document.createElement("div");
+                div.className = "cart-item-row";
+                div.style.padding = "10px 0";
+                div.style.borderBottom = "1px solid #eee";
+                div.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span><strong>${item.nom}</strong></span>
+                        <span>${sousTotal.toLocaleString()} KMF</span>
+                    </div>
+                    <div style="margin-top:5px; display:flex; align-items:center; gap:10px;">
+                        <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
+                        <span>${item.qty}</span>
+                        <button class="qty-btn" onclick="modifierQty(${item.id}, 1)">+</button>
+                    </div>
+                `;
+                list.appendChild(div);
+            });
+            // Mise à jour du texte du bouton WhatsApp avec le total
+            if (waBtn) waBtn.innerHTML = `Commander sur WhatsApp (${total.toLocaleString()} KMF)`;
+        }
 
-    window.modifierQty = (id, change) => {
-        const item = panier.find(i => i.id === id);
-        if (item) {
-            item.qty += change;
-            if (item.qty <= 0) {
-                panier = panier.filter(i => i.id !== id);
-            }
-            majPanier();
-        }
-    };
+        totalHtml.innerText = total.toLocaleString() + " KMF";
+        if (badge) badge.innerText = nombreArticles;
 
-    function majPanier() {
-        const list = document.getElementById("cart-items-list");
-        const totalHtml = document.getElementById("total-price");
-        const badge = document.getElementById("cart-count");
-        const waBtn = document.getElementById("whatsapp-send");
-        
-        if (!list || !totalHtml) return;
+        localStorage.setItem("panier_brico", JSON.stringify(panier));
+    }
 
-        list.innerHTML = "";
-        let total = 0;
-        let nombreArticles = 0;
+    function animateBadge() {
+        const badge = document.getElementById("cart-count");
+        if (badge) {
+            badge.classList.remove("badge-pop");
+            void badge.offsetWidth; 
+            badge.classList.add("badge-pop");
+        }
+    }
 
-        if (panier.length === 0) {
-            list.innerHTML = `<p style="text-align:center; color:#888; margin-top:50px;">Votre panier est vide.</p>`;
-            if (waBtn) waBtn.innerHTML = "Commander sur WhatsApp";
-        } else {
-            panier.forEach(item => {
-                const sousTotal = item.prix * item.qty;
-                total += sousTotal;
-                nombreArticles += item.qty;
-                
-                const div = document.createElement("div");
-                div.className = "cart-item-row";
-                div.style.padding = "10px 0";
-                div.style.borderBottom = "1px solid #eee";
-                div.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span><strong>${item.nom}</strong></span>
-                        <span>${sousTotal.toLocaleString()} KMF</span>
-                    </div>
-                    <div style="margin-top:5px; display:flex; align-items:center; gap:10px;">
-                        <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
-                        <span>${item.qty}</span>
-                        <button class="qty-btn" onclick="modifierQty(${item.id}, 1)">+</button>
-                    </div>
-                `;
-                list.appendChild(div);
-            });
-            if (waBtn) waBtn.innerHTML = `Commander sur WhatsApp (${total.toLocaleString()} KMF)`;
-        }
+    /* -------------------------
+       5. INTERFACE (MODALES & TABS)
+    --------------------------*/
+    const cartBtn = document.getElementById("cart-icon-btn");
+    const closeBtn = document.getElementById("close-cart");
+    const overlay = document.getElementById("cart-overlay");
 
-        totalHtml.innerText = total.toLocaleString() + " KMF";
-        if (badge) badge.innerText = nombreArticles;
+    if (cartBtn) cartBtn.onclick = () => {
+        document.getElementById("cart-sidebar").classList.add("open");
+        document.getElementById("cart-overlay").classList.add("show");
+    };
 
-        localStorage.setItem("panier_brico", JSON.stringify(panier));
-    }
+    if (closeBtn) closeBtn.onclick = () => {
+        document.getElementById("cart-sidebar").classList.remove("open");
+        document.getElementById("cart-overlay").classList.remove("show");
+    };
 
-    function animateBadge() {
-        const badge = document.getElementById("cart-count");
-        if (badge) {
-            badge.style.transform = "scale(1.3)";
-            setTimeout(() => badge.style.transform = "scale(1)", 200);
-        }
-    }
+    if (overlay) overlay.onclick = () => {
+        document.getElementById("cart-sidebar").classList.remove("open");
+        document.getElementById("cart-overlay").classList.remove("show");
+    };
 
-    /* -------------------------
-       5. INTERFACE (MODALES & TABS)
-    --------------------------*/
-    const cartBtn = document.getElementById("cart-icon-btn");
-    const closeBtn = document.getElementById("close-cart");
-    const overlay = document.getElementById("cart-overlay");
+    function showToast() {
+        const toast = document.getElementById("toast-notification");
+        if (toast) {
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2000);
+        }
+    }
 
-    if (cartBtn) cartBtn.onclick = () => {
-        document.getElementById("cart-sidebar").classList.add("open");
-        document.getElementById("cart-overlay").classList.add("show");
-    };
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.onclick = () => {
+            const target = btn.dataset.tab;
+            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+            document.getElementById(target).classList.add("active");
+            btn.classList.add("active");
+        };
+    });
 
-    if (closeBtn) closeBtn.onclick = () => {
-        document.getElementById("cart-sidebar").classList.remove("open");
-        document.getElementById("cart-overlay").classList.remove("show");
-    };
+    /* -------------------------
+       6. SLIDER AUTOMATIQUE
+    --------------------------*/
+    const slides = document.querySelectorAll(".slide");
+    const nextBtn = document.querySelector(".next");
+    const prevBtn = document.querySelector(".prev");
+    let slideIndex = 0;
 
-    if (overlay) overlay.onclick = () => {
-        document.getElementById("cart-sidebar").classList.remove("open");
-        document.getElementById("cart-overlay").classList.remove("show");
-    };
+    if (slides.length > 0) {
+        const showSlide = (n) => {
+            slides.forEach(s => s.classList.remove("active"));
+            slides[n].classList.add("active");
+        };
 
-    function showToast() {
-        const toast = document.getElementById("toast-notification");
-        if (toast) {
-            toast.classList.add("show");
-            setTimeout(() => toast.classList.remove("show"), 2000);
-        }
-    }
+        if (nextBtn) nextBtn.onclick = () => {
+            slideIndex = (slideIndex + 1) % slides.length;
+            showSlide(slideIndex);
+        };
 
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-        btn.onclick = () => {
-            const target = btn.dataset.tab;
-            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-            document.getElementById(target).classList.add("active");
-            btn.classList.add("active");
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        };
-    });
+        if (prevBtn) prevBtn.onclick = () => {
+            slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+            showSlide(slideIndex);
+        };
 
-    /* -------------------------
-       6. SLIDER AUTOMATIQUE
-    --------------------------*/
-    const slides = document.querySelectorAll(".slide");
-    const nextBtn = document.querySelector(".next");
-    const prevBtn = document.querySelector(".prev");
-    let slideIndex = 0;
+        setInterval(() => {
+            slideIndex = (slideIndex + 1) % slides.length;
+            showSlide(slideIndex);
+        }, 5000);
+    }
 
-    if (slides.length > 0) {
-        const showSlide = (n) => {
-            slides.forEach(s => s.classList.remove("active"));
-            slides[n].classList.add("active");
-        };
+    /* -------------------------
+       7. ENVOI WHATSAPP
+    --------------------------*/
+    const waBtn = document.getElementById("whatsapp-send");
 
-        if (nextBtn) nextBtn.onclick = () => {
-            slideIndex = (slideIndex + 1) % slides.length;
-            showSlide(slideIndex);
-        };
+    if (waBtn) {
+        waBtn.onclick = () => {
+            if (panier.length === 0) {
+                alert("Votre panier est vide !");
+                return;
+            }
 
-        if (prevBtn) prevBtn.onclick = () => {
-            slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-            showSlide(slideIndex);
-        };
+            let message = "🛠️ *NOUVELLE COMMANDE - BRICO DOMONI*%0A";
+            message += "---------------------------------------%0A";
 
-        setInterval(() => {
-            slideIndex = (slideIndex + 1) % slides.length;
-            showSlide(slideIndex);
-        }, 5000);
-    }
+            panier.forEach((item, index) => {
+                const sTotal = item.prix * item.qty;
+                message += `*${index + 1}.* ${item.nom}%0A`;
+                message += `   Quantité : ${item.qty}%0A`;
+                message += `   Prix : ${sTotal.toLocaleString()} KMF%0A%0A`;
+            });
 
-    /* -------------------------
-       7. ENVOI WHATSAPP
-    --------------------------*/
-    const waBtnMain = document.getElementById("whatsapp-send");
+            const totalFinal = panier.reduce((t, i) => t + (i.prix * i.qty), 0);
+            message += "---------------------------------------%0A";
+            message += `💰 *TOTAL À PAYER : ${totalFinal.toLocaleString()} KMF*%0A%0A`;
+            message += "Merci de confirmer la commande.";
 
-    if (waBtnMain) {
-        waBtnMain.onclick = () => {
-            if (panier.length === 0) {
-                alert("Votre panier est vide !");
-                return;
-            }
-
-            let message = "🛠️ *NOUVELLE COMMANDE - BRICO DOMONI*%0A";
-            message += "---------------------------------------%0A";
-
-            panier.forEach((item, index) => {
-                const sTotal = item.prix * item.qty;
-                message += `*${index + 1}.* ${item.nom}%0A`;
-                message += `   Quantité : ${item.qty}%0A`;
-                message += `   Prix : ${sTotal.toLocaleString()} KMF%0A%0A`;
-            });
-
-            const totalFinal = panier.reduce((t, i) => t + (i.prix * i.qty), 0);
-            message += "---------------------------------------%0A";
-            message += `💰 *TOTAL À PAYER : ${totalFinal.toLocaleString()} KMF*%0A%0A`;
-            message += "Merci de confirmer la commande.";
-
-            const monNumero = "2694484047"; 
-            window.open(`https://wa.me/${monNumero}?text=${message}`, "_blank");
-        };
-    }
+            const monNumero = "2694484047"; 
+            window.open(`https://wa.me/${monNumero}?text=${message}`, "_blank");
+        };
+    }
 });

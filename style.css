@@ -121,9 +121,10 @@ header {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* affiche l'image entière. contraire "cover" */
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
+
 }
 
 .slide.active {

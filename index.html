@@ -15,7 +15,8 @@
         <nav class="nav-links">
             <div class="search-box">
                 <input type="text" id="search-input" placeholder="Chercher un article..." onkeyup="searchProducts()">
-                <button class="search-btn">🔍</button>
+                <span id="clear-search" onclick="clearSearch()" style="display:none; cursor:pointer; margin-right:8px; font-weight:bold; color:#999; font-size:1.2rem;">&times;</span>
+                <button class="search-btn" onclick="searchProducts()">🔍</button>
             </div>
 
             <button class="tab-btn active" data-tab="accueil">Accueil</button>

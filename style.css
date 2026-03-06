@@ -57,48 +57,47 @@ header {
     transform: translateY(-2px);
 }
 
-/* --- ICÔNE PANIER TRANSPARENTE 🛒 --- */
-.cart-icon-container {
-    background: transparent; /* Suppression du fond orange */
+/* --- ICÔNE PANIER TRANSPARENTE 🛒 (CORRIGÉ) --- */
+.transparent-cart, .cart-icon-container {
+    background: transparent !important; /* Force la suppression du fond blanc */
     border: none;
     color: white;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.6rem; /* Taille de l'émoji panier */
+    font-size: 1.8rem; /* Un peu plus grand pour la visibilité */
     padding: 5px;
-    position: relative; /* Nécessaire pour placer le badge par dessus */
+    position: relative; /* CRUCIAL : Définit le point d'ancrage pour le badge */
     transition: 0.3s;
-    box-shadow: none; /* Suppression de l'ombre du bouton */
+    outline: none;
 }
 
-.cart-icon-container:hover {
+.transparent-cart:hover, .cart-icon-container:hover {
     transform: scale(1.1);
 }
 
-/* --- BADGE ORANGE SUR L'ICÔNE --- */
+/* --- BADGE ORANGE SUR L'ICÔNE (CORRIGÉ) --- */
 #cart-count {
-    background: var(--orange); /* Le compteur devient orange */
+    background: var(--orange);
     color: white;
     border-radius: 50%;
-    padding: 2px 6px;
     font-size: 0.7rem;
     font-weight: 700;
-    min-width: 18px;
-    height: 18px;
-    text-align: center;
+    width: 20px;
+    height: 20px;
     
-    /* Positionnement sur l'icône */
+    /* Positionnement ABSOLU par rapport au bouton */
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: -2px; /* Ajuste la hauteur sur l'émoji */
+    right: -2px; /* Ajuste la position latérale sur l'émoji */
     
     display: flex;
     align-items: center;
     justify-content: center;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 2px solid var(--bleu); /* Petit contour pour le détacher du fond bleu */
+    border: 2px solid var(--bleu); /* Détache la bulle du fond bleu du header */
+    z-index: 10;
 }
 
 .badge-pop {

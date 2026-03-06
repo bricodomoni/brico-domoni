@@ -121,10 +121,9 @@ header {
 /* --- SLIDER D'ACCUEIL --- */
 .slider {
     position: relative;
-    width: 100%; /* On baisse la hauteur pour coller à ton image panoramique */
-    height: 177px; 
-    overflow: hidden;
-    background: transparent; /* On enlève le fond noir par défaut */
+    width: 100%;
+    height: auto; /* Le slider prend la hauteur de l'image */
+    aspect-ratio: 1600 / 250; /* Indique ici les dimensions de ton design Canva */
 }
 
 .slide {

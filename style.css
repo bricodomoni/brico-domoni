@@ -40,6 +40,51 @@ header {
     align-items: center;
 }
 
+/* --- STYLE BARRE DE RECHERCHE (AJOUTÉ) --- */
+.search-box {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 30px;
+    padding: 3px 15px;
+    margin-right: 10px;
+    border: 2px solid transparent;
+    transition: 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.search-box:focus-within {
+    border-color: var(--orange);
+}
+
+#search-input {
+    border: none;
+    outline: none;
+    padding: 8px;
+    width: 180px; /* Taille ajustable */
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+}
+
+#clear-search {
+    font-size: 1.2rem;
+    color: #999;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+#clear-search:hover {
+    color: var(--orange);
+}
+
+.search-btn {
+    background: none;
+    border: none;
+    cursor: default;
+    font-size: 1rem;
+}
+
+/* --- BOUTONS NAVIGATION --- */
 .tab-btn {
     background: rgba(255,255,255,0.1);
     border: 1px solid rgba(255,255,255,0.2);
@@ -107,7 +152,7 @@ header {
 .slider {
     position: relative;
     width: 100%;
-    height: 177px; 
+    height: 177px; /* Augmenté pour plus de visibilité */
     overflow: hidden;
     background: #000;
 }
@@ -116,7 +161,7 @@ header {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* "contain" afficher l'image entière. contraire "cover"*/
+    object-fit: contain; /* "contain" afficher l'image entière. le contraire "cover"*/
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
 }
@@ -266,18 +311,6 @@ footer {
     text-decoration: underline;
 }
 
-/* --- RÉSEAUX SOCIAUX --- */
-.social-links a {
-    display: block;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    transition: 0.3s;
-}
-
-.social-links a:hover {
-    transform: translateX(5px);
-}
-
 /* --- PANIER (SIDEBAR) & OVERLAY --- */
 .sidebar {
     position: fixed;
@@ -330,16 +363,18 @@ footer {
 @media (max-width: 850px) {
     .product-grid { grid-template-columns: repeat(2, 1fr); }
     .sidebar { width: 350px; }
+    .search-box { width: 100%; order: 3; margin: 10px 0; }
+    #search-input { width: 100%; }
 }
 
 @media (max-width: 600px) {
     .product-grid { grid-template-columns: 1fr; }
     .sidebar { width: 100%; }
-    header { padding: 10px 3%; }
+    header { padding: 10px 3%; flex-wrap: wrap; }
     .slider { height: 200px; }
-    .nav-links { gap: 8px; }
-    .tab-btn { padding: 6px 12px; font-size: 0.85rem; }
-    #top-logo { height: 45px; }
+    .nav-links { gap: 8px; width: 100%; justify-content: space-between; }
+    .tab-btn { padding: 6px 10px; font-size: 0.8rem; }
+    #top-logo { height: 50px; }
 } 
 
 /* --- WHATSAPP --- */
@@ -359,9 +394,4 @@ footer {
     gap: 10px;
     transition: 0.3s;
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-}
-
-.btn-whatsapp:hover {
-    background-color: #128C7E;
-    transform: translateY(-3px);
 }

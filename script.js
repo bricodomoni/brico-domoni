@@ -3,14 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
     /* --- 1. DONNÉES PRODUITS --- */
     const produits = [
         { id: 1, nom: "Adaptateur de Mandrin à pince", prix: 1000, img: "Images/mandrin.jpg", category: "outils" },
-        { id: 2, nom: "Adaptateur prise européen", prix: 500, img: "Images/adaptateur-eu.jpg", category: "electricite" },
-        { id: 3, nom: "Adaptateur TRAVELKING", prix: 500, img: "Images/travelking.jpg", category: "electricite" },
-        { id: 4, nom: "Adaptateur Marken", prix: 750, img: "Images/marken.jpg", category: "electricite" },
+        { id: 2, nom: "Adaptateur prise électrique européen", prix: 500, img: "Images/adaptateur-eu.jpg", category: "electricite" },
+        { id: 3, nom: "Adaptateur prise électrique TRAVELKING", prix: 500, img: "Images/travelking.jpg", category: "electricite" },
+        { id: 4, nom: "Adaptateur prise Marken", prix: 750, img: "Images/marken.jpg", category: "electricite" },
         { id: 5, nom: "Adhésif silicone", prix: 2000, img: "Images/silicone.jpg", category: "divers" },
         { id: 6, nom: "Agrafe 1008J", prix: 2000, img: "Images/agrafe1008.jpg", category: "outils" },
         { id: 7, nom: "Agrafe 1010J", prix: 2000, img: "Images/agrafe1010.jpg", category: "outils" },
         { id: 8, nom: "Agrafe 1013J", prix: 2000, img: "Images/agrafe1013.jpg", category: "outils" },
-        { id: 9, nom: "Agrafeuse pneumatique", prix: 25000, img: "Images/agrafeuse.jpg", category: "outils" },
+        { id: 9, nom: "Agrafeuse pneumatique 1013J", prix: 25000, img: "Images/agrafeuse.jpg", category: "outils" },
         { id: 10, nom: "Ampoule Led 10w 230v", prix: 900, img: "Images/led10w.jpg", category: "electricite" },
         { id: 11, nom: "Ampoule Led 12w 12v", prix: 1600, img: "Images/led12w12v.jpg", category: "electricite" },
         { id: 12, nom: "Ampoule Led 12w 12v/85v", prix: 1350, img: "Images/led12w85v.jpg", category: "electricite" },
@@ -27,69 +27,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
 
-    /* --- 2. FONCTIONS D'AFFICHAGE --- */
+    /* --- 2. AFFICHAGE & RECHERCHE --- */
     const productList = document.getElementById("product-list");
 
-    window.renderProducts = (data) => {
+    window.afficherProduits = (liste) => {
         if (!productList) return;
-        if (data.length === 0) {
-            productList.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px;">Aucun produit trouvé.</p>`;
-            return;
-        }
-        productList.innerHTML = data.map(p => `
-            <div class="product-card">
-                <img src="${p.img}" alt="${p.nom}" onerror="this.onerror=null;this.src='https://placehold.co/300x300?text=Image+à+venir'">
-                <h3>${p.nom}</h3>
-                <p class="price">${p.prix.toLocaleString()} KMF</p>
-                <button class="add-to-cart-btn" onclick="ajouter(${p.id})">Ajouter</button>
-            </div>
-        `).join('');
+        productList.innerHTML = liste.length === 0 ? 
+            `<p style="grid-column: 1/-1; text-align:center; padding: 40px;">Aucun produit trouvé.</p>` : 
+            liste.map(p => `
+                <div class="product-card" data-category="${p.category}">
+                    <img src="${p.img}" alt="${p.nom}" onerror="this.src='https://placehold.co/300?text=Image+Indisponible'">
+                    <h3>${p.nom}</h3>
+                    <p class="price">${p.prix.toLocaleString()} KMF</p>
+                    <button class="add-to-cart-btn" onclick="ajouter(${p.id})">Ajouter au panier</button>
+                </div>
+            `).join('');
     };
 
-    renderProducts(produits);
-
-    /* --- 3. RECHERCHE & FILTRES --- */
     window.searchProducts = () => {
-        const input = document.getElementById("search-input");
+        const query = document.getElementById("search-input").value.toLowerCase();
         const clearBtn = document.getElementById("clear-search");
-        const term = input.value.toLowerCase();
         
-        if (clearBtn) clearBtn.style.display = term ? "block" : "none";
-        
-        const filtered = produits.filter(p => p.nom.toLowerCase().includes(term));
-        renderProducts(filtered);
+        if (clearBtn) clearBtn.style.display = query ? "inline" : "none";
 
-        if (term) showTab('produits');
+        const filtered = produits.filter(p => p.nom.toLowerCase().includes(query));
+        
+        if (query) {
+            const btnProduits = document.querySelector('[data-tab="produits"]');
+            if (btnProduits) btnProduits.click();
+        }
+        afficherProduits(filtered);
     };
 
     window.clearSearch = () => {
         const input = document.getElementById("search-input");
-        if (input) {
-            input.value = "";
-            window.searchProducts();
-        }
+        if (input) { input.value = ""; searchProducts(); input.focus(); }
     };
 
-    window.filterProducts = (cat, btn) => {
-        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        if (btn) btn.classList.add('active');
-        const filtered = cat === 'all' ? produits : produits.filter(p => p.category === cat);
-        renderProducts(filtered);
+    window.filterProducts = (category, btnElement) => {
+        document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+        if (btnElement) btnElement.classList.add('active');
+        const filtered = category === 'all' ? produits : produits.filter(p => p.category === category);
+        afficherProduits(filtered);
     };
 
-    /* --- 4. GESTION DU PANIER --- */
+    /* --- 3. LOGIQUE DU PANIER --- */
     window.ajouter = (id) => {
-        const p = produits.find(item => item.id === id);
-        const inCart = panier.find(item => item.id === id);
-        inCart ? inCart.qty++ : panier.push({ ...p, qty: 1 });
+        const prod = produits.find(p => p.id === id);
+        const existant = panier.find(item => item.id === id);
+        existant ? existant.qty++ : panier.push({ ...prod, qty: 1 });
         majPanier();
         showToast();
     };
 
-    window.changeQty = (id, delta) => {
+    window.modifierQty = (id, change) => {
         const item = panier.find(i => i.id === id);
         if (item) {
-            item.qty += delta;
+            item.qty += change;
             if (item.qty <= 0) panier = panier.filter(i => i.id !== id);
             majPanier();
         }
@@ -97,102 +91,105 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function majPanier() {
         const list = document.getElementById("cart-items-list");
-        const totalEl = document.getElementById("total-price");
-        const countEl = document.getElementById("cart-count");
+        const totalHtml = document.getElementById("total-price");
+        const badge = document.getElementById("cart-count");
+        const waBtn = document.getElementById("whatsapp-send");
         
         if (!list) return;
 
+        let total = 0;
+        let nombreArticles = 0;
+
         list.innerHTML = panier.length === 0 ? 
-            "<p style='text-align:center; margin-top:20px;'>Votre panier est vide.</p>" :
-            panier.map(item => `
-                <div class="cart-item" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; border-bottom:1px solid #eee; padding-bottom:10px;">
-                    <div style="max-width:60%; font-size:0.85rem;"><strong>${item.nom}</strong><br>${item.prix.toLocaleString()} KMF</div>
-                    <div style="text-align:right">
-                        <div style="margin-bottom:5px;">
-                            <button onclick="changeQty(${item.id}, -1)" style="padding:2px 8px;">-</button> 
-                            <span style="margin:0 5px">${item.qty}</span> 
-                            <button onclick="changeQty(${item.id}, 1)" style="padding:2px 8px;">+</button>
+            `<p style="text-align:center; color:#888; margin-top:50px;">Votre panier est vide.</p>` :
+            panier.map(item => {
+                const sousTotal = item.prix * item.qty;
+                total += sousTotal;
+                nombreArticles += item.qty;
+                return `
+                    <div class="cart-item-row" style="padding: 10px 0; border-bottom: 1px solid #eee;">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <span><strong>${item.nom}</strong></span>
+                            <span>${sousTotal.toLocaleString()} KMF</span>
                         </div>
-                        <strong style="color:var(--orange)">${(item.prix * item.qty).toLocaleString()} KMF</strong>
-                    </div>
-                </div>
-            `).join('');
+                        <div style="margin-top:5px; display:flex; align-items:center; gap:10px;">
+                            <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
+                            <span>${item.qty}</span>
+                            <button class="qty-btn" onclick="modifierQty(${item.id}, 1)">+</button>
+                        </div>
+                    </div>`;
+            }).join('');
 
-        const total = panier.reduce((acc, i) => acc + (i.prix * i.qty), 0);
-        const count = panier.reduce((acc, i) => acc + i.qty, 0);
+        if (totalHtml) totalHtml.innerText = total.toLocaleString() + " KMF";
+        if (badge) badge.innerText = nombreArticles;
+        if (waBtn) waBtn.innerHTML = `Commander sur WhatsApp (${total.toLocaleString()} KMF)`;
 
-        if (totalEl) totalEl.innerText = `${total.toLocaleString()} KMF`;
-        if (countEl) countEl.innerText = count;
         localStorage.setItem("panier_brico", JSON.stringify(panier));
     }
 
-    /* --- 5. NAVIGATION --- */
-    window.showTab = (target) => {
-        document.querySelectorAll(".tab-content").forEach(tab => {
-            tab.style.display = (tab.id === target) ? "block" : "none";
-        });
-        document.querySelectorAll(".tab-btn").forEach(btn => {
-            btn.classList.toggle("active", btn.dataset.tab === target);
-        });
-        window.scrollTo(0, 0);
-    };
+    /* --- 4. SLIDER (RESTAURÉ) --- */
+    const slides = document.querySelectorAll(".slide");
+    let slideIndex = 0;
 
+    if (slides.length > 0) {
+        const showSlide = (n) => {
+            slides.forEach(s => s.classList.remove("active"));
+            slides[n].classList.add("active");
+        };
+
+        const nextSlide = () => {
+            slideIndex = (slideIndex + 1) % slides.length;
+            showSlide(slideIndex);
+        };
+
+        document.querySelector(".next").onclick = nextSlide;
+        document.querySelector(".prev").onclick = () => {
+            slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+            showSlide(slideIndex);
+        };
+
+        setInterval(() => {
+            const accueil = document.getElementById("accueil");
+            if (accueil && accueil.classList.contains("active")) nextSlide();
+        }, 5000);
+    }
+
+    /* --- 5. INTERFACE & WHATSAPP --- */
     document.querySelectorAll(".tab-btn").forEach(btn => {
-        btn.onclick = () => showTab(btn.dataset.tab);
+        btn.onclick = () => {
+            const target = btn.dataset.tab;
+            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+            document.getElementById(target).classList.add("active");
+            btn.classList.add("active");
+            window.scrollTo(0,0);
+        };
     });
 
-    // Panier Sidebar
     const sidebar = document.getElementById("cart-sidebar");
     const overlay = document.getElementById("cart-overlay");
-    const openCart = document.getElementById("cart-icon-btn");
-    const closeCart = document.getElementById("close-cart");
 
-    if (openCart) openCart.onclick = () => { sidebar.classList.add("open"); overlay.classList.add("show"); };
-    if (closeCart) closeCart.onclick = () => { sidebar.classList.remove("open"); overlay.classList.remove("show"); };
-    if (overlay) overlay.onclick = () => { sidebar.classList.remove("open"); overlay.classList.remove("show"); };
+    document.getElementById("cart-icon-btn").onclick = () => { sidebar.classList.add("open"); overlay.classList.add("show"); };
+    document.getElementById("close-cart").onclick = () => { sidebar.classList.remove("open"); overlay.classList.remove("show"); };
+    overlay.onclick = () => { sidebar.classList.remove("open"); overlay.classList.remove("show"); };
 
     function showToast() {
-        const t = document.getElementById("toast-notification");
-        if (t) {
-            t.classList.add("show");
-            setTimeout(() => t.classList.remove("show"), 2000);
-        }
+        const toast = document.getElementById("toast-notification");
+        if (toast) { toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2000); }
     }
 
-    /* --- 6. SLIDER --- */
-    const slides = document.querySelectorAll(".slide");
-    let currentSlide = 0;
-
-    const moveSlide = (dir) => {
-        if (slides.length === 0) return;
-        slides[currentSlide].classList.remove("active");
-        currentSlide = (currentSlide + dir + slides.length) % slides.length;
-        slides[currentSlide].classList.add("active");
+    document.getElementById("whatsapp-send").onclick = () => {
+        if (panier.length === 0) return alert("Votre panier est vide !");
+        let message = "🛠️ *NOUVELLE COMMANDE - BRICO DOMONI*%0A";
+        panier.forEach((item, index) => {
+            message += `*${index + 1}.* ${item.nom} (x${item.qty}) - ${(item.prix * item.qty).toLocaleString()} KMF%0A`;
+        });
+        const total = panier.reduce((t, i) => t + (i.prix * i.qty), 0);
+        message += `%0A💰 *TOTAL : ${total.toLocaleString()} KMF*`;
+        window.open(`https://wa.me/2694484047?text=${message}`, "_blank");
     };
 
-    const nextBtn = document.querySelector(".next");
-    const prevBtn = document.querySelector(".prev");
-    if (nextBtn) nextBtn.onclick = () => moveSlide(1);
-    if (prevBtn) prevBtn.onclick = () => moveSlide(-1);
-    
-    setInterval(() => {
-        const accueil = document.getElementById("accueil");
-        if (accueil && getComputedStyle(accueil).display !== "none") moveSlide(1);
-    }, 5000);
-
-    /* --- 7. WHATSAPP --- */
-    const waBtn = document.getElementById("whatsapp-send");
-    if (waBtn) {
-        waBtn.onclick = () => {
-            if (panier.length === 0) return alert("Votre panier est vide !");
-            let msg = "Bonjour BRICO DOMONI, voici ma commande :%0A%0A";
-            panier.forEach(i => msg += `• ${i.nom} (x${i.qty}) : ${(i.prix * i.qty).toLocaleString()} KMF%0A`);
-            const total = panier.reduce((acc, i) => acc + (i.prix * i.qty), 0);
-            msg += `%0A*TOTAL : ${total.toLocaleString()} KMF*`;
-            window.open(`https://wa.me/2694484047?text=${msg}`, "_blank");
-        };
-    }
-
-    // Init
+    // Initialisation
+    afficherProduits(produits);
     majPanier();
 });

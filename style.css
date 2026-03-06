@@ -131,7 +131,7 @@ header {
     position: absolute;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: contain; /* L'image s'affichera entièrement, sans être coupée, le contraire "cover" */
     opacity: 0;
     transition: opacity 0.8s ease-in-out;
 }

@@ -1,18 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* -------------------------
-       1. BASE DE DONNÉES PRODUITS
-    --------------------------*/
-    const produits = [
-        { id: 1, nom: "Brouette Verte", prix: 25000, img: "Images/sl Brouette.jpg", category: "jardin" },
-        { id: 2, nom: "Évier Inox Double", prix: 45000, img: "Images/sl Evier.jpg", category: "plomberie" },
-        { id: 3, nom: "Pelle de chantier", prix: 7500, img: "Images/9641602024.jpg", category: "maconnerie" },
-        { id: 4, nom: "Lame Scie Circulaire", prix: 12500, img: "Images/sl lame de scie circulaire.jpg", category: "outils" },
-        { id: 5, nom: "Marteau de coffreur", prix: 3500, img: "Images/marteau.jpg", category: "maconnerie" },
-        { id: 6, nom: "Ampoule LED 12W", prix: 1500, img: "Images/ampoule.jpg", category: "electricite" },
-        { id: 7, nom: "Truelle Italienne", prix: 2500, img: "Images/truelle.jpg", category: "maconnerie" },
-        { id: 8, nom: "Coupe-carreaux Pro", prix: 55000, img: "Images/coupe-carreau.jpg", category: "carreleur" }
-    ];
+    /* --- BASE DE DONNÉES PRODUITS (DEPUIS TON EXCEL) --- */
+const produits = [
+    { id: 1, nom: "Adaptateur de Mandrin à pince", prix: 1000, img: "Images/mandrin.jpg", category: "outils" },
+    { id: 2, nom: "Adaptateur prise électrique européen", prix: 500, img: "Images/adaptateur-eu.jpg", category: "electricite" },
+    { id: 3, nom: "Adaptateur prise électrique TRAVELKING", prix: 500, img: "Images/travelking.jpg", category: "electricite" },
+    { id: 4, nom: "Adaptateur prise Marken", prix: 750, img: "Images/marken.jpg", category: "electricite" },
+    { id: 5, nom: "Adhésif silicone", prix: 2000, img: "Images/silicone.jpg", category: "divers" },
+    { id: 6, nom: "Agrafe 1008J", prix: 2000, img: "Images/agrafe1008.jpg", category: "outils" },
+    { id: 7, nom: "Agrafe 1010J", prix: 2000, img: "Images/agrafe1010.jpg", category: "outils" },
+    { id: 8, nom: "Agrafe 1013J", prix: 2000, img: "Images/agrafe1013.jpg", category: "outils" },
+    { id: 9, nom: "Agrafeuse pneumatique 1013J", prix: 25000, img: "Images/agrafeuse.jpg", category: "outils" },
+    { id: 10, nom: "Ampoule Led 10w 230v", prix: 900, img: "Images/led10w.jpg", category: "electricite" },
+    { id: 11, nom: "Ampoule Led 12w 12v", prix: 1600, img: "Images/led12w12v.jpg", category: "electricite" },
+    { id: 12, nom: "Ampoule Led 12w 12v/85v", prix: 1350, img: "Images/led12w85v.jpg", category: "electricite" },
+    { id: 13, nom: "Ampoule Led 18w 12v", prix: 1700, img: "Images/led18w12v.jpg", category: "electricite" },
+    { id: 14, nom: "Ampoule Led 18w 12v/85v", prix: 1700, img: "Images/led18w85v.jpg", category: "electricite" },
+    { id: 15, nom: "Ampoule Led 24w 12v/85v", prix: 2500, img: "Images/led24w.jpg", category: "electricite" },
+    { id: 16, nom: "Ampoule Led 28w 230v", prix: 1500, img: "Images/led28w.jpg", category: "electricite" },
+    { id: 17, nom: "Ampoule Led 5w 12v", prix: 850, img: "Images/led5w12v.jpg", category: "electricite" },
+    { id: 18, nom: "Ampoule Led 5w 12v/85v", prix: 900, img: "Images/led5w85v.jpg", category: "electricite" },
+    { id: 19, nom: "Ampoule Led 5w 230v", prix: 750, img: "Images/led5w230v.jpg", category: "electricite" },
+    { id: 20, nom: "Ampoule Led 7w 12v", prix: 1000, img: "Images/led7w12v.jpg", category: "electricite" },
+    { id: 21, nom: "Ampoule Led 7w 12v/85v", prix: 1000, img: "Images/led7w85v.jpg", category: "electricite" }
+];
 
     /* -------------------------
        2. GESTION DU PANIER (LocalStorage)

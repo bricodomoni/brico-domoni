@@ -69,7 +69,7 @@ header {
 .slider {
     position: relative;
     width: 100%;
-    height: 250px; 
+    height: 350px; 
     overflow: hidden;
     background: #000;
 }
@@ -86,6 +86,25 @@ header {
 .slide.active {
     opacity: 1;
 }
+
+/* Boutons du slider */
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    font-size: 1.2rem;
+}
+
+.slider-btn:hover { background: var(--orange); }
+.prev { left: 20px; }
+.next { right: 20px; }
 
 /* --- GRILLE DE PRODUITS --- */
 .product-grid {
@@ -162,6 +181,8 @@ header {
     transition: 0.5s ease;
     box-shadow: -5px 0 20px rgba(0,0,0,0.2);
     padding: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .sidebar.open { right: 0; }
@@ -177,6 +198,32 @@ header {
 
 .overlay.show { display: block; }
 
+/* Boutons quantité dans panier */
+.qty-btn {
+    background: #eee;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.qty-btn:hover { background: #ddd; }
+
+/* --- NOTIFICATIONS (TOAST) --- */
+.toast {
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    transition: 0.5s;
+    z-index: 10000;
+}
+.toast.show { bottom: 30px; }
+
 /* --- RESPONSIVE --- */
 @media (max-width: 1000px) {
     .product-grid { grid-template-columns: repeat(2, 1fr); }
@@ -189,9 +236,9 @@ header {
     .slider { height: 200px; }
 } 
 
-/* Bouton WhatsApp Modernisé */
+/* --- WHATSAPP --- */
 .btn-whatsapp {
-    background-color: #25D366; /* Vert officiel WhatsApp */
+    background-color: #25D366;
     color: white;
     border: none;
     padding: 15px 20px;
@@ -204,17 +251,12 @@ header {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    transition: all 0.3s ease;
+    transition: 0.3s;
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-    margin-top: 20px;
+    margin-top: auto; /* Pousse le bouton en bas du panier */
 }
 
 .btn-whatsapp:hover {
-    background-color: #128C7E; /* Vert plus foncé au survol */
+    background-color: #128C7E;
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-}
-
-.btn-whatsapp:active {
-    transform: translateY(-1px);
 }

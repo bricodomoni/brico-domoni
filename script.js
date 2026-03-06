@@ -28,13 +28,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
 
     /* -------------------------
-       2. GESTION DU PANIER
+       2. GESTION DU PANIER (LOCALSTORAGE)
     --------------------------*/
     let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];
-    majPanier();
 
     /* -------------------------
-       3. AFFICHAGE & FILTRAGE
+       3. AFFICHAGE DES PRODUITS
     --------------------------*/
     const productList = document.getElementById("product-list");
 
@@ -46,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
             card.className = "product-card";
             card.setAttribute("data-category", p.category); 
             card.innerHTML = `
-                <img src="${p.img}" alt="${p.nom}">
+                <img src="${p.img}" alt="${p.nom}" loading="lazy">
                 <h3>${p.nom}</h3>
                 <p class="price">${p.prix.toLocaleString()} KMF</p>
                 <button class="add-to-cart-btn" onclick="ajouter(${p.id})">Ajouter au panier</button>
@@ -55,43 +54,35 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Initialisation
     afficherProduits(produits);
-
-    window.filterProducts = (category, btnElement) => {
-        const buttons = document.querySelectorAll('.cat-btn');
-        buttons.forEach(btn => btn.classList.remove('active'));
-        if (btnElement) btnElement.classList.add('active');
-
-        const cards = document.querySelectorAll('.product-card');
-        cards.forEach(card => {
-            const productCat = card.getAttribute('data-category');
-            if (category === 'all' || productCat === category) {
-                card.style.display = 'flex';
-                setTimeout(() => card.style.opacity = "1", 10);
-            } else {
-                card.style.opacity = "0";
-                card.style.display = 'none';
-            }
-        });
-    };
+    majPanier(); // Met à jour le badge au chargement
 
     /* -------------------------
-       4. LOGIQUE DE RECHERCHE (AJOUTÉ)
+       4. FILTRAGE ET RECHERCHE
     --------------------------*/
+    window.filterProducts = (category, btnElement) => {
+        // Gérer l'état actif des boutons
+        document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+        if (btnElement) btnElement.classList.add('active');
+
+        // Filtrer les données
+        const filtered = category === 'all' ? produits : produits.filter(p => p.category === category);
+        afficherProduits(filtered);
+    };
+
     window.searchProducts = () => {
         const query = document.getElementById("search-input").value.toLowerCase();
         const clearBtn = document.getElementById("clear-search");
         
-        // Afficher/Cacher la croix d'effacement
         if (clearBtn) clearBtn.style.display = query.length > 0 ? "inline" : "none";
 
-        const filtered = produits.filter(p => 
-            p.nom.toLowerCase().includes(query)
-        );
+        const filtered = produits.filter(p => p.nom.toLowerCase().includes(query));
 
-        // Si on cherche, on bascule automatiquement sur l'onglet produits
+        // Aller à l'onglet produits si on commence à taper
         if (query.length > 0) {
-            document.querySelector('[data-tab="produits"]').click();
+            const prodTab = document.querySelector('[data-tab="produits"]');
+            if (prodTab && !prodTab.classList.contains('active')) prodTab.click();
         }
 
         afficherProduits(filtered);
@@ -100,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.clearSearch = () => {
         const input = document.getElementById("search-input");
         input.value = "";
-        searchProducts();
+        window.searchProducts();
         input.focus();
     };
 
@@ -156,22 +147,20 @@ document.addEventListener("DOMContentLoaded", () => {
                 
                 const div = document.createElement("div");
                 div.className = "cart-item-row";
-                div.style.padding = "10px 0";
-                div.style.borderBottom = "1px solid #eee";
                 div.innerHTML = `
                     <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <span><strong>${item.nom}</strong></span>
-                        <span>${sousTotal.toLocaleString()} KMF</span>
+                        <span style="font-size:0.9rem; max-width:70%;"><strong>${item.nom}</strong></span>
+                        <span style="color:var(--orange); font-weight:700;">${sousTotal.toLocaleString()} KMF</span>
                     </div>
-                    <div style="margin-top:5px; display:flex; align-items:center; gap:10px;">
-                        <button class="qty-btn" onclick="modifierQty(${item.id}, -1)">-</button>
-                        <span>${item.qty}</span>
-                        <button class="qty-btn" onclick="modifierQty(${item.id}, 1)">+</button>
+                    <div style="margin-top:8px; display:flex; align-items:center; gap:12px;">
+                        <button class="tab-btn" style="padding:2px 10px; background:#eee; color:#333; border:none;" onclick="modifierQty(${item.id}, -1)">-</button>
+                        <span style="font-weight:bold;">${item.qty}</span>
+                        <button class="tab-btn" style="padding:2px 10px; background:#eee; color:#333; border:none;" onclick="modifierQty(${item.id}, 1)">+</button>
                     </div>
                 `;
                 list.appendChild(div);
             });
-            if (waBtn) waBtn.innerHTML = `Commander sur WhatsApp (${total.toLocaleString()} KMF)`;
+            if (waBtn) waBtn.innerHTML = `COMMANDER SUR WHATSAPP (${total.toLocaleString()} KMF)`;
         }
 
         totalHtml.innerText = total.toLocaleString() + " KMF";
@@ -183,33 +172,46 @@ document.addEventListener("DOMContentLoaded", () => {
     function animateBadge() {
         const badge = document.getElementById("cart-count");
         if (badge) {
-            badge.classList.remove("badge-pop");
-            void badge.offsetWidth; 
-            badge.classList.add("badge-pop");
+            badge.style.transform = "scale(1.3)";
+            setTimeout(() => badge.style.transform = "scale(1)", 200);
         }
     }
 
     /* -------------------------
-       6. INTERFACE (MODALES & TABS)
+       6. INTERFACE (ONGLETS & MODALES)
     --------------------------*/
+    // Gestion des Onglets
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.onclick = () => {
+            const target = btn.dataset.tab;
+            if (!target) return;
+            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+            document.getElementById(target).classList.add("active");
+            btn.classList.add("active");
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+    });
+
+    // Sidebar Panier
     const cartBtn = document.getElementById("cart-icon-btn");
     const closeBtn = document.getElementById("close-cart");
     const overlay = document.getElementById("cart-overlay");
+    const sidebar = document.getElementById("cart-sidebar");
 
-    if (cartBtn) cartBtn.onclick = () => {
-        document.getElementById("cart-sidebar").classList.add("open");
-        document.getElementById("cart-overlay").classList.add("show");
+    const toggleCart = (show) => {
+        if (show) {
+            sidebar.classList.add("open");
+            overlay.classList.add("show");
+        } else {
+            sidebar.classList.remove("open");
+            overlay.classList.remove("show");
+        }
     };
 
-    if (closeBtn) closeBtn.onclick = () => {
-        document.getElementById("cart-sidebar").classList.remove("open");
-        document.getElementById("cart-overlay").classList.remove("show");
-    };
-
-    if (overlay) overlay.onclick = () => {
-        document.getElementById("cart-sidebar").classList.remove("open");
-        document.getElementById("cart-overlay").classList.remove("show");
-    };
+    if (cartBtn) cartBtn.onclick = () => toggleCart(true);
+    if (closeBtn) closeBtn.onclick = () => toggleCart(false);
+    if (overlay) overlay.onclick = () => toggleCart(false);
 
     function showToast() {
         const toast = document.getElementById("toast-notification");
@@ -219,18 +221,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-        btn.onclick = () => {
-            const target = btn.dataset.tab;
-            document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
-            document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-            document.getElementById(target).classList.add("active");
-            btn.classList.add("active");
-        };
-    });
-
     /* -------------------------
-       7. SLIDER AUTOMATIQUE
+       7. SLIDER
     --------------------------*/
     const slides = document.querySelectorAll(".slide");
     const nextBtn = document.querySelector(".next");
@@ -263,7 +255,6 @@ document.addEventListener("DOMContentLoaded", () => {
        8. ENVOI WHATSAPP
     --------------------------*/
     const waSendBtn = document.getElementById("whatsapp-send");
-
     if (waSendBtn) {
         waSendBtn.onclick = () => {
             if (panier.length === 0) {
@@ -271,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 return;
             }
 
-            let message = "🛠️ *NOUVELLE COMMANDE - BRICO DOMONI*%0A";
+            let message = "🛠️ *COMMANDE - BRICO DOMONI*%0A";
             message += "---------------------------------------%0A";
 
             panier.forEach((item, index) => {
@@ -283,8 +274,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const totalFinal = panier.reduce((t, i) => t + (i.prix * i.qty), 0);
             message += "---------------------------------------%0A";
-            message += `💰 *TOTAL À PAYER : ${totalFinal.toLocaleString()} KMF*%0A%0A`;
-            message += "Merci de confirmer la commande.";
+            message += `💰 *TOTAL : ${totalFinal.toLocaleString()} KMF*%0A%0A`;
+            message += "Merci de préparer ma commande.";
 
             const monNumero = "2694484047"; 
             window.open(`https://wa.me/${monNumero}?text=${message}`, "_blank");

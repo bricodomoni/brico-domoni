@@ -53,19 +53,41 @@
         </section>
     </main>
 
+    <footer>
+        <div class="footer-content" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; padding: 40px 5%;">
+            <div class="footer-section">
+                <h3 style="color: #ff9800;">BRICO DOMONI</h3>
+                <p>La référence du bricolage et de la construction à Domoni, Anjouan.</p>
+            </div>
+            <div class="footer-section">
+                <h3 style="color: #ff9800;">Contact</h3>
+                <p>📍 Adresse : Centre-ville, Domoni</p>
+                <p>📞 Tel : +269 448 40 47</p>
+            </div>
+            <div class="footer-section">
+                <h3 style="color: #ff9800;">Horaires</h3>
+                <p>Samedi - Jeudi : 7h30 - 17h00</p>
+                <p>Vendredi : Fermé</p>
+            </div>
+        </div>
+        <div class="footer-bottom" style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding: 20px; font-size: 0.8rem;">
+            <p>&copy; 2026 BRICO DOMONI - Tous droits réservés.</p>
+        </div>
+    </footer>
+
     <div id="toast-notification" class="toast">Produit ajouté !</div>
     <div id="cart-overlay" class="overlay"></div>
 
     <div id="cart-sidebar" class="sidebar">
-        <div class="sidebar-header" style="display:flex; justify-content:space-between; align-items:center; padding-bottom:20px; border-bottom:1px solid #eee;">
+        <div class="sidebar-header" style="display:flex; justify-content:space-between; align-items:center; padding: 20px; border-bottom:1px solid #eee;">
             <h2 style="margin:0;">Mon Panier</h2>
             <button id="close-cart" style="background:none; border:none; font-size:2rem; cursor:pointer;">&times;</button>
         </div>
         
-        <div id="cart-items-list" style="flex-grow:1; overflow-y:auto; padding:20px 0;">
+        <div id="cart-items-list" style="flex-grow:1; overflow-y:auto; padding:20px;">
             </div>
 
-        <div class="sidebar-footer" style="border-top:1px solid #eee; padding-top:20px;">
+        <div class="sidebar-footer" style="border-top:1px solid #eee; padding:20px;">
             <div class="cart-total" style="display:flex; justify-content:space-between; font-size:1.2rem; font-weight:600; margin-bottom:20px;">
                 <span>Total :</span>
                 <span id="total-price">0 KMF</span>

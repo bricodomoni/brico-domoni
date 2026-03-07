@@ -140,7 +140,7 @@ header {
 .slider {
     position: relative;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1600px;
     height: 177px; /* Hauteur ajustée pour une meilleure visibilité */
     margin: 0 auto;
     overflow: hidden;

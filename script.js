@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: 1, nom: "Adaptateur de Mandrin à pince", prix: 1000, img: "Images/mandrin.jpg", category: "outils" },
         { id: 2, nom: "Adaptateur prise électrique européen", prix: 500, img: "Images/adaptateur-eu.jpg", category: "electricite" },
         { id: 3, nom: "Adaptateur prise électrique TRAVELKING", prix: 500, img: "Images/travelking.jpg", category: "electricite" },
-        { id: 4, nom: "Adaptateur prise Marken", prix: 750, img: "Images/marken.jpg", category: "electricite" },
+        { id: 4, nom: "Adaptateur prise Marken", prix: 750, img: "Images/marken.png", category: "electricite" },
         { id: 5, nom: "Adhésif silicone", prix: 2000, img: "Images/silicone.jpg", category: "divers" },
         { id: 6, nom: "Agrafe 1008J", prix: 2000, img: "Images/agrafe1008.jpg", category: "outils" },
         { id: 7, nom: "Agrafe 1010J", prix: 2000, img: "Images/agrafe1010.jpg", category: "outils" },

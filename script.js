@@ -11,18 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: 7, nom: "Agrafe 1010J", prix: 2000, img: "Images/agrafe1010.jpg", category: "outils" },
         { id: 8, nom: "Agrafe 1013J", prix: 2000, img: "Images/agrafe1013.jpg", category: "outils" },
         { id: 9, nom: "Agrafeuse pneumatique 1013J", prix: 25000, img: "Images/agrafeuse.jpg", category: "outils" },
-        { id: 10, nom: "Ampoule Led 10w 230v", prix: 900, img: "Images/led10w.jpg", category: "electricite" },
-        { id: 11, nom: "Ampoule Led 12w 12v", prix: 1600, img: "Images/led12w12v.jpg", category: "electricite" },
-        { id: 12, nom: "Ampoule Led 12w 12v/85v", prix: 1350, img: "Images/led12w85v.jpg", category: "electricite" },
-        { id: 13, nom: "Ampoule Led 18w 12v", prix: 1700, img: "Images/led18w12v.jpg", category: "electricite" },
-        { id: 14, nom: "Ampoule Led 18w 12v/85v", prix: 1700, img: "Images/led18w85v.jpg", category: "electricite" },
-        { id: 15, nom: "Ampoule Led 24w 12v/85v", prix: 2500, img: "Images/led24w.jpg", category: "electricite" },
-        { id: 16, nom: "Ampoule Led 28w 230v", prix: 1500, img: "Images/led28w.jpg", category: "electricite" },
-        { id: 17, nom: "Ampoule Led 5w 12v", prix: 850, img: "Images/led5w12v.jpg", category: "electricite" },
-        { id: 18, nom: "Ampoule Led 5w 12v/85v", prix: 900, img: "Images/led5w85v.jpg", category: "electricite" },
-        { id: 19, nom: "Ampoule Led 5w 230v", prix: 750, img: "Images/led5w230v.jpg", category: "electricite" },
-        { id: 20, nom: "Ampoule Led 7w 12v", prix: 1000, img: "Images/led7w12v.jpg", category: "electricite" },
-        { id: 21, nom: "Ampoule Led 7w 12v/85v", prix: 1000, img: "Images/led7w85v.jpg", category: "electricite" }
+        { id: 10, nom: "Ampoule Led 10w 230v", prix: 900, img: "Images/led10w.png", category: "electricite" },
+        { id: 11, nom: "Ampoule Led 12w 12v", prix: 1600, img: "Images/led12w12v.png", category: "electricite" },
+        { id: 12, nom: "Ampoule Led 12w 12v/85v", prix: 1350, img: "Images/led12w85v.png", category: "electricite" },
+        { id: 13, nom: "Ampoule Led 18w 12v", prix: 1700, img: "Images/led18w12v.png", category: "electricite" },
+        { id: 14, nom: "Ampoule Led 18w 12v/85v", prix: 1700, img: "Images/led18w85v.png", category: "electricite" },
+        { id: 15, nom: "Ampoule Led 24w 12v/85v", prix: 2500, img: "Images/led24w.png", category: "electricite" },
+        { id: 16, nom: "Ampoule Led 28w 230v", prix: 1500, img: "Images/led28w.png", category: "electricite" },
+        { id: 17, nom: "Ampoule Led 5w 12v", prix: 850, img: "Images/led5w12v.png", category: "electricite" },
+        { id: 18, nom: "Ampoule Led 5w 12v/85v", prix: 900, img: "Images/led5w85v.png", category: "electricite" },
+        { id: 19, nom: "Ampoule Led 5w 230v", prix: 750, img: "Images/led5w230v.png", category: "electricite" },
+        { id: 20, nom: "Ampoule Led 7w 12v", prix: 1000, img: "Images/led7w12v.png", category: "electricite" },
+        { id: 21, nom: "Ampoule Led 7w 12v/85v", prix: 1000, img: "Images/led7w85v.png", category: "electricite" }
     ];
 
     let panier = JSON.parse(localStorage.getItem("panier_brico")) || [];

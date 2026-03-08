@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: 6, nom: "Agrafe 1008J", prix: 2000, img: "Images/agrafe1008.png", category: "outils" },
         { id: 7, nom: "Agrafe 1010J", prix: 2000, img: "Images/agrafe1010.png", category: "outils" },
         { id: 8, nom: "Agrafe 1013J", prix: 2000, img: "Images/agrafe1013.png", category: "outils" },
-        { id: 9, nom: "Agrafeuse pneumatique 1013J", prix: 25000, img: "Images/agrafeuse.jpg", category: "outils" },
+        { id: 9, nom: "Agrafeuse pneumatique 1013J", prix: 25000, img: "Images/agrafeuse.png", category: "outils" },
         { id: 10, nom: "Ampoule Led 10w 230v", prix: 900, img: "Images/led10w.png", category: "electricite" },
         { id: 11, nom: "Ampoule Led 12w 12v", prix: 1600, img: "Images/led12w12v.png", category: "electricite" },
         { id: 12, nom: "Ampoule Led 12w 12v/85v", prix: 1350, img: "Images/led12w85v.png", category: "electricite" },
